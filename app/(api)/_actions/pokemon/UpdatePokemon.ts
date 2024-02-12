@@ -13,6 +13,7 @@ export async function UpdatePokemon(id: string, formData: FormData) {
     body: JSON.stringify({
       $set: dataJSON,
     }),
+    cache: 'no-store',
   });
   revalidatePath('/pokemon');
 }

@@ -11,6 +11,7 @@ export async function CreatePokemon(formData: FormData) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(dataJSON),
+    cache: 'no-store',
   });
   revalidatePath('/pokemon');
 }
