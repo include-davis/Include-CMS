@@ -1,12 +1,12 @@
 import styles from './PokemonList.module.scss';
 import type Pokemon from '@datatypes/Pokemon';
 
+import { GetPokemon } from '@actions/pokemon/GetPokemon';
+
 import PokemonCard from '../PokemonCard/PokemonCard';
 export default async function PokemonList() {
-  const res = await fetch('http://localhost:3000/api/pokemon');
-  const pokemon = await res.json();
-  console.log(pokemon);
-  if (!pokemon.ok) return 'OH NO';
+  const pokemon = await GetPokemon();
+  if (!pokemon.ok) return 'Failed to retrieve Pokemon';
   return (
     <div className={styles.list_container}>
       {pokemon.body.map((pokemon: Pokemon, index: number) => (

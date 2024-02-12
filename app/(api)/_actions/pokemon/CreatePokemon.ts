@@ -5,7 +5,7 @@ import FormToJSON from '@utils/form/FormToJSON';
 
 export async function CreatePokemon(formData: FormData) {
   const dataJSON = FormToJSON(formData);
-  await fetch('http://localhost:3000/api/pokemon', {
+  await fetch(process.env.DEPLOY_URL + '/api/pokemon', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
