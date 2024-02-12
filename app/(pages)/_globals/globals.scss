@@ -1,0 +1,58 @@
+@use "./mixins";
+
+:root {
+    /* variables */
+    --include-purple: #3c257e;
+
+    --primary: var(--include-purple);
+    --secondary: #e7c6f9;
+    --light-background: rgb(241, 240, 240);
+    --dark-background: #0d303b;
+
+    --text-dark: #0d303b;
+    --text-light: #def6ff;
+
+    /* spacers */
+    --tiny-spacer: 8px;
+    --small-spacer: 16px;
+    --spacer: 24px;
+    --medium-spacer: 48px;
+    --large-spacer: 80px;
+    
+    /* border radius */
+    --b-radius: 8px;
+
+    /* navbar */
+    --navbar-height: 80px;
+
+    background-color: var(--light-background);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-inter);
+  color: var(--text-dark);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 {
+    font-size: 3rem;
+}
+h2 {
+    font-size: 2.5rem;
+}
+h3 {
+    font-size: 2rem;
+}
+h4 {
+    font-size: 1.5rem;
+}
+p {
+    font-size: 1rem;
+}
