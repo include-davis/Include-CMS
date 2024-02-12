@@ -1,11 +1,11 @@
 import styles from './PokemonList.module.scss';
 import type Pokemon from '@datatypes/Pokemon';
-
-import { GetPokemon } from '@actions/pokemon/GetPokemon';
+import { getPokemon } from '@datalib/pokemon/get';
 
 import PokemonCard from '../PokemonCard/PokemonCard';
 export default async function PokemonList() {
-  const pokemon = await GetPokemon();
+  const res = await getPokemon();
+  const pokemon = await res.json();
   if (!pokemon.ok) return 'Failed to retrieve Pokemon';
   return (
     <div className={styles.list_container}>
