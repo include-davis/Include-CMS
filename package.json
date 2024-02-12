@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && npx tsc",
+    "lint": "next lint",
+    "type-check": "npx tsc",
     "init": "run-script-os",
     "init:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbInit.mjs\"",
     "init:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbInit.mjs\""

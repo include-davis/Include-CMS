@@ -11,11 +11,7 @@ interface NavLink {
 }
 
 export default function Navbar({ navLinks }: { navLinks: NavLink[] }) {
-  const {
-    state: active,
-    toggleState: toggleActive,
-    setOff: setInactive,
-  } = useToggle(false);
+  const [active, toggleActive, _, setInactive] = useToggle(false);
   return (
     <div className={styles.relative_wrapper}>
       <div className={styles.container}>
