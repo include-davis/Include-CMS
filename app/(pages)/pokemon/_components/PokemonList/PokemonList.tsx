@@ -5,6 +5,7 @@ import PokemonCard from '../PokemonCard/PokemonCard';
 export default async function PokemonList() {
   const res = await fetch('http://localhost:3000/api/pokemon');
   const pokemon = await res.json();
+  console.log(pokemon);
   return (
     <div className={styles.list_container}>
       {pokemon.body.map((pokemon: Pokemon, index: number) => (
