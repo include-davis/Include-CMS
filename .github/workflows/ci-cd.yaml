@@ -12,6 +12,8 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+    environment:
+      name: staging
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,6 +39,8 @@ jobs:
 
       - name: Build Next.js app
         run: npm run build
+        env:
+          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
         continue-on-error: false
 
       - name: Success
