@@ -1,0 +1,44 @@
+name: Pre-check Pipeline
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '21.x'
+
+      - name: Install dependencies
+        run: npm install
+        continue-on-error: false
+
+      - name: Linting
+        run: npm run lint
+        continue-on-error: false
+
+      - name: TypeScript Check
+        run: npm run type-check
+        continue-on-error: false
+
+      - name: Start npm run dev in background
+        run: npm run dev &
+
+      - name: Build Next.js app
+        env:
+          MONGO_CONNECTION_STRING: ${{ vars.MONGO_CONNECTION_STRING }}
+        run: npm run build
+        continue-on-error: false
+
+      - name: Success
+        run: echo "Build successful"

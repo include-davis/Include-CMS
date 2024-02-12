@@ -1,9 +1,6 @@
-name: CI/CD Pipeline
+name: Pre-check Pipeline
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - '*'
