@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 const uri = process.env.MONGO_CONNECTION_STRING;
+console.log(uri);
 let cachedClient = null;
 
 export async function getClient() {
