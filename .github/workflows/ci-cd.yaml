@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Next.js app
         env:
-          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
+          MONGO_CONNECTION_STRING: ${{ vars.MONGO_CONNECTION_STRING }}
         run: npm run build
         continue-on-error: false
 
