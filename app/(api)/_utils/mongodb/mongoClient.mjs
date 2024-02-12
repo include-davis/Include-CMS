@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_DB_HOST}`;
+const uri = process.env.MONGO_CONNECTION_STRING;
 let cachedClient = null;
 
 export async function getClient() {
