@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+        continue-on-error: false
+
+      - name: Linting
+        run: npm run lint
+        continue-on-error: false
+
+      - name: TypeScript Check
+        run: npm run type-check
+        continue-on-error: false  # Fail the job if TypeScript check fails
+
+      - name: Build Next.js app
+        run: npm run build
+        continue-on-error: false  # Fail the job if build fails
+
+      # Final step to indicate success
+      - name: Success
+        run: echo "Build successful"

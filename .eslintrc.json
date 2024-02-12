@@ -42,9 +42,15 @@
       "react/react-in-jsx-scope": "off",
       "@typescript-eslint/explicit-function-return-type": "off",
       "react/require-default-props": "off",
-      "no-unused-vars": [
-          "error",
-          { "vars": "all", "varsIgnorePattern": "^_*$", "argsIgnorePattern": "^_*$" }
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { 
+          "vars": "all", 
+          "varsIgnorePattern": "^_*$",
+          "argsIgnorePattern": "^_*$",
+          "destructuredArrayIgnorePattern": "^_*$"
+        }
       ],
       "block-spacing": 1
   }
