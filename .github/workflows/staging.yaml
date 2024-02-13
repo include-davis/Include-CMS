@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Lint and build code, then publish to Netlify
-        run: netlify deploy --prod --dir .next --build
+        run: netlify deploy --build --prod --dir .next
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
