@@ -25,10 +25,11 @@ jobs:
         run: npm install
 
       - name: Lint and build code, then publish to Netlify
-        run: netlify deploy --build --prod
+        run: netlify deploy --prod --dir=.next --build "npm run build"
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
 
       - name: Success
         run: echo "🛠️ Deploy successful 🛠️"
