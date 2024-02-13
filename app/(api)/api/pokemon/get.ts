@@ -1,22 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-
-import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
+import { NextRequest } from 'next/server';
 import getQueries from '@utils/request/getQueries';
-import { HttpError } from '@utils/response/Errors';
+import { getManyPokemon } from '@datalib/pokemon/getPokemon';
 
 export async function GET(request: NextRequest) {
-  try {
-    const queries = getQueries(request);
-    const db = await getDatabase();
-
-    const pokemon = await db.collection('pokemon').find(queries).toArray();
-
-    return NextResponse.json({ ok: true, body: pokemon }, { status: 200 });
-  } catch (e) {
-    const error = e as HttpError;
-    return NextResponse.json(
-      { ok: false, error: error.message },
-      { status: error.status || 400 }
-    );
-  }
+  const queries = getQueries(request);
+  return getManyPokemon(queries);
 }
