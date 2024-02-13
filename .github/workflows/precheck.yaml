@@ -15,27 +15,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - uses: actions/setup-node@v4
+      - name: Install node
+        uses: actions/setup-node@v4
         with:
-          node-version: '21.x'
+          node-version: '21.1.0'
 
       - name: Install dependencies
         run: npm install
         continue-on-error: false
 
-      - name: Linting
+      - name: Linting check
         run: npm run lint
         continue-on-error: false
 
-      - name: TypeScript Check
+      - name: TypeScript check
         run: npm run type-check
         continue-on-error: false
 
       - name: Build Next.js app
         env:
-          MONGO_CONNECTION_STRING: ${{ vars.MONGO_CONNECTION_STRING }}
+          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
         run: npm run build
         continue-on-error: false
 
       - name: Success
-        run: echo "Build successful"
+        run: echo "🏗️ Build successful 🏗️"
