@@ -9,7 +9,8 @@ jobs:
     name: Deploy Production
     runs-on: ubuntu-latest
     environment:
-      name: staging
+      name: production
+      url: ${{ vars.ENV_URL }}
 
     steps:
       - name: Checkout code
