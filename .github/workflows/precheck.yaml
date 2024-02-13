@@ -22,21 +22,17 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        continue-on-error: false
 
       - name: Linting check
         run: npm run lint
-        continue-on-error: false
 
       - name: TypeScript check
         run: npm run type-check
-        continue-on-error: false
 
       - name: Build Next.js app
         env:
           MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
         run: npm run build
-        continue-on-error: false
 
       - name: Success
-        run: echo "🏗️ Build successful 🏗️"
+        run: echo "🚧 Build successful 🚧"

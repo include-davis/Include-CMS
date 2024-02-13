@@ -11,27 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - uses: actions/setup-node@v4
+      - name: Install node
+        uses: actions/setup-node@v4
         with:
-          node-version: '21.x'
+          node-version: '21.1.0'
 
       - name: Install dependencies
         run: npm install
-        continue-on-error: false
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-        continue-on-error: false
-
-      - name: Deploy to Vercel (Staging)
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN_STAGING }}
+      - name: Lint and build code, then publish to Netlify
+        run: netlify deploy --build --prod
         env:
-          VERCEL_TOKEN_STAGING: ${{ secrets.VERCEL_TOKEN_STAGING }}
-        continue-on-error: false
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - name: Success
-        run: echo "Deploy successful"
+        run: echo "🛠️ Deploy successful 🛠️"
