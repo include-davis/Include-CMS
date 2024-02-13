@@ -1,13 +1,12 @@
-name: Staging Pipeline
+name: Production Deployment
 
 on:
-  push:
-    branches:
-      - 'main'
+  release:
+    types: [published]
 
 jobs:
   deploy_staging:
-    name: Deploy Staging
+    name: Deploy Production
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -25,11 +24,11 @@ jobs:
         run: npm install
 
       - name: Lint and build code, then publish to Netlify
-        run: netlify deploy --build --alias staging
+        run: netlify deploy --build --prod
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
 
       - name: Success
-        run: echo "🛠️ Deploy successful 🛠️"
+        run: echo "🚀  Deploy successful 🚀 "
