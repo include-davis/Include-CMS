@@ -1,10 +1,10 @@
 import styles from './PokemonList.module.scss';
 import type Pokemon from '@datatypes/Pokemon';
-import { getPokemon } from '@datalib/pokemon/get';
+import { getManyPokemon } from '@datalib/pokemon/getPokemon';
 
 import PokemonCard from '../PokemonCard/PokemonCard';
 export default async function PokemonList() {
-  const res = await getPokemon();
+  const res = await getManyPokemon();
   const pokemon = await res.json();
   if (!pokemon.ok) return 'Failed to retrieve Pokemon';
   return (

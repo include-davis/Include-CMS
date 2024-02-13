@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
@@ -6,9 +6,8 @@ import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { NoContentError, HttpError } from '@utils/response/Errors';
 
-export async function POST(request: NextRequest) {
+export const createPokemon = async (body: object) => {
   try {
-    const body = await request.json();
     if (isBodyEmpty(body)) {
       throw new NoContentError();
     }
@@ -29,4 +28,4 @@ export async function POST(request: NextRequest) {
       { status: error.status || 400 }
     );
   }
-}
+};

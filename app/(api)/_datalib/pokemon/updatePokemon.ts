@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
+import { NextResponse } from 'next/server';
 
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
+import { ObjectId } from 'mongodb';
+
 import { prependAllAttributes } from '@utils/request/prependAttributes';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
@@ -11,13 +12,9 @@ import {
   NotFoundError,
 } from '@utils/response/Errors';
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export const updatePokemon = async (id: string, body: object) => {
   try {
-    const id = new ObjectId(params.id);
-    const body = await request.json();
+    const object_id = new ObjectId(id);
     if (isBodyEmpty(body)) {
       throw new NoContentError();
     }
@@ -26,7 +23,7 @@ export async function PUT(
     const db = await getDatabase();
     const pokemon = await db.collection('pokemon').updateOne(
       {
-        _id: id,
+        _id: object_id,
       },
       parsedBody
     );
@@ -35,11 +32,11 @@ export async function PUT(
     const trainer_pokemon = await db
       .collection('trainers')
       .updateMany({}, subDocumentUpdate, {
-        arrayFilters: [{ 'pokemon._id': id }],
+        arrayFilters: [{ 'pokemon._id': object_id }],
       });
 
     if (pokemon.matchedCount === 0) {
-      throw new NotFoundError(`Pokemon with id: ${params.id} not found.`);
+      throw new NotFoundError(`Pokemon with id: ${id} not found.`);
     }
 
     return NextResponse.json(
@@ -53,4 +50,4 @@ export async function PUT(
       { status: error.status || 400 }
     );
   }
-}
+};
