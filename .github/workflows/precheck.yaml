@@ -1,4 +1,4 @@
-name: Pre-check Pipeline
+name: PR Code Check
 
 on:
   pull_request:
