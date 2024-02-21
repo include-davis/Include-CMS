@@ -26,12 +26,12 @@ jobs:
 
       - name: Lint and build code, then publish to Vercel
         run: >
-          vercel 
-            --token ${{ secrets.VERCEL_TOKEN }} 
-            -n ${{ vars.VERCEL_PROJECT }} 
-            --yes 
-            --prod --skip-domain
-            --env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
+          vercel
+          --token ${{ secrets.VERCEL_TOKEN }}
+          -n ${{ vars.VERCEL_PROJECT }}
+          --yes
+          --prod --skip-domain
+          --env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
 
       - name: Success
         run: echo "🚀  Deploy successful 🚀 "
