@@ -26,9 +26,19 @@ jobs:
         run: npm install
 
       - name: Lint and build code, then publish to Netlify
-        run: vercel --token ${{ secrets.VERCEL_TOKEN }} -n ${{ vars.VERCEL_PROJECT }} --yes
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }} -n ${{ vars.VERCEL_PROJECT }} --yes >deployment-url.txt 2>error.txt
         env:
           MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
+        
+      - name: Read deployment URL from file
+        id: read-url
+        run: echo "::set-output name=url::$(cat deployment-url.txt)"
+
+      - name: Remove old staging alias
+        run: vercel alias rm ${{ vars.CUSTOM_DOMAIN }} --yes
+
+      - name: Create staging alias
+        run: vercel alias ${{ steps.read-url.outputs.url }} ${{ vars.CUSTOM_DOMAIN }}
 
       - name: Success
         run: echo "🛠️ Deploy successful 🛠️"
