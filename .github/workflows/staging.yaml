@@ -26,7 +26,14 @@ jobs:
         run: npm install
 
       - name: Lint and build code, then publish to Vercel
-        run: vercel --token ${{ secrets.VERCEL_TOKEN }} -n ${{ vars.VERCEL_PROJECT }} --yes --env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }} >deployment-url.txt 2>error.txt
+        run: >
+          vercel
+          --token ${{ secrets.VERCEL_TOKEN }}
+          -n ${{ vars.VERCEL_PROJECT }}
+          --yes
+          --env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
+          --build-env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
+          >deployment-url.txt 2>error.txt
 
       - name: Remove old staging alias
         run: vercel --token ${{ secrets.VERCEL_TOKEN }} alias rm ${{ vars.CUSTOM_DOMAIN }} --yes
