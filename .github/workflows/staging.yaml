@@ -32,6 +32,7 @@ jobs:
           -n ${{ vars.VERCEL_PROJECT }}
           --yes
           --env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
+          --build-env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
           >deployment-url.txt 2>error.txt
 
       - name: Remove old staging alias
