@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Lint and build code, then publish to Vercel
-        run: |
+        run: >
           vercel 
             --token ${{ secrets.VERCEL_TOKEN }} 
             -n ${{ vars.VERCEL_PROJECT }} 
