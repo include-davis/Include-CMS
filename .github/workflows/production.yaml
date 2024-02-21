@@ -24,12 +24,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Lint and build code, then publish to Netlify
-        run: netlify deploy --build --prod
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
+      - name: Lint and build code, then publish to Vercel
+        run: |
+          vercel 
+            --token ${{ secrets.VERCEL_TOKEN }} 
+            -n ${{ vars.VERCEL_PROJECT }} 
+            --yes 
+            --prod --skip-domain
+            --env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
 
       - name: Success
         run: echo "🚀  Deploy successful 🚀 "
