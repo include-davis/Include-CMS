@@ -26,10 +26,8 @@ jobs:
         run: npm install
 
       - name: Lint and build code, then publish to Netlify
-        run: netlify deploy --build --alias staging
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }} -n ${{ vars.VERCEL_PROJECT }} --yes
         env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
 
       - name: Success
