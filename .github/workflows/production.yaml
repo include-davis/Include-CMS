@@ -30,7 +30,7 @@ jobs:
           --token ${{ secrets.VERCEL_TOKEN }}
           -n ${{ vars.VERCEL_PROJECT }}
           --yes
-          --prod --skip-domain
+          --prod
           --env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
           --build-env MONGO_CONNECTION_STRING=${{ secrets.MONGO_CONNECTION_STRING }}
 

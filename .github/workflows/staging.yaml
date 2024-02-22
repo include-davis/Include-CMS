@@ -37,6 +37,7 @@ jobs:
 
       - name: Remove old staging alias
         run: vercel --token ${{ secrets.VERCEL_TOKEN }} alias rm ${{ vars.CUSTOM_DOMAIN }} --yes
+        continue-on-error: true
 
       - name: Create staging alias
         run: vercel --token ${{ secrets.VERCEL_TOKEN }} alias $(cat deployment-url.txt) ${{ vars.CUSTOM_DOMAIN }}
