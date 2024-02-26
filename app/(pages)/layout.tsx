@@ -1,4 +1,7 @@
-import '@globals/globals.scss';
+import '@globals/styles/colors.scss';
+import '@globals/styles/spacers.scss';
+import '@globals/styles/variables.scss';
+import '@globals/styles/globals.scss';
 import fonts from '@globals/fonts';
 import metadata from '@globals/metadata.json';
 
