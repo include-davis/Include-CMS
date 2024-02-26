@@ -1,4 +1,4 @@
-@use 'app/(pages)/_globals/mixins';
+@use 'media';
 
 $scale: 1.04;
 
@@ -42,7 +42,7 @@ $scale: 1.04;
 
         >* {
             padding: var(--tiny-spacer);
-            @include mixins.tablet {
+            @include media.tablet {
                 text-align: center;
                 padding: var(--small-spacer);
             }
@@ -50,13 +50,13 @@ $scale: 1.04;
 
         >*:hover {
             transform: scale($scale);
-            @include mixins.tablet {
+            @include media.tablet {
                 transform: none;
                 border-bottom: solid 2px var(--primary);
             }
         }
 
-        @include mixins.tablet {
+        @include media.tablet {
             position: absolute;
             z-index: -1;
             top: 100%;
@@ -75,7 +75,7 @@ $scale: 1.04;
         }
     }
 
-    @include mixins.tablet {
+    @include media.tablet {
         .links.active {
             height: calc(100vh - var(--navbar-height));
         }
@@ -91,7 +91,7 @@ $scale: 1.04;
         * {
             color: var(--text-light);
         }
-        @include mixins.tablet {
+        @include media.tablet {
             display: flex;
             align-items: center;
             justify-content: center;
