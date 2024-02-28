@@ -1,8 +1,4 @@
 # Some Notes Before You Begin
-**Switch to the template/mongodb branch if you aren't branching off this repo using the repo as a template**
-
-If you already had this repo, you'll need to `npm install` again since this branch has a few extra dependencies.
-
 Make sure you follow all of the steps in "Setting Up Your Development Environment" before attempting to even look at the code. 
 
 Also, read through the docs linked under the "Contributing to the Codebase" section so you can get a feel for the tools and syntax we will be going through.
@@ -36,15 +32,30 @@ ESLint is an extension that ensures that your code adheres to certain code style
 2. Once it is installed, open your Command Palette by pressing **Ctrl + SHift + P**/**Command + Shift + P** and search for **Preferences: Open Workspace Settings (JSON)**. Open the file and add this code into the file. This will autoformat your code on save and also configure tab sizes:
 
    ```json
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    },
-    "eslint.validate": [
-        "javascript"
-    ],
-    "[javascriptreact]": {
-        "editor.indentSize": 2
-    }
+   {
+       "editor.codeActionsOnSave": {
+           "source.fixAll.eslint": "explicit"
+       },
+       "eslint.validate": [
+           "javascript",
+           "typescript",
+       ],
+       "[javascriptreact]": {
+           "editor.indentSize": 2
+       },
+       "[javascript]": {
+           "editor.indentSize": 2
+       },
+       "[typescriptreact]": {
+           "editor.indentSize": 2
+       },
+       "[typescript]": {
+           "editor.indentSize": 2
+       },
+       "[jsonc]": {
+           "editor.indentSize": 2
+       },
+   }
    ```
 
 ## 3. Optional Extension
@@ -152,19 +163,20 @@ To keep a maintainable codebase, we will be following strict rules that allow us
 - _components
 - _data
 - _hooks
+- _contexts
 
-These three folders should account for every type of file you'll ever need to create. In each subdirectory, for example, `about-us`, we can also have these three folders.
+These three folders should account for every type of file you'll ever need to create. In each subdirectory, for example, `about-us`, we can also have these four folders.
 
 Lets say I want to create the Navbar component. I will first think about which parts of the codebase the navbar is used by. Since the Navbar is a part of every page and called by the root layout, it makes sense to define the Navbar inside the `_components` folder of the root folder.
 
 If I want to define a Sidebar that is only used by the `examples` route, and children of the `examples` route, then it makes sense to put the Sidebar component inside the `_components` folder of the `examples` directory. In short, find the level of nesting that accounts for all use cases for your component, data, utils, hooks and define your code in that level.
 
-**Note:** The `layout.jsx` file in the root of `(pages)` sort of breaks the pattern I was talking about. It was supposed to be in the `(index-page)` directory since that handles all of the `/` routes, but a nuance of using the parenthesis to create route groupings forces us to put the `layout.jsx` on layer above. This won't be an issue for other pages however, so just put the `layout.jsx` with the `page.jsx` file whenever you plan on making a layout for certain routes.
+**Note:** The `layout.tsx` file in the root of `(pages)` sort of breaks the pattern I was talking about. It was supposed to be in the `(index-page)` directory since that handles all of the `/` routes, but a nuance of using the parenthesis to create route groupings forces us to put the `layout.jsx` on layer above. This won't be an issue for other pages however, so just put the `layout.tsx` with the `page.tsx` file whenever you plan on making a layout for certain routes.
 
 ### Public Folder
-The public folder is where we can store media such as pdfs, images, videos. To keep this organized, create a new folder for each page the content is related to. To access content in the public folder, you don't need to do any of the `../../public` stuff. Next.js automatically routes `/` to the public folder.
+The public folder is where we can store media such as pdfs, images, videos. To keep this organized, create a new folder for each page the content is related to. To access content in the public folder, you don't need to do any of the `../../public` stuff to access these. Next.js automatically routes `/` to the public folder.
 
-For example, if you have an image stored in `/public/about-us/alec.png`, you can access it with `/about-us/alec.png` from anywhere in your code.
+For example, if you have an image stored in `/public/about-us/toki.png`, you can access it with `/about-us/toki.png` from anywhere in your code.
 
 ## SCSS Modules
 We will be using SCSS since it just provides more options for how to format our CSS code. If you don't want to learn SCSS, it's fine, since CSS works just as well in scss files. Also, we will be using css modules for our Next.js app. CSS Modules (in our case SCSS modules) are defined like so: `Navbar.module.scss`. The reason we are using modules is because they localize our CSS classes so there is no possibility of 2 people using the same class name and having conflict.
@@ -183,9 +195,6 @@ You'll see that there are folders defined with square brackets around the name s
 - https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 - https://restfulapi.net/http-methods/
 - https://medium.com/@nadinCodeHat/rest-api-naming-conventions-and-best-practices-1c4e781eb6a5
-
-**Note**
-If your app only has a frontend, feel free to delete the `(api)` folder. 
 
 ## MongoDB
 MongoDB is our database and in order to use it to create an easy to use REST api, I defined a couple of helper functions that you may use for your projects. Before I get into those, I'll link a few resources for you to read up on for CRUD with MongoDB. To be honest, these may not be the best resources, but they are a place to start. 
