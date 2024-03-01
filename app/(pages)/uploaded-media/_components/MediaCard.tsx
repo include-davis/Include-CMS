@@ -30,19 +30,22 @@ export default function MediaCard({ mediaInfo }: Props) {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.media_container}>
-        {type === 'video' ? (
+    <div className={styles.media_container}>
+      {type === 'video' ? (
+        <div className={styles.video_container}>
           <video
             width="350"
             controls
+            poster={src}
             onMouseEnter={startPreview}
             onMouseLeave={stopPreview}
             className={styles.media_radius}
           >
             <source src={src} type="video/mp4" />
           </video>
-        ) : (
+        </div>
+      ) : (
+        <div className={styles.img_container}>
           <Image
             src={src}
             alt={alt}
@@ -50,8 +53,8 @@ export default function MediaCard({ mediaInfo }: Props) {
             objectFit="cover"
             className={styles.media_radius}
           />
-        )}
-      </div>
+        </div>
+      )}
       <div className={styles.title}>
         <p>{title}</p>
       </div>
