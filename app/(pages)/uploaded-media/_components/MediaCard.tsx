@@ -2,17 +2,28 @@
 import styles from './MediaCard.module.scss';
 import Image from 'next/image';
 
-export default function MediaCard({ mediaInfo }) {
+interface MediaInfo {
+  src: string;
+  alt: string;
+  type: string;
+  title: string;
+}
+
+interface Props {
+  mediaInfo: MediaInfo;
+}
+
+export default function MediaCard({ mediaInfo }: Props) {
   const { src, alt, type, title } = mediaInfo;
 
-  const startPreview = (e) => {
-    const vid = e.target;
+  const startPreview = (e: React.MouseEvent<HTMLVideoElement>) => {
+    const vid = e.target as HTMLVideoElement;
     vid.muted = true;
     vid.play();
   };
 
-  const stopPreview = (e) => {
-    const vid = e.target;
+  const stopPreview = (e: React.MouseEvent<HTMLVideoElement>) => {
+    const vid = e.target as HTMLVideoElement;
     vid.muted = false;
     vid.currentTime = 0;
     vid.pause();
