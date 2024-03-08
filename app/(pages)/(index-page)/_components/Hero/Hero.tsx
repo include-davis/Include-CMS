@@ -16,7 +16,7 @@ export default function Hero() {
       </div>
       <div className={styles.welcome}>
         <h1>PLATFORM TEAM NEXT.JS TEMPLATE</h1>
-        <SelectButton/>
+        <SelectButton />
       </div>
     </div>
   );

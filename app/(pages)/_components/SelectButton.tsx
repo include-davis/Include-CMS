@@ -8,11 +8,7 @@ const SelectButton: React.FC = () => {
     toggleSelectMode();
   };
 
-  return (
-    <button onClick={handleClick}>
-      Toggle Select Mode
-    </button>
-  );
+  return <button onClick={handleClick}>Toggle Select Mode</button>;
 };
 
 export default SelectButton;
