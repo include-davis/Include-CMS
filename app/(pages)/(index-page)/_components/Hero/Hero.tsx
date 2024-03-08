@@ -1,6 +1,7 @@
 import Image from 'next/image';
-
 import styles from './Hero.module.scss';
+import React from 'react';
+import SelectButton from '@components/SelectButton';
 
 export default function Hero() {
   return (
@@ -15,6 +16,7 @@ export default function Hero() {
       </div>
       <div className={styles.welcome}>
         <h1>PLATFORM TEAM NEXT.JS TEMPLATE</h1>
+        <SelectButton/>
       </div>
     </div>
   );
