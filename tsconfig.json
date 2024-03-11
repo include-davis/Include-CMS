@@ -32,6 +32,6 @@
     "@datalib/*": ["./app/(api)/_datalib/*"],
     }
   },
-  "include": ["nextEnv.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["nextEnv.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(api)/api/testCollection/post.js", "app/(api)/api/testCollection/get.js", "app/(api)/api/testCollection/route.js"],
   "exclude": ["node_modules"]
 }
