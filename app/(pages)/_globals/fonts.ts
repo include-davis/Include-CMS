@@ -1,4 +1,4 @@
-import { Inter, Montserrat } from 'next/font/google';
+import { Inter, Montserrat, Manrope } from 'next/font/google';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -10,7 +10,12 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
-const fonts = [inter, montserrat];
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
+});
+
+const fonts = [inter, montserrat, manrope];
 
 const font_variables = fonts.map((font) => font.variable);
 const font_string = font_variables.join(' ');
