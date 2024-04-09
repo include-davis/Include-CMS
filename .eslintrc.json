@@ -10,12 +10,7 @@
     "next",
     "prettier"
   ],
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "unicorn",
-    "lit-a11y"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "unicorn", "lit-a11y"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
