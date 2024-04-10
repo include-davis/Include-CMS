@@ -6,14 +6,7 @@ export async function findCollectionItems(collection: never, query = null) {
     const client = await getClient();
     const db = client.db;
     const reqCollection = await db.getCollection(collection);
-    let reqDocument;
-
-    if (query === null) {
-      reqDocument = await reqCollection.find().toArray();
-    } else {
-      reqDocument = await reqCollection.find(query).toArray();
-    }
-
+    const reqDocument = await reqCollection.find(query).toArray();
     if (!reqDocument || reqDocument.length === 0) {
       return {
         ok: false,
@@ -21,7 +14,6 @@ export async function findCollectionItems(collection: never, query = null) {
         error: { code: 404, message: 'No items found in collection' },
       };
     }
-
     return { ok: true, body: reqDocument, error: null };
   } catch (error) {
     if (error instanceof NotFoundError) {
