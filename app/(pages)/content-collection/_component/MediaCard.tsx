@@ -3,8 +3,8 @@ import styles from '../../uploaded-media/_components/MediaCard.module.scss';
 import Image from 'next/image';
 
 export default function MediaCardPlaceholder() {
-    return (
-    <div className={styles.media_container}>
+   return (
+   <div className={styles.media_container}>
         <div className={styles.title}>
             <p> Wedding.png  </p>
         </div>
