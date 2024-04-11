@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const token = jwt.sign({email}, process.env.JWT_SECRET, { expiresIn: "1800s" })
-
-        return res
-          .status(200)
-          .json({ message: "User Logged in Successfully", token });
+import jwt, {Secret} from 'jsonwebtoken';
+export async function createAuthToken(data) {
+    return jwt.sign(data, process.env.JWT_SECRET,{
+      expiresIn: "24h",
+    });
+  };
