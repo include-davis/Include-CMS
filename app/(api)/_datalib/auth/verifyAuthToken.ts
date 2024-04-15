@@ -14,4 +14,3 @@ export async function verifyAuthToken(token: string) {
     return { ok: false, error: e as HttpError };
   }
 }
-
