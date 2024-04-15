@@ -9,9 +9,9 @@ export async function verifyAuthToken(token: string) {
       throw new HttpError('Unauthorized. Invalid token.');
     }
 
-    return {ok: true, body: verifiedPayload };
+    return { ok: true, body: verifiedPayload };
   } catch (e) {
-    return {ok: false, error: e as HttpError };
-    }
-};
+    return { ok: false, error: e as HttpError };
+  }
+}
 
