@@ -11,6 +11,6 @@ export async function verifyAuthToken(token: string) {
 
     return { ok: true, body: verifiedPayload, error: null };
   } catch (e) {
-    return { ok: true, body: null, error: e as HttpError };
+    return { ok: false, body: null, error: e as HttpError };
   }
 }
