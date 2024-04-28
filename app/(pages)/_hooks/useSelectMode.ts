@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SelectModeContext } from '../_contexts/SelectModeContext';
+import { SelectModeContext } from './SelectModeContext';
 
 const useSelectMode = () => {
   const context = useContext(SelectModeContext);
@@ -9,8 +9,8 @@ const useSelectMode = () => {
       'useSelectMode must be used within a SelectModeContextProvider'
     );
   }
-
-  return context;
+  const { selectMode, toggleSelectMode } = context;
+  return { selectMode, toggleSelectMode };
 };
 
 export default useSelectMode;

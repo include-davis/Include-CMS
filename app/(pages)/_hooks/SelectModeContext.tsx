@@ -3,12 +3,12 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface SelectModeContextType {
   selectMode: boolean;
   toggleSelectMode: () => void;
-  setSelectMode: (mode: boolean) => void;
 }
 
-const SelectModeContext = createContext<SelectModeContextType | undefined>(
-  undefined
-);
+const SelectModeContext = createContext<SelectModeContextType>({
+  selectMode: false,
+  toggleSelectMode: () => {},
+});
 
 export const useSelectMode = () => {
   const context = useContext(SelectModeContext);
@@ -30,9 +30,7 @@ const SelectModeContextProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <SelectModeContext.Provider
-      value={{ selectMode, toggleSelectMode, setSelectMode }}
-    >
+    <SelectModeContext.Provider value={{ selectMode, toggleSelectMode }}>
       {children}
     </SelectModeContext.Provider>
   );
