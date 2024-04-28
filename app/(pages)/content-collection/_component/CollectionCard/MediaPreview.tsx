@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './MediaPreview.module.scss';
 
 interface MediaPreviewProps {
@@ -12,7 +13,7 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({ images }) => {
       case 1:
         return styles.singleImage;
       case 2:
-        return styles.twoImages; 
+        return styles.twoImages;
       default:
         return `${styles.gridLayout} ${styles.moreThanTwoImages}`;
     }
@@ -21,12 +22,17 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({ images }) => {
   return (
     <div className={`${styles.mediaPreview} ${determineGridClass()}`}>
       {images.slice(0, 3).map((image, index) => (
-        <img key={index} src={image} alt={`Image ${index + 1}`} style={index > 0 ? { zIndex: 0} : undefined} />
+        <Image
+          key={index}
+          src={image}
+          alt={`Image ${index + 1}`}
+          style={index > 0 ? { zIndex: 0 } : undefined}
+          width="100"
+          height="100"
+        />
       ))}
       {images.length > 3 && (
-        <div className={styles.additionalImages}>
-          {images.length - 3}
-        </div>
+        <div className={styles.additionalImages}>{images.length - 3}</div>
       )}
     </div>
   );
