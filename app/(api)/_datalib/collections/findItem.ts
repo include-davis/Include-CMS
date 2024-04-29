@@ -1,7 +1,7 @@
 import { getClient } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
 
-export async function findCollectionItems(collection: never, query = null) {
+export async function findCollectionItems(collection: string, query = {}) {
   try {
     const client = await getClient();
     const db = client.db;
