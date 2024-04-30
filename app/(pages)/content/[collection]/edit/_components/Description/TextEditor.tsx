@@ -1,7 +1,7 @@
 'use client';
 import styles from './DescriptionForm.module.scss';
 import React, { useState } from 'react';
-import ReactQuill, { QuillDeltaStatic } from 'react-quill';
+import ReactQuill from 'react-quill';
 import './quill.snow.css';
 
 interface TextEditorProps {
@@ -11,23 +11,9 @@ interface TextEditorProps {
 
 const TextEditor: React.FC<TextEditorProps> = ({ initialValue, onChange }) => {
   const [value, setValue] = useState<string>(initialValue);
-  const [unusedDelta, setUnusedDelta] = useState<QuillDeltaStatic | null>(null);
-  const [unusedSource, setUnusedSource] = useState<string | null>(null);
-  const [unusedEditor, setUnusedEditor] = useState<unknown | null>(null);
 
-  const handleChange = (
-    content: string,
-    _delta: QuillDeltaStatic,
-    _source: string,
-    _editor: unknown
-  ) => {
+  const handleChange = (content: string) => {
     setValue(content);
-    setUnusedDelta(unusedDelta);
-    setUnusedDelta(_delta);
-    setUnusedSource(unusedSource);
-    setUnusedSource(_source);
-    setUnusedEditor(unusedEditor);
-    setUnusedEditor(_editor);
     if (onChange) {
       onChange(content);
     }
