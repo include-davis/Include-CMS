@@ -42,10 +42,9 @@ const DescriptionForm = () => {
         <div className={`${styles.input_container} ${styles.date_container}`}>
           <label htmlFor="date">Date</label>
           <input
-            type="text"
+            type="date"
             id="date"
             value={date}
-            placeholder="MM/DD/YYYY"
             onChange={handleDateChange}
           />
         </div>
