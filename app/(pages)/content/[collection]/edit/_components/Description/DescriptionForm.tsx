@@ -13,21 +13,25 @@ const DescriptionForm = () => {
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputDate = e.target.value;
-    const isValidDate = /^\d{2}\/\d{2}\/\d{4}$/.test(inputDate);
-    if (isValidDate) {
-      setDate(inputDate);
-    } else {
-      console.error('Invalid date format.');
-    }
+    setDate(e.target.value);
   };
 
   const handleDescriptionChange = (content: string) => {
     setDescription(content);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = {
+      title,
+      date,
+      description,
+    };
+    console.log(formData);
+  };
+
   return (
-    <div className={styles.form_container}>
+    <form className={styles.form_container} onSubmit={handleSubmit}>
       <div className={styles.row_col}>
         <div className={`${styles.input_container} ${styles.title_container}`}>
           <label htmlFor="title">Title</label>
@@ -56,7 +60,7 @@ const DescriptionForm = () => {
           onChange={handleDescriptionChange}
         />
       </div>
-    </div>
+    </form>
   );
 };
 
