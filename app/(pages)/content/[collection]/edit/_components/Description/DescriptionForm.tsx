@@ -20,18 +20,8 @@ const DescriptionForm = () => {
     setDescription(content);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = {
-      title,
-      date,
-      description,
-    };
-    console.log(formData);
-  };
-
   return (
-    <form className={styles.form_container} onSubmit={handleSubmit}>
+    <div className={styles.form_container}>
       <div className={styles.row_col}>
         <div className={`${styles.input_container} ${styles.title_container}`}>
           <label htmlFor="title">Title</label>
@@ -60,7 +50,7 @@ const DescriptionForm = () => {
           onChange={handleDescriptionChange}
         />
       </div>
-    </form>
+    </div>
   );
 };
 
