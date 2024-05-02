@@ -24,11 +24,14 @@ export async function POST(request: NextRequest) {
       secure: true,
       httpOnly: true,
     });
-    return NextResponse.json({ ok: true, body: payLoad }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: payload, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
