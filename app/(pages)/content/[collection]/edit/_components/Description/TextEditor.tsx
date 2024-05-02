@@ -2,7 +2,7 @@
 import styles from './DescriptionForm.module.scss';
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
-import './quill.snow.css';
+import '@globals/styles/quill.snow.scss';
 
 interface TextEditorProps {
   initialValue: string;

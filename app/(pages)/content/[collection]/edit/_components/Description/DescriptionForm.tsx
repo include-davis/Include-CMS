@@ -1,7 +1,9 @@
 'use client';
 import styles from './DescriptionForm.module.scss';
 import React, { useState } from 'react';
-import TextEditor from './TextEditor';
+import dynamic from 'next/dynamic';
+
+const DynamicTextEditor = dynamic(() => import('./TextEditor'), { ssr: false });
 
 const DescriptionForm = () => {
   const [title, setTitle] = useState('');
@@ -45,7 +47,7 @@ const DescriptionForm = () => {
       </div>
       <div className={styles.input_container}>
         <label htmlFor="description">Description</label>
-        <TextEditor
+        <DynamicTextEditor
           initialValue={description}
           onChange={handleDescriptionChange}
         />
