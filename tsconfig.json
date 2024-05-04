@@ -27,6 +27,7 @@
     "@contexts/*": ["./app/(pages)/_contexts/*"],
     "@utils/*": ["./app/(api)/_utils/*"],   
     "@actions/*": ["./app/(api)/_actions/*"],
+    "@apidata/*": ["./app/(api)/_data/*"],
     "@schema/*": ["./app/(api)/_schema/*"],
     "@datatypes/*": ["./app/(api)/_types/*"],
     "@datalib/*": ["./app/(api)/_datalib/*"],
