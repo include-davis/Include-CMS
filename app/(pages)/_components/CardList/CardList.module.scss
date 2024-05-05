@@ -1,0 +1,41 @@
+@use 'media';
+
+.media_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: var(--card-width); 
+    padding: var(--spacer);
+    background-color: var(--background-secondary);
+    border-radius: var(--c-radius);
+    box-shadow: var(--b-shadow);
+    gap: var(--spacer);
+  
+    .video_container {
+        width: 100%;
+        position: relative;
+        max-height: calc(9 / 16 * var(--card-width));
+    }
+
+    .img_container{
+        width: 100%;
+        position: relative;
+        min-height: calc(9 / 16 * var(--card-width));
+    }
+
+    .media_radius{
+        border-radius: var(--b-radius);
+    }
+  
+    .title {
+      width: 100%;
+        > p {
+            color: var(--text-dark);
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
