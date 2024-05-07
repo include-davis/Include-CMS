@@ -13,6 +13,7 @@
     "init:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbInit.mjs\""
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "next": "14.0.4",
