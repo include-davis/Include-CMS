@@ -2,9 +2,8 @@
 //import { useState, useEffect } from "react";
 import Image from 'next/image';
 import styles from './Hero.module.scss';
-import React from 'react';
 import SelectButton from '@components/SelectButton';
-import { SelectModeContextProvider } from '../../../_hooks/SelectModeContext';
+import { SelectModeContextProvider } from '@hooks/SelectModeContext';
 
 export default function Hero() {
   return (

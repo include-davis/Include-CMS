@@ -13,13 +13,9 @@ const SelectButton: React.FC = () => {
     cursor: 'pointer',
   };
 
-  const handleClick = () => {
-    toggleSelectMode();
-  };
-
   return (
     <div>
-      <button style={buttonStyle} onClick={handleClick}>
+      <button style={buttonStyle} onClick={toggleSelectMode}>
         Select
         {selectMode && <span>&#10003;</span>}
       </button>
