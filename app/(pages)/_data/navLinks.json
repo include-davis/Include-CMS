@@ -14,5 +14,9 @@
     {
       "name": "Contact Us",
       "slug": "/contact"
+    },
+    {
+      "name": "Content Collection",
+      "slug": "/content-collection"
     }
   ]
