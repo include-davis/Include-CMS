@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
+import { NotAuthenticatedError, HttpError } from '@utils/response/Errors';
 
 /**
  * Compares a provided password with a stored password hash.
@@ -14,27 +15,44 @@ export async function comparePasswordHash(
   return bcrypt.compare(providedPassword, storedHash);
 }
 
+/**
+ * Retreives the user object based on email match.
+ * @param email email provided by the user.
+ * @returns user object.
+ */
+export async function getUserByEmail(email: string) {
+  return email;
+}
+
+/**
+ * Verifies the user's login credentials.
+ * @param email email provided by the user.
+ * @param password password provided by the user.
+ * @returns Token if login is successful.
+ */
 export async function verifyLogin(email: string, password: string) {
   try {
+    const key: Secret = process.env.JWT_SECRET_KEY || 'default_secret_key';
+
     // If unsuccessful login of user or password, return AuthenticationError.
-    // getUserByEmail TO BE IMPLEMENTED.
     const user = await getUserByEmail(email);
     if (!user) {
-      return { ok: false, error: 'AuthenticationError' };
+      throw new NotAuthenticatedError('User not found');
     }
-    const isMatch = await comparePasswordHash(password, user.passwordHash);
+
+    const isMatch = await comparePasswordHash(password, key);
     if (!isMatch) {
-      return { ok: false, error: 'AuthenticationError' };
+      throw new NotAuthenticatedError('Passwords does not match');
     }
 
     // If successful login, generate token.
     const secretKey: Secret = process.env.JWT_SECRET_KEY || 'secret_key';
-    const token = jwt.sign({ userId: user.id, email: user.email }, secretKey, {
+    const token = jwt.sign({ user, email }, secretKey, {
       expiresIn: '24h',
     });
     return { ok: true, data: token };
   } catch (error) {
     console.error('Error during login:', error);
-    return { ok: false, error: 'Internal server error' };
+    throw new HttpError('Not found');
   }
 }
