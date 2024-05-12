@@ -19,7 +19,7 @@ const Media = {
       description: 'media_url must be a string',
     },
     date: {
-      bsonType: "NOT SURE",
+      bsonType: 'NOT SURE',
     }
   },
   additionalProperties: false,
