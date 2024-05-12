@@ -20,7 +20,7 @@ const Media = {
     },
     date: {
       bsonType: 'NOT SURE',
-    }
+    },
   },
   additionalProperties: false,
 };
