@@ -12,11 +12,11 @@ const Media = {
     },
     alt_text: {
       bsonType: 'string',
-      description: "alt_text must be a string",
+      description: 'alt_text must be a string',
     },
     media_url: {
       bsonType: 'string',
-      description: "media_url must be a string",
+      description: 'media_url must be a string',
     },
     date: {
       bsonType: "NOT SURE",
