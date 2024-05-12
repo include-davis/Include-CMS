@@ -30,18 +30,42 @@ export default function Home() {
     },
     {
       name: 'Wedding name 3',
-      images: ['/index/city.jpg'],
+      images: ['/index/city.jpg', '/index/city.jpg'],
+    },
+    {
+      name: 'Wedding name 4',
+      images: ['/index/city.jpg', '/index/city.jpg'],
+    },
+    {
+      name: 'Wedding name 5',
+      images: [
+        '/index/city.jpg',
+        '/index/city.jpg',
+        '/index/city.jpg',
+        '/index/city.jpg',
+        '/index/city.jpg',
+      ],
     },
   ];
-
   return (
-    <main>
-      {collections.map((collection, index) => (
-        <div key={index}>
-          <h1>{collection.name}</h1>
-          <CollectionCard images={collection.images} />
-        </div>
-      ))}
+    <main
+      style={{
+        overflowX: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        paddingLeft: '20px',
+      }}
+    >
+      <div style={{ marginTop: '20px', fontSize: '24px', fontWeight: 'bold' }}>
+        Published [{collections.length} items]
+      </div>
+      <div style={{ overflowX: 'auto', display: 'flex', flexDirection: 'row' }}>
+        {collections.map((collection, index) => (
+          <div key={index} style={{ marginRight: '20px', marginTop: '20px' }}>
+            <CollectionCard name={collection.name} images={collection.images} />
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
