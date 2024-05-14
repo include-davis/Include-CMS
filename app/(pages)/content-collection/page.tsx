@@ -11,9 +11,12 @@
 //     </main>
 //   );
 // }
+'use client';
+import { useState } from 'react';
 import CollectionCard from './_component/CollectionCard/CollectionCard';
 
 export default function Home() {
+  const [extended, setExtended] = useState(false);
   const collections = [
     {
       name: 'Wedding name 1',
@@ -47,17 +50,49 @@ export default function Home() {
       ],
     },
   ];
+  const handleExtendClick = () => {
+    console.log('Extend clicked');
+    setExtended(true);
+  };
   return (
-    <main
-      style={{
-        overflowX: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-        paddingLeft: '20px',
-      }}
-    >
-      <div style={{ marginTop: '20px', fontSize: '24px', fontWeight: 'bold' }}>
-        Published [{collections.length} items]
+    <main>
+      <div
+        style={{
+          marginTop: '20px',
+          fontSize: '24px',
+          fontWeight: 'bold',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingRight: '20px',
+          paddingLeft: '20px',
+          width: '100%',
+        }}
+      >
+        <span>
+          Published{' '}
+          <span style={{ fontSize: '16px' }}>
+            ({extended ? collections.length + 10 : collections.length} items)
+          </span>
+        </span>
+        <div>
+          <span style={{ fontSize: '16px', color: '#888888' }}>
+            Expand to see all
+          </span>
+          <button
+            onClick={handleExtendClick}
+            style={{
+              marginLeft: '10px',
+              fontSize: '20px',
+              width: '30px',
+              height: '30px',
+              backgroundColor: 'transparent',
+              // border: 'none',
+            }}
+          >
+            {'>'}
+          </button>
+        </div>
       </div>
       <div style={{ overflowX: 'auto', display: 'flex', flexDirection: 'row' }}>
         {collections.map((collection, index) => (
