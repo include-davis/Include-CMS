@@ -2,13 +2,10 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from './Upload.module.scss';
+import { FileItem } from '../../../../../../../type';
 
 interface UploadFileProps {
-  setFiles: React.Dispatch<
-    React.SetStateAction<
-      { file: File; name: string; size: number; preview: string }[]
-    >
-  >;
+  setFiles: React.Dispatch<React.SetStateAction<FileItem[]>>;
 }
 
 const UploadFile: React.FC<UploadFileProps> = ({ setFiles }) => {

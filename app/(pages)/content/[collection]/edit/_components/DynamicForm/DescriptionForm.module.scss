@@ -38,15 +38,17 @@
 }
 
 .title_container {
-    width: 60%;
+    width: 100%;
     @include media.tablet {
         width: 100%;
     }
 }
 
 .date_container {
-    width: 35%;
+    width: 55%;
+    padding-left: 5%;
     @include media.tablet {
+        padding-left: 0%;
         width: 100%;
     }
 }
@@ -54,4 +56,5 @@
 .editContainer{
     box-shadow: var(--b-shadow);
     border-radius: var(--b-radius);
+    background-color: var(--background-secondary);
 }

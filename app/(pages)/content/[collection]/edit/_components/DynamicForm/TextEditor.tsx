@@ -1,4 +1,3 @@
-'use client';
 import styles from './DescriptionForm.module.scss';
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
@@ -15,7 +14,11 @@ const TextEditor: React.FC<TextEditorProps> = ({ initialValue, onChange }) => {
   const handleChange = (content: string) => {
     setValue(content);
     if (onChange) {
-      onChange(content);
+      if (content === '<p><br></p>') {
+        onChange('');
+      } else {
+        onChange(content);
+      }
     }
   };
 
