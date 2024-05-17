@@ -124,7 +124,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
             <label htmlFor={field.name}>{field.name}</label>
             <div className={styles.editContainer}>
               <DynamicTextEditor
-                initialValue={fieldStates[field.name]}
+                initialValue={String(fieldStates[field.name])}
                 onChange={(content: string) =>
                   handleNonMediaChange(field.name, content, field)
                 }
