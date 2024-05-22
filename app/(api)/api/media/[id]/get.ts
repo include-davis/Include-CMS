@@ -1,9 +1,8 @@
-import { NextRequest } from 'next/server';
-import { findMediaItem } from '../../../_datalib/media/findMediaItem';
+// import { NextRequest } from 'next/server';
+// import { findMediaItem } from '../../../_datalib/media/findMediaItem';
+// import { useRouter } from 'next/router';
 
-export async function GET(
-  _: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  return findMediaItem(params.id);
-}
+// export async function GET() {
+//   const router = useRouter();
+//   return findMediaItem(router.query.id);
+// }
