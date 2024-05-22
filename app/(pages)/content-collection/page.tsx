@@ -16,6 +16,7 @@ import { useState, useRef, useEffect } from 'react';
 import CollectionCard from './_component/CollectionCard/CollectionCard';
 import SortMenu from '@components/SortMenu/SortMenu';
 import SelectButton from '@components/SelectButton';
+import CreateNew from '../content/[collection]/edit/_components/CreateNew/CreateNew';
 
 export default function Home() {
   const [extended, setExtended] = useState(false);
@@ -107,16 +108,28 @@ export default function Home() {
         <div
           style={{
             display: 'flex',
-            alignItems: 'center', // Align items vertically
-            justifyContent: 'flex-end', // Align children to the end of the container
-            gap: '10px', // Adjust spacing between items
-            paddingLeft: '50%',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            gap: '10px',
+            paddingLeft: '60%',
             paddingTop: '.5%',
           }}
         >
           <SelectButton />
-          <SortMenu updater={() => {}} sortBy="placeholder" />
+          <CreateNew />
         </div>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          paddingTop: '.5%',
+          paddingLeft: '60%',
+          paddingRight: '10x',
+        }}
+      >
+        <SortMenu updater={() => {}} sortBy="placeholder" />
       </div>
       <div
         style={{
