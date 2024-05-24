@@ -1,0 +1,27 @@
+@use 'media';
+.container {
+    display: flex;
+    padding: var(--small-spacer) var(--spacer);
+    border-bottom: 2px solid var(--background-primary);
+    gap: var(--spacer);
+    align-items: center;
+    @include media.tablet {
+      margin-top: var(--navbar-height);
+    }
+}
+  
+  .listItem {
+    font-weight: 700;
+    color: var(--text-light-gray);
+    list-style-type: none;
+  }
+  
+  .listItem:hover {
+    text-decoration: underline;
+  }
+  
+  .activeItem {
+    color: var(--text-dark);
+    font-weight: 700;
+  }
+  

@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import styles from './DescriptionForm.module.scss';
-import {
-  FieldType,
-  FormSection,
-  Field,
-  FileItem,
-} from '../../../../../../../type';
+import { FieldType, FormSection, Field, FileItem } from '@globals/type';
 import Upload from '../Upload/Upload';
 
 const DynamicTextEditor = dynamic(() => import('./TextEditor'), { ssr: false });
