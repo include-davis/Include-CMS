@@ -2,13 +2,9 @@ import '@globals/styles/colors.scss';
 import '@globals/styles/spacers.scss';
 import '@globals/styles/variables.scss';
 import '@globals/styles/globals.scss';
-import fonts from '@globals/fonts';
-import metadata from '@globals/metadata.json';
 import Navbar from '@components/Navbar/Navbar';
 import NextBreadcrumb from '@components/Breadcrumb/Breadcrumb';
 import styles from './layout.module.scss';
-
-export { metadata };
 
 export default function SidebarLayout({
   children,
@@ -16,9 +12,9 @@ export default function SidebarLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${fonts} ${styles.wrapper}`}>
-        <Navbar />
+    <>
+      <Navbar />
+      <div className={styles.wrapper}>
         <div className={styles.sidebar}>
           <NextBreadcrumb
             activeClasses="activeItem"
@@ -28,7 +24,7 @@ export default function SidebarLayout({
           />
           {children}
         </div>
-      </body>
-    </html>
+      </div>
+    </>
   );
 }

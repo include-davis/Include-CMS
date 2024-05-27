@@ -5,9 +5,9 @@
     border-bottom: 2px solid var(--background-primary);
     gap: var(--spacer);
     align-items: center;
-    @include media.tablet {
-      margin-top: var(--navbar-height);
-    }
+    // @include media.tablet {
+    //   margin-top: var(--navbar-height);
+    // }
 }
   
   .listItem {
