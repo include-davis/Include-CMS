@@ -30,6 +30,7 @@
     "@schema/*": ["./app/(api)/_schema/*"],
     "@datatypes/*": ["./app/(api)/_types/*"],
     "@datalib/*": ["./app/(api)/_datalib/*"],
+    "@typeDefs/*": ["./app/(api)/_types/*"],
     "@public/*": ["./public/*"],
     }
   },
