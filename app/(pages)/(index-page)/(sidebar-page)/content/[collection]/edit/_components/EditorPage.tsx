@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import formConfig from '../../../../../../editor.config';
-import { FormSection, FileItem } from '../../../../../../type';
+import formConfig from '@globals/editor.config';
+import { FormSection, FileItem } from '@globals/type';
 import DynamicForm from './DynamicForm/DynamicForm';
 import styles from './EditorPage.module.scss';
 

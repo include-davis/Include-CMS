@@ -1,0 +1,16 @@
+@use "media";
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.sidebar {
+    position: absolute;
+    right: 0;
+    width: 80%;
+    @include media.tablet {
+        width: 100%;
+    }
+}

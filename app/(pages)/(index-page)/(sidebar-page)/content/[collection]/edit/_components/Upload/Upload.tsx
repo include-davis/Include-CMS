@@ -4,7 +4,7 @@ import styles from './Upload.module.scss';
 import UploadFile from './UploadFile';
 import MediaGallery from './MediaGallery';
 import UploadedMedia from './UploadMedia';
-import { FileItem } from '../../../../../../../type';
+import { FileItem } from '@globals/type';
 
 interface UploadProps {
   setFiles: React.Dispatch<React.SetStateAction<FileItem[]>>;

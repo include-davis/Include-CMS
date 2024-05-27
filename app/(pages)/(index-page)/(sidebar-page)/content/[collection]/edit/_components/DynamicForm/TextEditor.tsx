@@ -1,5 +1,5 @@
 import styles from './DescriptionForm.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import '@globals/styles/quill.snow.scss';
 
@@ -11,16 +11,22 @@ interface TextEditorProps {
 const TextEditor: React.FC<TextEditorProps> = ({ initialValue, onChange }) => {
   const [value, setValue] = useState<string>(initialValue);
 
+  useEffect(() => {
+    setValue(initialValue === '<p><br></p>' ? '' : initialValue);
+  }, [initialValue]);
+
   const handleChange = (content: string) => {
     setValue(content);
     if (onChange) {
       if (content === '<p><br></p>') {
-        onChange('');
+        onChange(' ');
       } else {
         onChange(content);
       }
     }
   };
+
+  console.log(value);
 
   return (
     <div className={styles.editContainer}>
