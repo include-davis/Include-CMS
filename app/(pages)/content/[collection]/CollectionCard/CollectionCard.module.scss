@@ -5,12 +5,13 @@
     flex-direction: column;
     justify-content: center;
     // height: 200px;
-    width: var(--card-width); 
+    width: var(--card-width);
     padding: var(--spacer);
     background-color: var(--background-secondary);
     border-radius: var(--c-radius);
     box-shadow: var(--b-shadow);
     gap: var(--small-spacer);
+    margin: 15px;
 
     .edit_container{
         display: flex;
