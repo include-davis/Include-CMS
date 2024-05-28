@@ -2,7 +2,6 @@ import { getClient } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
 
 export async function findMediaItem(id: string) {
-  // TODO: ? type of id
   try {
     const client = await getClient();
     const db = client.db;

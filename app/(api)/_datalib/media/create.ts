@@ -1,7 +1,7 @@
 import { getClient } from '@utils/mongodb/mongoClient.mjs';
 
-export async function createMediaItem(inputData: string) {
-  //TODO: QUESTION TYPE OF INPUT DATA shouldn't it be an object
+export async function createMediaItem(inputData: object) {
+  //TODO: QUESTION is type of inputData now okay, if not could you please specify its exact type
   try {
     const client = await getClient();
     const db = client.db;

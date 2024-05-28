@@ -1,21 +1,12 @@
-const collection = {
-  bsonType: 'object',
-  title: 'Pokemon Object Validation',
-  properties: {
-    _id: {
-      bsonType: 'objectId',
-      description: '_id must be an ObjectId',
-    },
-    name: {
-      bsonType: 'string',
-      description: 'name must be a string',
-    },
-    happiness: {
-      bsonType: 'number',
-      description: 'happiness must be a number',
-    },
-  },
-  additionalProperties: false,
-};
+import mongoose from 'mongoose';
 
-export default collection;
+const CollectionSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  type: { type: String, required: true },
+  description: { type: String },
+  mediaList: { type: [String] } // Array of media IDs
+});
+
+export default mongoose.models.Collection || mongoose.model('Collection', CollectionSchema);
+
+//TODO: Need more clarification on how collection and media collection are connected

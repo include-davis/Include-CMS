@@ -1,12 +1,12 @@
 import { getClient } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
 
-export async function createMediaItem(inputData: string) {
+export async function deleteMediaItem(id: string) {
   try {
     const client = await getClient();
     const db = client.db;
     const reqCollection = await db.Collection('Media');
-    const status = await db.collection(reqCollection).deleteOne(inputData);
+    const status = await db.collection(reqCollection).deleteOne(id);
     if (status.deletedCount == 0) {
       //status is an object that returns # of documents deleted
       throw new NotFoundError(`No Items Found to Delete.`);
