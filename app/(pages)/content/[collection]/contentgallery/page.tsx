@@ -1,22 +1,9 @@
-// import CollectionCard from "./_component/CollectionCard/CollectionCard";
-// import MediaCardPlaceholder from "./_component/CollectionCard/MediaCard";
-// import PreviwCardPlaceholder from "./_component/CollectionCard/PreviewCard";
-// export default function Home() {
-//   return (
-//     <main>
-//       <h1>Wedding</h1>
-//       <CollectionCard />
-//       <MediaCardPlaceholder />
-//       <PreviwCardPlaceholder />
-//     </main>
-//   );
-// }
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import CollectionCard from './_component/CollectionCard/CollectionCard';
+import CollectionCard from '../../../content-collection/_component/CollectionCard/CollectionCard';
 import SortMenu from '@components/SortMenu/SortMenu';
 import SelectButton from '@components/SelectButton';
-import CreateNew from '../content/[collection]/edit/_components/CreateNew/CreateNew';
+import CreateNew from '../edit/_components/CreateNew/CreateNew';
 
 export default function Home() {
   const [extended, setExtended] = useState(false);
