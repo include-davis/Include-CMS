@@ -9,4 +9,4 @@ const CollectionSchema = new mongoose.Schema({
 
 export default mongoose.models.Collection || mongoose.model('Collection', CollectionSchema);
 
-//TODO: Need more clarification on how collection and media collection are connected
+//TODO: request more clarification on how collection and media collection are connected
