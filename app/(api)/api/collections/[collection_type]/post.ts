@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import createCollectionItem from '../../../../(api)/_datalib/collections/createCollectionItem';
+import createCollectionItem from '@datalib/collections/createCollectionItem';
 
 export async function POST(
   request: NextRequest,

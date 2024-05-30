@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { findCollectionItem } from '../../../../_datalib/collections/findCollectionItem';
+import { findCollectionItem } from '@datalib/collections/findCollectionItem';
 
 export async function GET(
   _: NextRequest,
