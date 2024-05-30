@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { findMediaItem } from '../../../_datalib/media/findMediaItem';
+import { findMediaItem } from '@datalib/media/findMediaItem';
 
 export async function GET(
   _: NextRequest,
