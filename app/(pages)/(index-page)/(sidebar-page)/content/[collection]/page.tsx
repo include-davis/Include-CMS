@@ -1,5 +1,5 @@
 'use client';
-import formConfig from '../../../../editor.config';
+import formConfig from '@globals/editor.config';
 import styles from './Collection.module.scss';
 interface CollectionPageProps {
   params: {

@@ -257,7 +257,6 @@
     color: #3C257E;
   }
   .ql-toolbar.ql-snow {
-    border-left: 4px solid #3C257E;
     border-radius: 8px 8px 0px 0px;
     box-sizing: border-box;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
@@ -265,7 +264,10 @@
     width: 270px;
   }
   .ql-container.ql-snow {
-    border-left: 4px solid #3C257E;
     border-radius: 0px 0px 8px 8px;
     height: 300px;
+  }
+  .quill {
+    border-radius: 8px 0px 8px 8px;
+    border-left: 4px solid #3C257E;
   }
