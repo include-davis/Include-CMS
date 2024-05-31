@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from './Upload.module.scss';
-import { FileItem } from '../../../../../../../type';
+import { FileItem } from '@globals/type';
 
 interface UploadFileProps {
   setFiles: React.Dispatch<React.SetStateAction<FileItem[]>>;

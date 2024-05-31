@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './MediaGallery.module.scss';
-import { FileItem } from '../../../../../../../type';
+import { FileItem } from '@globals/type';
 
 interface MediaGalleryProps {
   files: FileItem[];
