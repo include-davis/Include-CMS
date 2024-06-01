@@ -1,7 +1,8 @@
 import { getClient } from '@utils/mongodb/mongoClient.mjs';
-import { NotFoundError } from '../../_utils/response/Errors';
+import { HttpError, NotFoundError } from '../../_utils/response/Errors';
 import { NoContentError } from '@utils/response/Errors';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
+import { NextResponse } from 'next/server';
 
 export async function updateCollectionItem(
   collectionName: never,
@@ -25,16 +26,11 @@ export async function updateCollectionItem(
       );
     }
     return { ok: true, body: result.value, error: null };
-  } catch (error) {
-    if (error instanceof NotFoundError || error instanceof NoContentError) {
-      return { ok: false, body: null, error: error };
-    } else {
-      console.error('Unexpected error in updateCollectionItem:', error);
-      return {
-        ok: false,
-        body: null,
-        error: { code: 500, message: 'Internal Server Error' },
-      };
-    }
+  } catch (e) {
+    const error = e as HttpError;
+    return NextResponse.json(
+      { ok: false, body: null, error: error.message },
+      { status: error.status || 400 }
+    );
   }
 }
