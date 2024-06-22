@@ -32,30 +32,32 @@ ESLint is an extension that ensures that your code adheres to certain code style
 2. Once it is installed, open your Command Palette by pressing **Ctrl + SHift + P**/**Command + Shift + P** and search for **Preferences: Open Workspace Settings (JSON)**. Open the file and add this code into the file. This will autoformat your code on save and also configure tab sizes:
 
    ```json
-   {
-       "editor.codeActionsOnSave": {
-           "source.fixAll.eslint": "explicit"
-       },
-       "eslint.validate": [
-           "javascript",
-           "typescript",
-       ],
-       "[javascriptreact]": {
-           "editor.indentSize": 2
-       },
-       "[javascript]": {
-           "editor.indentSize": 2
-       },
-       "[typescriptreact]": {
-           "editor.indentSize": 2
-       },
-       "[typescript]": {
-           "editor.indentSize": 2
-       },
-       "[jsonc]": {
-           "editor.indentSize": 2
-       },
-   }
+    {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        },
+        "eslint.validate": [
+            "javascript",
+            "typescript",
+        ],
+        "[javascriptreact]": {
+            "editor.indentSize": 2
+        },
+        "[javascript]": {
+            "editor.indentSize": 2
+        },
+        "[typescriptreact]": {
+            "editor.indentSize": 2
+        },
+        "[typescript]": {
+            "editor.indentSize": 2
+        },
+        "[jsonc]": {
+            "editor.indentSize": 2
+        },
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "typescript.updateImportsOnFileMove.enabled": "never",
+    }
    ```
 
 ## 3. Optional Extension
