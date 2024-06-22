@@ -1,18 +1,14 @@
 import { getClient } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
 
-export async function findCollectionItems(collection: never, query = null) {
+export async function findCollectionItems(collection: string, query = {}) {
   try {
     const client = await getClient();
     const db = client.db;
     const reqCollection = await db.getCollection(collection);
     const reqDocument = await reqCollection.find(query).toArray();
     if (!reqDocument || reqDocument.length === 0) {
-      return {
-        ok: false,
-        body: null,
-        error: { code: 404, message: 'No items found in collection' },
-      };
+      throw new NotFoundError(`No Items Found.`);
     }
     return { ok: true, body: reqDocument, error: null };
   } catch (error) {
@@ -20,7 +16,7 @@ export async function findCollectionItems(collection: never, query = null) {
       return {
         ok: false,
         body: null,
-        error: { code: 404, message: error.message },
+        error: { code: error.status, message: error.message },
       };
     } else {
       return {

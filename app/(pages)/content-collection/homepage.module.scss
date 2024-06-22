@@ -1,0 +1,85 @@
+@use 'media';
+
+.pageheading{
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 100%;
+}
+.titleheading {
+    display: flex;
+    align-items: center;
+    gap: '500px';
+    padding-left: .2%;
+}
+
+.buttonexpand {
+    margin-left: 10px;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+  }
+
+  
+  
+  .buttonscroll {
+    font-size: 24px;
+    color: white;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Make it circular */
+    border: 1px solid #ccc;
+    background-color: #441983;
+    cursor: pointer;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 0.5%;
+    padding-left: 60%;
+    padding-right: 10px; 
+  }
+
+  .scroll{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .progressbar {
+    width: 200px;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 34px;
+    margin: 0 10px;
+    position: relative;
+  }
+
+  .newcontentcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-left: 60%;
+    padding-top: 0.5%;
+  }
+  
+  .transition {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 20px 0;
+    transition: left 0.3s ease-in-out;
+  }
