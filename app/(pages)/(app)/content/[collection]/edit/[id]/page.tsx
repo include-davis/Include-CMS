@@ -1,5 +1,5 @@
 'use client';
-import EditorPage from './_components/EditorPage';
+import EditorPage from '../_components/EditorPage';
 
 interface EditPageProps {
   params: {
