@@ -7,7 +7,7 @@ interface CollectionPageProps {
   };
 }
 
-const CollectionPage: React.FC<CollectionPageProps> = ({ params }) => {
+export default function CollectionPage({ params }: CollectionPageProps) {
   const { collection } = params;
   const currentSection = formConfig.sections.find(
     (section) =>
@@ -21,6 +21,4 @@ const CollectionPage: React.FC<CollectionPageProps> = ({ params }) => {
       <h1>{currentSection.name}</h1>
     </main>
   );
-};
-
-export default CollectionPage;
+}
