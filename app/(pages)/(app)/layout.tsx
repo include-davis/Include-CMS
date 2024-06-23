@@ -2,6 +2,7 @@ import '@globals/styles/colors.scss';
 import '@globals/styles/spacers.scss';
 import '@globals/styles/variables.scss';
 import '@globals/styles/globals.scss';
+import '@globals/styles/borders.scss';
 import Navbar from '@components/Navbar/Navbar';
 import NextBreadcrumb from '@components/Breadcrumb/Breadcrumb';
 import styles from './layout.module.scss';
