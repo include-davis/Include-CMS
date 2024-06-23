@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--medium-spacer);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .header_left {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        gap: var(--tinier-spacer);
+
+        >h1 {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        >h3 {
+            font-size: 1.25rem;
+            font-weight: 400;
+        }
+    }
+
+    .expand_button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--tiny-spacer);
+
+        .expand_text {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .expand_icon {
+            font-size: 1.25rem;
+        }
+    }
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--medium-spacer);
+    justify-content: center;
+}
