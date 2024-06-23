@@ -7,9 +7,10 @@
     border-radius: var(--c-radius);
     box-shadow: var(--b-shadow);
 
-    max-width: 360px;
-    min-width: 320px;
-    width: 100%;
+    min-width: 300px;
+    width: calc(calc(100% - 5 * var(--medium-spacer)) / 3);
+    max-width: 380px;
+    height: min-content;
 }
 
 .top_row {

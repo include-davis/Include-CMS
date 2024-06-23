@@ -23,7 +23,7 @@
 
 .secondary {
     position: relative;
-    width: 50%;
+    width: calc(calc(100% - 2px) / 2);
     img {
         filter: brightness(0.85);
     }
@@ -32,7 +32,7 @@
     gap: 2px;
     >div {
         position: relative;
-        height: 50%;
+        height: calc(calc(100% - 2px) / 2);
     }
 
     .bottom {
