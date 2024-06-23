@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer);
+}
+
+
+.viewport {
+    width: 100%;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding: var(--spacer) 0;
+
+    ::-webkit-scrollbar {
+        display: none;
+      }
+    
+    .cards {
+        display: flex;
+        flex-direction: row;
+        gap: var(--medium-spacer);
+        margin: 0 var(--medium-spacer);
+        padding: 0 var(--medium-spacer);
+    }
+
+    .cards::after {
+        content: "";
+        flex: 0 0 auto;
+        width: var(--medium-spacer);
+        height: 1px;
+    }
+}
+
+
+.cards.expanded {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+}
+
+.cards.expanded::after {
+    display: none;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
