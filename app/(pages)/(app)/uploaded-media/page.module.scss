@@ -1,0 +1,7 @@
+@use 'media';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: var(--medium-spacer) var(--large-spacer);
+}
