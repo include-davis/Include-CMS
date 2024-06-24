@@ -32,7 +32,7 @@
     "@datatypes/*": ["./app/(api)/_types/*"],
     "@datalib/*": ["./app/(api)/_datalib/*"],
     "@typeDefs/*": ["./app/(api)/_types/*"],
-    "@public/*": ["./public/*"],
+    "@configs/*": ["./app/_configs/*"],
     }
   },
   "include": ["nextEnv.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"], 

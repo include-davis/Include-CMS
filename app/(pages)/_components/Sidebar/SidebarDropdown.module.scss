@@ -1,0 +1,41 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--small-spacer);
+    padding: var(--small-spacer) var(--spacer);
+
+    > h3 {
+        font-size: 1.25rem;
+        font-weight: 400;
+    }
+
+    .arrow.active {
+        transform: rotate(180deg);
+    }
+}
+
+.links {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+}
+
+.links.active {
+    display: flex;
+}
+
+.link {
+    padding: var(--small-spacer) var(--medium-spacer);
+}
+
+// .link.active {
+//     background: var(--primary-light);
+// }

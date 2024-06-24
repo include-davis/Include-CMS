@@ -25,18 +25,19 @@ export default function ContentCard({
   collection,
 }: ContentCardInterface) {
   return (
-    <Link href={`/content/${collection}/edit/${id}`}>
-      <div className={styles.container}>
-        <div className={styles.top_row}>
-          <h2>{name}</h2>
-          <button className={styles.kebab_button}>
-            <LuMoreVertical className={styles.kebab} />
-          </button>
-        </div>
-        <p className={styles.last_edited}>last edited: {last_edited}</p>
-        <ContentCardImages images={images} />
-        <p className={styles.description}>{description}</p>
+    <Link
+      href={`/content/${collection}/edit/${id}`}
+      className={styles.container}
+    >
+      <div className={styles.top_row}>
+        <h2>{name}</h2>
+        <button className={styles.kebab_button}>
+          <LuMoreVertical className={styles.kebab} />
+        </button>
       </div>
+      <p className={styles.last_edited}>last edited: {last_edited}</p>
+      <ContentCardImages images={images} />
+      <p className={styles.description}>{description}</p>
     </Link>
   );
 }

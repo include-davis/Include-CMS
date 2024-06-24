@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import formConfig from '@globals/editor.config';
-import { FormSection, FileItem } from '@globals/type';
+import schema from '@configs/_schema/_index';
+import { Schema, FileItem } from '@configs/_schema/_types';
 import DynamicForm from './DynamicForm/DynamicForm';
 import styles from './EditorPage.module.scss';
 
@@ -18,8 +18,8 @@ const EditorPage: React.FC<EditorPageProps> = ({ collection }) => {
   const [formData, setFormData] = useState<FormData>({});
 
   const currentSection = collection
-    ? formConfig.sections.find(
-        (section: FormSection) =>
+    ? schema.find(
+        (section: Schema) =>
           section.name.toLowerCase() === collection.toLowerCase()
       )
     : null;

@@ -6,5 +6,12 @@ interface ImagePreviewProps {
 }
 
 export default function ImagePreview({ src, alt }: ImagePreviewProps) {
-  return <Image src={src} alt={alt} fill style={{ objectFit: 'cover' }} />;
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      style={{ objectFit: 'cover', objectPosition: 'center center' }}
+    />
+  );
 }
