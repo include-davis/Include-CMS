@@ -18,7 +18,7 @@ const collection_data = [
     id: '2',
     name: 'test1',
     type: 'video/mp4',
-    src: '/content/sample_images/city.jpg',
+    src: '/uploaded-media/sample_media/random.mp4',
     alt: 'city image',
   },
   {

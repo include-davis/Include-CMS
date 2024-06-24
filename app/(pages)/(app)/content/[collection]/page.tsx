@@ -1,5 +1,5 @@
 'use client';
-import formConfig from '@globals/editor.config';
+import schema from '@configs/_schema/_index';
 import styles from './page.module.scss';
 
 import ContentHeader from '../../_components/ContentHeader/ContentHeader';
@@ -90,7 +90,7 @@ export default function CollectionPage({ params }: CollectionPageProps) {
   const { collection } = params;
 
   // place into hook
-  const currentCollection = formConfig.sections.find(
+  const currentCollection = schema.find(
     (section) =>
       section.name.toLowerCase() === collection?.toString().toLowerCase()
   );

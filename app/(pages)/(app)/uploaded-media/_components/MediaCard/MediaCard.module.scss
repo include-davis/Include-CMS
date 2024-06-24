@@ -6,6 +6,7 @@
     text-align: left;
     border-radius: var(--c-radius);
     box-shadow: var(--b-shadow);
+    background-color: var(--background-light);
 
     min-width: 300px;
     width: calc(calc(100% - 5 * var(--medium-spacer)) / 3);

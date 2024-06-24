@@ -1,10 +1,5 @@
-import '@globals/styles/colors.scss';
-import '@globals/styles/spacers.scss';
-import '@globals/styles/variables.scss';
-import '@globals/styles/globals.scss';
-import '@globals/styles/borders.scss';
-import Navbar from '@components/Navbar/Navbar';
-import NextBreadcrumb from '@components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
+import Sidebar from '@components/Sidebar/Sidebar';
 import styles from './layout.module.scss';
 
 export default function SidebarLayout({
@@ -13,19 +8,19 @@ export default function SidebarLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Navbar />
-      <div className={styles.wrapper}>
-        <div className={styles.sidebar}>
-          <NextBreadcrumb
-            activeClasses="activeItem"
-            containerClasses="container"
-            listClasses="listItem"
-            capitalizeLinks
-          />
-          {children}
-        </div>
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <Sidebar />
       </div>
-    </>
+      <div className={styles.breadcrumb}>
+        <Breadcrumb
+          activeClasses="activeItem"
+          containerClasses="container"
+          listClasses="listItem"
+          capitalizeLinks
+        />
+      </div>
+      <div className={styles.content}>{children}</div>
+    </div>
   );
 }

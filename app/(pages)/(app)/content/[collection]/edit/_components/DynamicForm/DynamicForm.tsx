@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import styles from './DescriptionForm.module.scss';
-import { FieldType, FormSection, Field, FileItem } from '@globals/type';
+import { FieldType, Schema, Field, FileItem } from '@configs/_schema/_types';
 import Upload from '../Upload/Upload';
 
 const DynamicTextEditor = dynamic(() => import('./TextEditor'), { ssr: false });
 
 interface DynamicFormProps {
-  section: FormSection;
+  section: Schema;
   formData: { [key: string]: string | number | FileItem[] };
   onFormDataChange: (
     field: string,

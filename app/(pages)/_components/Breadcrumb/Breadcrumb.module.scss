@@ -1,10 +1,13 @@
 @use 'media';
 .container {
+    height: 100%;
+    width: 100%;
     display: flex;
-    padding: var(--small-spacer) var(--spacer);
-    border-bottom: 2px solid var(--background-primary);
+    padding: 0 var(--spacer);
     gap: var(--spacer);
     align-items: center;
+    border-bottom: 2px solid var(--background-medium-gray);
+    background-color: var(--background-primary);
 }
   
   .listItem {

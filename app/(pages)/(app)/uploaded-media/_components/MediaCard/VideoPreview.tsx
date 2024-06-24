@@ -16,7 +16,17 @@ export default function VideoPreview({ src, type }: VideoPreviewProps) {
   };
 
   return (
-    <video muted onMouseEnter={startPreview} onMouseLeave={stopPreview}>
+    <video
+      muted
+      onMouseEnter={startPreview}
+      onMouseLeave={stopPreview}
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        objectPosition: 'center center',
+      }}
+    >
       <source src={src} type={type} />
       <p>Unsupported video format</p>
     </video>
