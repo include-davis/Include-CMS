@@ -10,7 +10,7 @@ interface EditPageProps {
 const Page: React.FC<EditPageProps> = ({ params }) => {
   const { collection } = params;
 
-  return <EditorPage collection={collection} />;
+  return <EditorPage collection={collection as string} />;
 };
 
 export default Page;
