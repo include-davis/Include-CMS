@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import styles from './DescriptionForm.module.scss';
 import { FieldType, Schema, Field, FileItem } from '@configs/_schema/_types';
-import Upload from '../Upload/Upload';
+import MediaListSection from '../MediaUpload/MediaListSection';
 
 const DynamicTextEditor = dynamic(() => import('./TextEditor'), { ssr: false });
 
@@ -131,7 +131,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
         .filter((field) => field.type === FieldType.MediaList)
         .map((field) => (
           <div key={field.name}>
-            <Upload
+            <MediaListSection
               setFiles={(value) => handleMediaChange(field.type, value, field)}
             />
           </div>

@@ -1,8 +1,10 @@
 'use client';
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import styles from './Upload.module.scss';
+import styles from './MediaListSection.module.scss';
 import { FileItem } from '@configs/_schema/_types';
+
+import uploadIcon from '/public/content/edit/upload.png';
 
 interface UploadFileProps {
   setFiles: React.Dispatch<React.SetStateAction<FileItem[]>>;
@@ -54,12 +56,7 @@ const UploadFile: React.FC<UploadFileProps> = ({ setFiles }) => {
         className={styles.drop_container}
         onClick={handleUploadClick}
       >
-        <Image
-          src="/index/upload.png"
-          alt="upload icon"
-          height={47}
-          width={47}
-        />
+        <Image src={uploadIcon} alt="upload icon" height={47} width={47} />
         <h4>
           <u>Upload a File</u> or Drag and Drop
         </h4>

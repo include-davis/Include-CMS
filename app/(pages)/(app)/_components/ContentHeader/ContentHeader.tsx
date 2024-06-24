@@ -1,3 +1,4 @@
+import CreateButton from '../../content/_components/CreateButton/CreateButton';
 import styles from './ContentHeader.module.scss';
 
 interface ContentHeaderProps {
@@ -11,7 +12,7 @@ export default function ContentHeader({ collection }: ContentHeaderProps) {
         <h1>{collection}</h1>
         <div className={styles.top_right}>
           <div>SELECT BUTTON</div>
-          <div>CREATE NEW CONTENT BUTTON</div>
+          <CreateButton collection={collection} />
         </div>
       </div>
       <div className={styles.bot_row}>

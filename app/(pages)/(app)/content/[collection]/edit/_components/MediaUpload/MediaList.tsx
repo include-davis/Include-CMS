@@ -1,17 +1,20 @@
-import React from 'react';
+import { Dispatch, SetStateAction, useState, DragEvent } from 'react';
 import Image from 'next/image';
-import styles from './MediaGallery.module.scss';
+import styles from './MediaList.module.scss';
 import { FileItem } from '@configs/_schema/_types';
 
-interface MediaGalleryProps {
+import dragIcon from '/public/content/edit/drag-icon.png';
+import deleteIcon from '/public/content/edit/delete.png';
+
+interface MediaListProps {
   files: FileItem[];
-  setFiles: React.Dispatch<React.SetStateAction<FileItem[]>>;
+  setFiles: Dispatch<SetStateAction<FileItem[]>>;
 }
 
-const MediaGallery: React.FC<MediaGalleryProps> = ({ files, setFiles }) => {
-  const [draggedIndex, setDraggedIndex] = React.useState(-1);
-  const [newIndex, setNewIndex] = React.useState(-1);
-  const [originalOrder, setOriginalOrder] = React.useState<FileItem[]>(files);
+export default function MediaList({ files, setFiles }: MediaListProps) {
+  const [draggedIndex, setDraggedIndex] = useState(-1);
+  const [newIndex, setNewIndex] = useState(-1);
+  const [originalOrder, setOriginalOrder] = useState<FileItem[]>(files);
 
   const formatFileSize = (size: number) => {
     if (size === 0) return '0 Bytes';
@@ -53,17 +56,14 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ files, setFiles }) => {
   };
 
   const handleDragStart = (
-    e: React.DragEvent<HTMLDivElement>,
+    e: DragEvent<HTMLDivElement>,
     draggedIndex: number
   ) => {
     setDraggedIndex(draggedIndex);
     setOriginalOrder(files);
   };
 
-  const handleDragOver = (
-    e: React.DragEvent<HTMLDivElement>,
-    overIndex: number
-  ) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>, overIndex: number) => {
     e.preventDefault();
     if (draggedIndex !== -1 && draggedIndex !== overIndex) {
       setNewIndex(overIndex);
@@ -108,7 +108,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ files, setFiles }) => {
             onDragEnd={handleDragEnd}
           >
             <Image
-              src="/index/drag-icon.png"
+              src={dragIcon}
               alt="draggable icon"
               width={22}
               height={27}
@@ -136,7 +136,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ files, setFiles }) => {
               Replace Image
             </div>
             <Image
-              src="/index/delete.png"
+              src={deleteIcon}
               alt="delete icon"
               height={36}
               width={39}
@@ -148,6 +148,4 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ files, setFiles }) => {
       )}
     </div>
   );
-};
-
-export default MediaGallery;
+}

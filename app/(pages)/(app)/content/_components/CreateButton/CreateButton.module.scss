@@ -1,0 +1,16 @@
+.container {
+    padding: var(--small-spacer) var(--spacer);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--tiny-spacer);
+    background-color: var(--primary);
+    border-radius: var(--b-radius);
+
+    > h4 {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-light);
+    }
+}

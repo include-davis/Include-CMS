@@ -1,16 +1,16 @@
 'use client';
 import React, { useState } from 'react';
-import styles from './Upload.module.scss';
+import styles from './MediaListSection.module.scss';
 import UploadFile from './UploadFile';
-import MediaGallery from './MediaGallery';
-import UploadedMedia from './UploadMedia';
+import MediaList from './MediaList';
+import ChooseFromGallery from './ChooseFromGallery';
 import { FileItem } from '@configs/_schema/_types';
 
-interface UploadProps {
+interface MediaListSectionProps {
   setFiles: React.Dispatch<React.SetStateAction<FileItem[]>>;
 }
 
-export default function Upload({ setFiles }: UploadProps) {
+export default function MediaListSection({ setFiles }: MediaListSectionProps) {
   const [files, setFilesInternal] = useState<FileItem[]>([]);
 
   const handleFilesChange = (newFiles: React.SetStateAction<FileItem[]>) => {
@@ -26,7 +26,7 @@ export default function Upload({ setFiles }: UploadProps) {
   return (
     <div className={styles.upload_container}>
       <h4>Photo gallery</h4>
-      <MediaGallery files={files} setFiles={handleFilesChange} />
+      <MediaList files={files} setFiles={handleFilesChange} />
       <div className={styles.add_container}>
         <h4>Add Images/Videos</h4>
         <div className={styles.add_media_container}>
@@ -36,7 +36,7 @@ export default function Upload({ setFiles }: UploadProps) {
             <h4> or </h4>
             <div className={styles.line}></div>
           </div>
-          <UploadedMedia />
+          <ChooseFromGallery />
         </div>
       </div>
     </div>

@@ -31,6 +31,8 @@
 
 .image{
     border-radius: var(--b-radius);
+    object-fit: cover;
+    object-position: center center;
 }
 
 .replace{
