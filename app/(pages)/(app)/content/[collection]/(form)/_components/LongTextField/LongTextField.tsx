@@ -8,7 +8,10 @@ interface TextEditorProps {
   onChange: (value: string) => void;
 }
 
-const TextEditor: React.FC<TextEditorProps> = ({ initialValue, onChange }) => {
+export default function TextEditor({
+  initialValue,
+  onChange,
+}: TextEditorProps) {
   const [value, setValue] = useState<string>(initialValue);
 
   useEffect(() => {
@@ -40,6 +43,4 @@ const TextEditor: React.FC<TextEditorProps> = ({ initialValue, onChange }) => {
       />
     </div>
   );
-};
-
-export default TextEditor;
+}
