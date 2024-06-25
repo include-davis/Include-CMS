@@ -1,35 +1,28 @@
-import styles from './DescriptionForm.module.scss';
-import React, { useState, useEffect } from 'react';
-import ReactQuill from 'react-quill';
+'use client';
+
 import '@globals/styles/quill.snow.scss';
 
-interface TextEditorProps {
-  initialValue: string;
-  onChange: (value: string) => void;
+import { useState } from 'react';
+
+import styles from './LongTextField.module.scss';
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
+interface LongTextFieldProps {
+  name: string;
+  initialValue?: string;
 }
 
-export default function TextEditor({
-  initialValue,
-  onChange,
-}: TextEditorProps) {
+export default function LongTextField({
+  name: _,
+  initialValue = '',
+}: LongTextFieldProps) {
   const [value, setValue] = useState<string>(initialValue);
 
-  useEffect(() => {
-    setValue(initialValue === '<p><br></p>' ? '' : initialValue);
-  }, [initialValue]);
-
   const handleChange = (content: string) => {
-    setValue(content);
-    if (onChange) {
-      if (content === '<p><br></p>') {
-        onChange(' ');
-      } else {
-        onChange(content);
-      }
-    }
+    setValue(content === '<p><br></p>' ? '' : content);
   };
-
-  console.log(value);
 
   return (
     <div className={styles.editContainer}>
@@ -41,6 +34,7 @@ export default function TextEditor({
           toolbar: [['bold', 'italic', 'underline', 'strike']],
         }}
       />
+      <p>{value}</p>
     </div>
   );
 }
