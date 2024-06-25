@@ -5,15 +5,15 @@ import { useState } from 'react';
 import styles from './DateField.module.scss';
 
 interface DateFieldProps {
-  name: string;
-  initialValue?: string;
+  field_name: string;
+  initial_value?: string;
 }
 
 export default function DateField({
-  name: _,
-  initialValue = '',
+  field_name: _,
+  initial_value = '',
 }: DateFieldProps) {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initial_value);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);

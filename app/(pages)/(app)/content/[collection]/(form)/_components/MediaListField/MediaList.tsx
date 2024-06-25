@@ -1,17 +1,20 @@
-import { Dispatch, SetStateAction, useState, DragEvent } from 'react';
+'use client';
+
+import { useState, DragEvent } from 'react';
 import Image from 'next/image';
 import styles from './MediaList.module.scss';
-import { FileItem } from '@configs/_schema/_types';
-
+interface FileItem {
+  file: File;
+  name: string;
+  size: number;
+  preview: string;
+}
 import dragIcon from '/public/content/edit/drag-icon.png';
 import deleteIcon from '/public/content/edit/delete.png';
 
-interface MediaListProps {
-  files: FileItem[];
-  setFiles: Dispatch<SetStateAction<FileItem[]>>;
-}
+export default function MediaList() {
+  const [files, setFiles] = useState<FileItem[]>([]);
 
-export default function MediaList({ files, setFiles }: MediaListProps) {
   const [draggedIndex, setDraggedIndex] = useState(-1);
   const [newIndex, setNewIndex] = useState(-1);
   const [originalOrder, setOriginalOrder] = useState<FileItem[]>(files);

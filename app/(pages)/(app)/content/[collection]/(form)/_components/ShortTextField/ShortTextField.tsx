@@ -5,17 +5,17 @@ import { useState } from 'react';
 import styles from './ShortTextField.module.scss';
 
 interface ShortTextFieldProps {
-  name: string;
+  field_name: string;
   placeholder: string;
-  initialValue?: string;
+  initial_value?: string;
 }
 
 export default function ShortTextField({
-  name: _,
+  field_name: _,
   placeholder = 'Short Text Field',
-  initialValue = '',
+  initial_value = '',
 }: ShortTextFieldProps) {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initial_value);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);

@@ -15,10 +15,3 @@ export interface Schema {
   name: string;
   fields: Field[];
 }
-
-export interface FileItem {
-  file: File;
-  name: string;
-  size: number;
-  preview: string;
-}

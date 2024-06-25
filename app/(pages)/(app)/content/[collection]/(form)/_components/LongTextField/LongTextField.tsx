@@ -10,15 +10,15 @@ import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 interface LongTextFieldProps {
-  name: string;
-  initialValue?: string;
+  field_name: string;
+  initial_value?: string;
 }
 
 export default function LongTextField({
-  name: _,
-  initialValue = '',
+  field_name: _,
+  initial_value = '',
 }: LongTextFieldProps) {
-  const [value, setValue] = useState<string>(initialValue);
+  const [value, setValue] = useState<string>(initial_value);
 
   const handleChange = (content: string) => {
     setValue(content === '<p><br></p>' ? '' : content);
