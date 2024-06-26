@@ -1,9 +1,9 @@
 const Media = {
-  bsonType: 'Object',
+  bsonType: 'object',
   title: 'Media Object Validation',
   properties: {
     _id: {
-      bsonType: 'ObjectId',
+      bsonType: 'objectId',
       description: '_id must be an ObjectId',
     },
     media_type: {

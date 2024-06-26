@@ -18,7 +18,7 @@
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
-    "next": "14.0.4",
+    "next": "^14.2.4",
     "next-cloudinary": "^5.20.0",
     "react": "^18",
     "react-dom": "^18",
