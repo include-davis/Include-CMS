@@ -1,12 +1,12 @@
-import { FieldType } from './_types';
+import Fields from './_fields';
 
 const weddings = {
   name: 'Weddings',
   fields: [
-    { name: 'Title', type: FieldType.ShortText },
-    { name: 'Date', type: FieldType.Date },
-    { name: 'Description', type: FieldType.LongText },
-    { name: 'Photo Gallery', type: FieldType.MediaList },
+    { name: 'Title', type: Fields.ShortText },
+    { name: 'Date', type: Fields.Date },
+    { name: 'Description', type: Fields.LongText },
+    { name: 'Photo Gallery', type: Fields.MediaList },
   ],
 };
 

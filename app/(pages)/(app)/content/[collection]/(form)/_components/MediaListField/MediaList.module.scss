@@ -1,6 +1,6 @@
 @use 'media';
 
-.gallery_container{
+.container{
     display: flex;
     flex-direction: column;
     gap: var(--small-spacer);

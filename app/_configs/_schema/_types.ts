@@ -1,9 +1,6 @@
-export enum FieldType {
-  ShortText = 'shortText',
-  LongText = 'longText',
-  Date = 'date',
-  MediaItem = 'mediaItem',
-  MediaList = 'mediaList',
+export interface FieldType {
+  name: string;
+  defaultValue: any;
 }
 
 export interface Field {

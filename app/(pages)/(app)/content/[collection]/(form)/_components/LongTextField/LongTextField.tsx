@@ -2,10 +2,9 @@
 
 import '@globals/styles/quill.snow.scss';
 
-import { useState } from 'react';
-
 import styles from './LongTextField.module.scss';
 import dynamic from 'next/dynamic';
+import useContentFormContext from '@hooks/useContentFormContext';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -14,27 +13,23 @@ interface LongTextFieldProps {
   initial_value?: string;
 }
 
-export default function LongTextField({
-  field_name: _,
-  initial_value = '',
-}: LongTextFieldProps) {
-  const [value, setValue] = useState<string>(initial_value);
+export default function LongTextField({ field_name }: LongTextFieldProps) {
+  const { data, updateField } = useContentFormContext();
 
   const handleChange = (content: string) => {
-    setValue(content === '<p><br></p>' ? '' : content);
+    updateField(field_name, content === '<p><br></p>' ? '' : content);
   };
 
   return (
     <div className={styles.editContainer}>
       <ReactQuill
         theme="snow"
-        value={value}
+        value={data[field_name]}
         onChange={handleChange}
         modules={{
           toolbar: [['bold', 'italic', 'underline', 'strike']],
         }}
       />
-      <p>{value}</p>
     </div>
   );
 }

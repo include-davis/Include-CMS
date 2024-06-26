@@ -15,7 +15,7 @@ export const SelectContext = createContext<SelectContextValue>({
   selectedIds: [],
 });
 
-export function SelectContextProvider({
+export default function SelectContextProvider({
   children,
 }: {
   children: React.ReactNode;

@@ -1,16 +1,16 @@
 'use client';
-
 import { useState, DragEvent } from 'react';
 import Image from 'next/image';
 import styles from './MediaList.module.scss';
+import dragIcon from '/public/content/edit/drag-icon.png';
+import deleteIcon from '/public/content/edit/delete.png';
+
 interface FileItem {
   file: File;
   name: string;
   size: number;
   preview: string;
 }
-import dragIcon from '/public/content/edit/drag-icon.png';
-import deleteIcon from '/public/content/edit/delete.png';
 
 export default function MediaList() {
   const [files, setFiles] = useState<FileItem[]>([]);
@@ -83,17 +83,15 @@ export default function MediaList() {
       const [draggedItem] = updatedFiles.splice(draggedIndex, 1);
       updatedFiles.splice(newIndex, 0, draggedItem);
       setFiles(updatedFiles);
-      setDraggedIndex(-1);
-      setNewIndex(-1);
     } else if (draggedIndex !== -1) {
       setFiles(originalOrder);
-      setDraggedIndex(-1);
-      setNewIndex(-1);
     }
+    setDraggedIndex(-1);
+    setNewIndex(-1);
   };
 
   return (
-    <div className={styles.gallery_container} onDragLeave={handleDragLeave}>
+    <div className={styles.container} onDragLeave={handleDragLeave}>
       {files.length === 0 ? (
         <div>No images/videos uploaded yet</div>
       ) : (
@@ -113,7 +111,6 @@ export default function MediaList() {
             <Image
               src={dragIcon}
               alt="draggable icon"
-              width={22}
               height={27}
               className={styles.drag_icon}
             />
@@ -122,7 +119,6 @@ export default function MediaList() {
               src={file.preview}
               alt={file.name}
               className={styles.image}
-              width={120}
               height={80}
             />
             <p className={styles.name}>{file.name}</p>
@@ -133,18 +129,17 @@ export default function MediaList() {
             )}
             <p className={styles.size}>{formatFileSize(file.size)}</p>
             <div
-              onClick={() => handleReplace(index)}
               className={styles.replace}
+              onClick={() => handleReplace(index)}
             >
               Replace Image
             </div>
             <Image
+              className={styles.delete}
               src={deleteIcon}
               alt="delete icon"
               height={36}
-              width={39}
               onClick={() => handleDelete(index)}
-              className={styles.delete}
             />
           </div>
         ))
