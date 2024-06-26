@@ -1,3 +1,10 @@
+export interface FileItem {
+  file: File;
+  name: string;
+  size: number;
+  preview: string;
+}
+
 export interface FieldType {
   name: string;
   defaultValue: any;

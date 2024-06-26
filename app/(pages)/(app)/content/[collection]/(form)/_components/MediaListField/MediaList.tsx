@@ -1,23 +1,22 @@
 'use client';
 import { useState, DragEvent } from 'react';
+
+import useContentFormContext from '@hooks/useContentFormContext';
 import Image from 'next/image';
 import styles from './MediaList.module.scss';
 import dragIcon from '/public/content/edit/drag-icon.png';
 import deleteIcon from '/public/content/edit/delete.png';
+import { FileItem } from '@configs/_schema/_types';
 
-interface FileItem {
-  file: File;
-  name: string;
-  size: number;
-  preview: string;
+interface MediaListProps {
+  field_name: string;
 }
 
-export default function MediaList() {
-  const [files, setFiles] = useState<FileItem[]>([]);
+export default function MediaList({ field_name }: MediaListProps) {
+  const { data, updateField } = useContentFormContext();
 
   const [draggedIndex, setDraggedIndex] = useState(-1);
   const [newIndex, setNewIndex] = useState(-1);
-  const [originalOrder, setOriginalOrder] = useState<FileItem[]>(files);
 
   const formatFileSize = (size: number) => {
     if (size === 0) return '0 Bytes';
@@ -30,10 +29,9 @@ export default function MediaList() {
   };
 
   const handleDelete = (index: number) => {
-    const updatedFiles = [...files];
+    const updatedFiles = [...data[field_name]];
     updatedFiles.splice(index, 1);
-    setFiles(updatedFiles);
-    setOriginalOrder(updatedFiles);
+    updateField(field_name, updatedFiles);
   };
 
   const handleReplace = (index: number) => {
@@ -43,7 +41,7 @@ export default function MediaList() {
     input.addEventListener('change', (e) => {
       const newFile = (e.target as HTMLInputElement).files?.[0];
       if (newFile) {
-        const updatedFiles = [...files];
+        const updatedFiles = [...data[field_name]];
         const updatedFile = {
           file: newFile,
           name: newFile.name,
@@ -51,8 +49,7 @@ export default function MediaList() {
           preview: URL.createObjectURL(newFile),
         };
         updatedFiles[index] = updatedFile;
-        setFiles(updatedFiles);
-        setOriginalOrder(updatedFiles);
+        updateField(field_name, updatedFiles);
       }
     });
     input.click();
@@ -63,7 +60,6 @@ export default function MediaList() {
     draggedIndex: number
   ) => {
     setDraggedIndex(draggedIndex);
-    setOriginalOrder(files);
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>, overIndex: number) => {
@@ -79,12 +75,10 @@ export default function MediaList() {
 
   const handleDragEnd = () => {
     if (draggedIndex !== -1 && newIndex !== -1) {
-      const updatedFiles = [...files];
+      const updatedFiles = [...data[field_name]];
       const [draggedItem] = updatedFiles.splice(draggedIndex, 1);
       updatedFiles.splice(newIndex, 0, draggedItem);
-      setFiles(updatedFiles);
-    } else if (draggedIndex !== -1) {
-      setFiles(originalOrder);
+      updateField(field_name, updatedFiles);
     }
     setDraggedIndex(-1);
     setNewIndex(-1);
@@ -92,10 +86,10 @@ export default function MediaList() {
 
   return (
     <div className={styles.container} onDragLeave={handleDragLeave}>
-      {files.length === 0 ? (
+      {data[field_name].length === 0 ? (
         <div>No images/videos uploaded yet</div>
       ) : (
-        files.map((file, index) => (
+        data[field_name].map((file: FileItem, index: number) => (
           <div
             key={index}
             className={`${styles.card_container} ${
@@ -120,6 +114,7 @@ export default function MediaList() {
               alt={file.name}
               className={styles.image}
               height={80}
+              width={80}
             />
             <p className={styles.name}>{file.name}</p>
             {index === 0 ? (

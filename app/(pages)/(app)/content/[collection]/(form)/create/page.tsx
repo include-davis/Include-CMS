@@ -1,5 +1,6 @@
-// import styles from './page.module.scss';
 import schema from '@configs/_schema/_index';
+import ContentForm from '../_components/ContentForm/ContentForm';
+import ContentFormContextProvider from '@contexts/ContentFormContext';
 
 interface CreateContentProps {
   params: {
@@ -9,14 +10,16 @@ interface CreateContentProps {
 
 export default function CreateContent({ params }: CreateContentProps) {
   const { collection } = params;
+  const schema_collection = schema[collection];
 
-  // place into hook
-  const currentCollection = schema[collection];
-
-  if (!currentCollection) {
-    return "Page doesn't exist";
-  }
-
-  const collectionName = currentCollection?.name;
-  return <div>{collectionName}</div>;
+  return (
+    <ContentFormContextProvider
+      collection={schema_collection.name.toLowerCase()}
+    >
+      <ContentForm
+        type="Create"
+        collection={schema_collection.name.toLowerCase()}
+      />
+    </ContentFormContextProvider>
+  );
 }

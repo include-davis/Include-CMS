@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--medium-spacer);
+}
+
+.field_container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-spacer);
+
+    >label {
+        font-size: 1.875rem;
+        font-weight: 500;
+        color: var(--text-darker-gray);
+    }
+}

@@ -1,29 +1,22 @@
 'use client';
-
-import { useState } from 'react';
-
+import useContentFormContext from '@hooks/useContentFormContext';
 import styles from './DateField.module.scss';
 
 interface DateFieldProps {
   field_name: string;
-  initial_value?: string;
 }
 
-export default function DateField({
-  field_name: _,
-  initial_value = '',
-}: DateFieldProps) {
-  const [value, setValue] = useState(initial_value);
-
+export default function DateField({ field_name }: DateFieldProps) {
+  const { data, updateField } = useContentFormContext();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    updateField(field_name, event.target.value);
   };
 
   return (
     <input
       className={styles.input}
       type="date"
-      value={value}
+      value={data[field_name]}
       onChange={handleChange}
     />
   );

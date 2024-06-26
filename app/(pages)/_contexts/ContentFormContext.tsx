@@ -18,7 +18,7 @@ export const ContentFormContext = createContext<ContentFormContextValue>({
 
 interface ContentFormContextProviderProps {
   collection: string;
-  initialValue?: object;
+  initialValue?: { [_: string]: any };
   children: React.ReactNode;
 }
 

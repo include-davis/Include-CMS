@@ -14,7 +14,7 @@ export default function MediaListField({
 }: MediaItemFieldProps) {
   return (
     <div className={styles.container}>
-      <MediaList />
+      <MediaList field_name={field_name} />
       <MediaSelector field_name={field_name} />
     </div>
   );

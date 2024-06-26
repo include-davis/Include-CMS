@@ -1,19 +1,17 @@
 'use client';
-import { useRef, useState, DragEvent, ChangeEvent } from 'react';
+import { useRef, DragEvent, ChangeEvent } from 'react';
 import Image from 'next/image';
 import styles from './MediaFromUpload.module.scss';
+import useContentFormContext from '@hooks/useContentFormContext';
 
 import uploadIcon from '/public/content/edit/upload.png';
 
-interface FileItem {
-  file: File;
-  name: string;
-  size: number;
-  preview: string;
+interface MediaFromUploadProps {
+  field_name: string;
 }
 
-export default function MediaFromUpload() {
-  const [_, setFiles] = useState<FileItem[]>([]);
+export default function MediaFromUpload({ field_name }: MediaFromUploadProps) {
+  const { data, updateField } = useContentFormContext();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -26,17 +24,7 @@ export default function MediaFromUpload() {
       size: file.size,
       preview: URL.createObjectURL(file),
     }));
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-  };
-
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    updateField(field_name, [...data[field_name], ...newFiles]);
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +36,17 @@ export default function MediaFromUpload() {
         size: file.size,
         preview: URL.createObjectURL(file),
       }));
-      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      updateField(field_name, [...data[field_name], ...newFiles]);
+    }
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
