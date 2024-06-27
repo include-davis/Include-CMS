@@ -43,10 +43,10 @@ export default function MediaList({ field_name }: MediaListProps) {
       if (newFile) {
         const updatedFiles = [...data[field_name]];
         const updatedFile = {
-          file: newFile,
           name: newFile.name,
           size: newFile.size,
-          preview: URL.createObjectURL(newFile),
+          file: URL.createObjectURL(newFile),
+          onRemote: false,
         };
         updatedFiles[index] = updatedFile;
         updateField(field_name, updatedFiles);
@@ -110,7 +110,7 @@ export default function MediaList({ field_name }: MediaListProps) {
             />
             <p className={styles.index}>#{index + 1}</p>
             <Image
-              src={file.preview}
+              src={file.file}
               alt={file.name}
               className={styles.image}
               height={80}

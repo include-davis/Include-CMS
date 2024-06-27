@@ -19,10 +19,10 @@ export default function MediaFromUpload({ field_name }: MediaFromUploadProps) {
     e.preventDefault();
     const droppedFiles = Array.from(e.dataTransfer.files) as File[];
     const newFiles = droppedFiles.map((file) => ({
-      file,
       name: file.name,
       size: file.size,
-      preview: URL.createObjectURL(file),
+      file: URL.createObjectURL(file),
+      onRemote: false,
     }));
     updateField(field_name, [...data[field_name], ...newFiles]);
   };
@@ -31,10 +31,10 @@ export default function MediaFromUpload({ field_name }: MediaFromUploadProps) {
     const inputFiles = e.target.files;
     if (inputFiles) {
       const newFiles = Array.from(inputFiles).map((file) => ({
-        file,
         name: file.name,
         size: file.size,
-        preview: URL.createObjectURL(file),
+        file: URL.createObjectURL(file),
+        onRemote: false,
       }));
       updateField(field_name, [...data[field_name], ...newFiles]);
     }

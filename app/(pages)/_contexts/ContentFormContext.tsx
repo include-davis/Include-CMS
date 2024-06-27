@@ -45,6 +45,8 @@ export default function ContentFormContextProvider({
     }));
   };
 
+  // const upload = async () => {};
+
   const value = {
     collection,
     data,

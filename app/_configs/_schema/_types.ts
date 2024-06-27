@@ -1,8 +1,8 @@
 export interface FileItem {
-  file: File;
   name: string;
   size: number;
-  preview: string;
+  file: string;
+  onRemote: string;
 }
 
 export interface FieldType {
