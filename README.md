@@ -199,7 +199,7 @@ You'll see that there are folders defined with square brackets around the name s
 - https://medium.com/@nadinCodeHat/rest-api-naming-conventions-and-best-practices-1c4e781eb6a5
 
 ## MongoDB
-MongoDB is our database and in order to use it to create an easy to use REST api, I defined a couple of helper functions that you may use for your projects. Before I get into those, I'll link a few resources for you to read up on for CRUD with MongoDB. To be honest, these may not be the best resources, but they are a place to start. 
+MongoDB is our database and in order to use it to create an easy to use REST API, I defined a couple of helper functions that you may use for your projects. Before I get into those, I'll link a few resources for you to read up on for CRUD with MongoDB. To be honest, these may not be the best resources, but they are a place to start. 
 
 Take looks at embeddings, relations, crud, and aggregations please. Like always, if you are reading through docs and find terms you don't know, look them up so you can truly understand what's going on. If you do this for long enough, you'll build up an internal database of knowledge that carries into future projects, thus saving time!
 
@@ -208,8 +208,17 @@ Take looks at embeddings, relations, crud, and aggregations please. Like always,
 - https://www.mongodb.com/docs/manual/crud/
 - https://www.mongodb.com/docs/drivers/node/current/fundamentals/aggregation/
 
+### Database Migrations
+We'll be using `migrate-mongo` for database migrations. You can take a look at some documentation here: https://www.npmjs.com/package/migrate-mongo?activeTab=readme. You can view the migrations in the `_migrations` folder.
+
+Database migrations should be performed whenever you want to change the schema. Since MongoDB documents are generally unstructured, changing the schema can involve as little as just adding/deleting a field from a single document, or as much as changing an entire collection's JSON schema validation.
+
+You can create a migration by running `migrate-mongo create <MIGRATION NAME>` at the root of the project (where `migrate-mongo-config.js` is located). This will create a new migration file in the `_migrations` folder, which you'll add the up and down migrations to. We'll be using the async-await method described in the documentation, since it's common for migrations to require multiple database calls. I've provided some examples in the `examples` folder. You can see we're using collMod, which you can read about here: https://www.mongodb.com/docs/manual/reference/command/collMod/. Unfortunately, you'll have to manually copy over any changes you make in the `_schema` folder into the migration you'd like to perform, since it would be very difficult to parse the schema and automatically generate migrations.
+
+You can see any pending migrations with `migrate-mongo status`. Once you're done, run the migration with `migrate-mongo up`, which will run every pending migration sequentially. If you want need to roll back a migration, run `migrate-mongo down`. This will roll back the last migration.
+
 ## Helper Functions
-By now, I hope you have an understanding of the general syntax of crud operations. The main priority of writing the API is to keep the API simple to use. A secondary concern is making the logic behind the scenes (inside the serverless fucntions) easy to write as well. To solve both issues, I created some helper functions that mainly serve to manipulate JSON objects.
+By now, I hope you have an understanding of the general syntax of CRUD operations. The main priority of writing the API is to keep the API simple to use. A secondary concern is making the logic behind the scenes (inside the serverless functions) easy to write as well. To solve both issues, I created some helper functions that mainly serve to manipulate JSON objects.
 
 To see how these helper functions were written, refer to the definitions within the `_utils/response` folder. If there are any bugs, please let me know ASAP so I can fix them, or even better, fix them and make a pull request.
 
