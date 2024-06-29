@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { findCollectionItem } from '@datalib/collections/findCollectionItem';
 
 export async function GET(
@@ -6,5 +6,5 @@ export async function GET(
   { params }: { params: { id: string; collection_type: string } }
 ) {
   const res = await findCollectionItem(params.collection_type, params.id);
-  return res;
+  return NextResponse.json(res);
 }

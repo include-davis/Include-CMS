@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { findMediaItem } from '@datalib/media/findMediaItem';
 
 export async function GET(
@@ -6,5 +6,5 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const res = findMediaItem(params.id);
-  return res;
+  return NextResponse.json(res);
 }
