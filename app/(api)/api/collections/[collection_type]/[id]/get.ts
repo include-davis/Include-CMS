@@ -5,5 +5,6 @@ export async function GET(
   _: NextRequest,
   { params }: { params: { id: string; collection_type: string } }
 ) {
-  return findCollectionItem(params.collection_type, params.id);
+  const res = await findCollectionItem(params.collection_type, params.id);
+  return res;
 }

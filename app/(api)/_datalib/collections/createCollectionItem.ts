@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
 import { HttpError, NoContentError } from '../../_utils/response/Errors';
 
-async function createCollectionItem(collection, data) {
+async function createCollectionItem(collection: string, data: object) {
   try {
     if (!data || Object.keys(data).length === 0) {
       throw new NoContentError();
@@ -26,7 +26,7 @@ async function createCollectionItem(collection, data) {
     const error =
       e instanceof HttpError
         ? e
-        : new HttpError(e.message || 'Internal Server Error');
+        : new HttpError((e as Error).message || 'Internal Server Error');
     return NextResponse.json(
       { ok: false, error: error.message },
       { status: error.status || 500 }

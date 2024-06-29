@@ -3,17 +3,20 @@ import { ObjectId } from 'mongodb';
 
 import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
 import { HttpError, NoContentError } from '../../_utils/response/Errors';
+import { media_collection } from '@utils/constants/media';
 
-async function createMediaItem(data) {
+export default async function createMediaItem(data: object) {
   try {
     if (!data || Object.keys(data).length === 0) {
       throw new NoContentError();
     }
 
     const db = await getDatabase();
-    const creationStatus = await db.collection('media').insertOne(data);
+    const creationStatus = await db
+      .collection(media_collection)
+      .insertOne(data);
 
-    const newItem = await db.collection('media').findOne({
+    const newItem = await db.collection(media_collection).findOne({
       _id: new ObjectId(creationStatus.insertedId),
     });
 
@@ -26,12 +29,10 @@ async function createMediaItem(data) {
     const error =
       e instanceof HttpError
         ? e
-        : new HttpError(e.message || 'Internal Server Error');
+        : new HttpError((e as Error).message || 'Internal Server Error');
     return NextResponse.json(
       { ok: false, error: error.message },
       { status: error.status || 500 }
     );
   }
 }
-
-export default createMediaItem;

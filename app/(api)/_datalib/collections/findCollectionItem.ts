@@ -1,21 +1,14 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
-import parseAndReplace from '@utils/request/parseAndReplace';
 
-// Change to id
-export async function updateCollectionItem(
-  collection: string,
-  query = {},
-  update = {}
-) {
-  const parsedQuery = await parseAndReplace(query);
+export async function findCollectionItem(collection: string, id: string) {
   try {
     const db = await getDatabase();
     const reqCollection = await db.collection(collection);
-    const reqDocument = await reqCollection.findOneAndUpdate(
-      parsedQuery,
-      update
-    );
+
+    const reqDocument = await reqCollection.findOne({
+      id: id,
+    });
 
     if (!reqDocument || reqDocument.length === 0) {
       throw new NotFoundError(`No Items Found.`);

@@ -1,17 +1,13 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
+import { media_collection } from '@utils/constants/media';
 
-// Change to id
-export async function updateCollectionItem(
-  collection: string,
-  query = {},
-  update = {}
-) {
+export async function updateMediaItem(query = {}, update = {}) {
   const parsedQuery = await parseAndReplace(query);
   try {
     const db = await getDatabase();
-    const reqCollection = await db.collection(collection);
+    const reqCollection = await db.collection(media_collection);
     const reqDocument = await reqCollection.findOneAndUpdate(
       parsedQuery,
       update

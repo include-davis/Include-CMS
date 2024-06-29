@@ -5,5 +5,6 @@ export async function GET(
   _: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  return findMediaItem(params.id);
+  const res = findMediaItem(params.id);
+  return res;
 }
