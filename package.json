@@ -11,7 +11,9 @@
     "init": "run-script-os",
     "init:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbInit.mjs\"",
     "init:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbInit.mjs\"",
-    "seed": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\""
+    "seed": "run-script-os",
+    "seed:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\"",
+    "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\""
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
