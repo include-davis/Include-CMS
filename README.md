@@ -217,6 +217,11 @@ You can create a migration by running `migrate-mongo create <MIGRATION NAME>` at
 
 You can see any pending migrations with `migrate-mongo status`. Once you're done, run the migration with `migrate-mongo up`, which will run every pending migration sequentially. If you want need to roll back a migration, run `migrate-mongo down`. This will roll back the last migration.
 
+### Databse Seeding
+In order to seed the database with mock data, you can run `npm run seed`, which will prompt you with some questions about how you would like to seed.
+
+If you've just made a new collection, you'll need to look at the `generateData.mjs` file in `_utils/mongodb`, where you can add your collection with the relevant data generation.
+
 ## Helper Functions
 By now, I hope you have an understanding of the general syntax of CRUD operations. The main priority of writing the API is to keep the API simple to use. A secondary concern is making the logic behind the scenes (inside the serverless functions) easy to write as well. To solve both issues, I created some helper functions that mainly serve to manipulate JSON objects.
 
