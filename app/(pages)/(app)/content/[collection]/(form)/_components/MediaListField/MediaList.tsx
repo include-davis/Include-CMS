@@ -6,7 +6,7 @@ import Image from 'next/image';
 import styles from './MediaList.module.scss';
 import dragIcon from '/public/content/edit/drag-icon.png';
 import deleteIcon from '/public/content/edit/delete.png';
-import { FileItem } from '@configs/_schema/_types';
+import { MediaItem } from '@datatypes/media';
 
 interface MediaListProps {
   field_name: string;
@@ -89,7 +89,7 @@ export default function MediaList({ field_name }: MediaListProps) {
       {data[field_name].length === 0 ? (
         <div>No images/videos uploaded yet</div>
       ) : (
-        data[field_name].map((file: FileItem, index: number) => (
+        data[field_name].map((file: MediaItem, index: number) => (
           <div
             key={index}
             className={`${styles.card_container} ${

@@ -6,8 +6,8 @@ interface MediaItemFieldProps {
 }
 
 export default function MediaItemField({
-  name,
-  initial_value,
+  name: _,
+  initial_value: __,
 }: MediaItemFieldProps) {
   return <div className={styles.container}>MediaItemField</div>;
 }

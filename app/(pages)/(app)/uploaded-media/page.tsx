@@ -4,7 +4,7 @@ import styles from './page.module.scss';
 import MediaCard from './_components/MediaCard/MediaCard';
 import ContentHeader from '../_components/ContentHeader/ContentHeader';
 import ContentSection from '../_components/ContentSection/ContentSection';
-import { SelectContextProvider } from '@contexts/SelectContext';
+import SelectContextProvider from '@contexts/SelectContext';
 
 const collection_data = [
   {

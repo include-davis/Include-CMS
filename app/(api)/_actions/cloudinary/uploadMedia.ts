@@ -1,9 +1,9 @@
 'use server';
-import { FileItem } from '@configs/_schema/_types';
+import { MediaItem } from '@datatypes/media';
 import HttpError from '@utils/response/HttpError';
 import { v2 as cloudinary } from 'cloudinary';
 
-export default async function uploadMedia(file: FileItem) {
+export default async function uploadMedia(file: MediaItem) {
   try {
     console.log(file);
     const res = await cloudinary.uploader.upload(

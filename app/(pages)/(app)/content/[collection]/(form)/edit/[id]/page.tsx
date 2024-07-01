@@ -1,9 +1,13 @@
 'use client';
+
+import Image from 'next/image';
+import styles from './page.module.scss';
 import schema from '@configs/_schema/_index';
 import ContentForm from '../../_components/ContentForm/ContentForm';
 import ContentFormContextProvider from '@contexts/ContentFormContext';
 import useContent from '@hooks/useContent';
-import uploadMedia from '@actions/cloudinary/uploadMedia';
+import backButton from '/public/content/edit/back-button.png';
+import Link from 'next/link';
 
 interface CreateContentProps {
   params: {
@@ -23,23 +27,26 @@ export default function CreateContent({ params }: CreateContentProps) {
   }
 
   return (
-    <ContentFormContextProvider
-      collection={schema_collection.name.toLowerCase()}
-      initialValue={data}
-    >
-      <ContentForm
-        type="Edit"
-        collection={schema_collection.name.toLowerCase()}
-      />
-      <button
-        onClick={async () => {
-          uploadMedia({
-            file: 'blob:http://localhost:3000/e8300394-5ee6-4df3-9a35-868cc26c5ebf',
-          });
-        }}
-      >
-        UPLOAD IMAGE
-      </button>
-    </ContentFormContextProvider>
+    <div className={styles.container}>
+      <Link className={styles.back_button} href={`/content/${collection}`}>
+        <Image
+          className={styles.back_icon}
+          src={backButton}
+          alt="back button"
+        />
+        <p>{`Back to ${collection}`}</p>
+      </Link>
+      <div className={styles.form_container}>
+        <ContentFormContextProvider
+          collection={schema_collection.name.toLowerCase()}
+          initialValue={data}
+        >
+          <ContentForm
+            type="Edit"
+            collection={schema_collection.name.toLowerCase()}
+          />
+        </ContentFormContextProvider>
+      </div>
+    </div>
   );
 }
