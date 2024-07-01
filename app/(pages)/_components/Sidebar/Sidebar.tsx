@@ -7,18 +7,18 @@ import uploadedMediaIcon from '/public/navigation/sidebar/uploaded-media-icon.pn
 import contentIcon from '/public/navigation/sidebar/content-icon.png';
 
 import schema from '@configs/_schema/_index';
-import { Schema } from '@configs/_schema/_types';
 import SidebarDropdown from './SidebarDropdown';
 
 export default function Sidebar() {
-  const collections = schema.map((collection: Schema) => ({
-    name: collection.name,
-    url: `/content/${collection.name.toLowerCase()}`,
+  const collection_types = Object.keys(schema);
+  const collections = collection_types.map((key: string) => ({
+    name: schema[key].name,
+    url: `/content/${schema[key].name.toLowerCase()}`,
   }));
 
-  const uploaded_media = schema.map((collection: Schema) => ({
-    name: collection.name,
-    url: `/uploaded-media/${collection.name.toLowerCase()}`,
+  const uploaded_media = collection_types.map((key: string) => ({
+    name: schema[key].name,
+    url: `/uploaded-media/${schema[key].name.toLowerCase()}`,
   }));
 
   return (

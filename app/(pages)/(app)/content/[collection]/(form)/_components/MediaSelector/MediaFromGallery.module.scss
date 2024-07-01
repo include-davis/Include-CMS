@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--tiny-spacer);
+    padding: var(--large-spacer) var(--medium-spacer);
+    border-radius: var(--b-radius);
+    background-color: var(--primary-medium);
+    text-align: center;
+    cursor: pointer;
+}

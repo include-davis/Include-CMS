@@ -5,11 +5,11 @@ import styles from './page.module.scss';
 import ContentHeader from '../../_components/ContentHeader/ContentHeader';
 import ContentSection from '../../_components/ContentSection/ContentSection';
 import ContentCard from '../_components/ContentCard/ContentCard';
-import { SelectContextProvider } from '@contexts/SelectContext';
+import SelectContextProvider from '@contexts/SelectContext';
 
 interface CollectionPageProps {
   params: {
-    collection?: string;
+    collection: string;
   };
 }
 
@@ -90,10 +90,7 @@ export default function CollectionPage({ params }: CollectionPageProps) {
   const { collection } = params;
 
   // place into hook
-  const currentCollection = schema.find(
-    (section) =>
-      section.name.toLowerCase() === collection?.toString().toLowerCase()
-  );
+  const currentCollection = schema[collection];
 
   if (!currentCollection) {
     return <div>Invalid collection</div>;

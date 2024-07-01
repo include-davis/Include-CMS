@@ -19,7 +19,7 @@
     "@types/bcryptjs": "^2.4.6",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
-    "dotenv": "^16.4.5",
+    "cloudinary": "^2.2.0",
     "jsonwebtoken": "^9.0.2",
     "migrate-mongo": "^11.0.0",
     "mongodb": "^6.3.0",
