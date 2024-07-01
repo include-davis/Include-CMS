@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import { Login } from '@datalib/auth/login';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
-import type AuthTokenInt from '@typeDefs/authToken';
+import type { AuthTokenInterface } from '@datatypes/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       throw new NotAuthenticatedError(data.error);
     }
 
-    const payload = jwt.decode(data.body) as AuthTokenInt;
+    const payload = jwt.decode(data.body) as AuthTokenInterface;
     cookies().set({
       name: 'auth_token',
       value: data.body,

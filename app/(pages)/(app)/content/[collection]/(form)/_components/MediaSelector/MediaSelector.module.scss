@@ -1,0 +1,29 @@
+@use 'media';
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--small-spacer);
+    h4 {
+        font-weight: 400;
+    }
+}
+
+.or_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--tiny-spacer);
+    @include media.tablet {
+        flex-direction: row;
+    }
+}
+
+.line {
+    border-left: 1px solid var(--text-dark);
+    height: 25px;
+    @include media.tablet {
+        display: none;
+    }
+}

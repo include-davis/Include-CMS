@@ -6,7 +6,6 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@next/next/recommended",
     "next",
     "prettier"
   ],
@@ -52,6 +51,7 @@
           "destructuredArrayIgnorePattern": "^_*$"
         }
       ],
+      "@typescript-eslint/no-explicit-any": "off",
       "block-spacing": 1
   }
 }

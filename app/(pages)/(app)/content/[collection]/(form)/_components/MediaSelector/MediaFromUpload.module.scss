@@ -1,0 +1,11 @@
+.container {
+    border: 1px dashed var(--text-dark);
+    border-radius: var(--b-radius);
+    padding: var(--large-spacer) var(--medium-spacer);
+    text-align: center;
+    cursor: pointer;
+
+    >input {
+        display: none;
+    }
+}

@@ -10,15 +10,20 @@
     "type-check": "npx tsc",
     "init": "run-script-os",
     "init:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbInit.mjs\"",
-    "init:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbInit.mjs\""
+    "init:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbInit.mjs\"",
+    "seed": "run-script-os",
+    "seed:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\"",
+    "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\""
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.2.0",
     "jsonwebtoken": "^9.0.2",
+    "migrate-mongo": "^11.0.0",
     "mongodb": "^6.3.0",
-    "next": "14.0.4",
+    "next": "^14.2.4",
     "next-cloudinary": "^5.20.0",
     "react": "^18",
     "react-dom": "^18",
@@ -28,6 +33,7 @@
     "sass": "^1.69.5"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@next/eslint-plugin-next": "^14.0.4",
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.6",
