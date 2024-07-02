@@ -1,6 +1,7 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
+import { NextResponse } from 'next/server';
 
 // Change to id
 export async function updateCollectionItem(
@@ -21,20 +22,20 @@ export async function updateCollectionItem(
       throw new NotFoundError(`No Items Found.`);
     }
 
-    return { ok: true, body: reqDocument, error: null };
+    return NextResponse.json({ ok: true, body: reqDocument, error: null });
   } catch (error) {
     if (error instanceof NotFoundError) {
-      return {
+      return NextResponse.json({
         ok: false,
         body: null,
         error: { code: error.status, message: error.message },
-      };
+      });
     } else {
-      return {
+      return NextResponse.json({
         ok: false,
         body: null,
         error: { code: 500, message: 'Internal Server Error' },
-      };
+      });
     }
   }
 }

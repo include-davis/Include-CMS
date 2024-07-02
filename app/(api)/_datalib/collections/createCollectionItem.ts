@@ -3,15 +3,23 @@ import { ObjectId } from 'mongodb';
 
 import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
 import { HttpError, NoContentError } from '../../_utils/response/Errors';
+import parseAndReplace from '@utils/request/parseAndReplace';
 
-async function createCollectionItem(collection: string, data: object) {
+export default async function createCollectionItem(
+  collection: string,
+  data: object
+) {
   try {
-    if (!data || Object.keys(data).length === 0) {
+    const parsedData = await parseAndReplace(data);
+
+    if (!data || Object.keys(parsedData).length === 0) {
       throw new NoContentError();
     }
 
     const db = await getDatabase();
-    const creationStatus = await db.collection(collection).insertOne(data);
+    const creationStatus = await db
+      .collection(collection)
+      .insertOne(parsedData);
 
     const newItem = await db.collection(collection).findOne({
       _id: new ObjectId(creationStatus.insertedId),
@@ -21,17 +29,18 @@ async function createCollectionItem(collection: string, data: object) {
       throw new HttpError('Failed to fetch the created item');
     }
 
-    return NextResponse.json({ ok: true, body: newItem }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, body: newItem, error: null },
+      { status: 201 }
+    );
   } catch (e) {
     const error =
       e instanceof HttpError
         ? e
         : new HttpError((e as Error).message || 'Internal Server Error');
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 500 }
     );
   }
 }
-
-export default createCollectionItem;

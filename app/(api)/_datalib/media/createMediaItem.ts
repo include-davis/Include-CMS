@@ -3,7 +3,6 @@ import { ObjectId } from 'mongodb';
 
 import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
 import { HttpError, NoContentError } from '../../_utils/response/Errors';
-import { media_collection } from '@utils/constants/media';
 
 export default async function createMediaItem(data: object) {
   try {
@@ -12,11 +11,9 @@ export default async function createMediaItem(data: object) {
     }
 
     const db = await getDatabase();
-    const creationStatus = await db
-      .collection(media_collection)
-      .insertOne(data);
+    const creationStatus = await db.collection('media').insertOne(data);
 
-    const newItem = await db.collection(media_collection).findOne({
+    const newItem = await db.collection('media').findOne({
       _id: new ObjectId(creationStatus.insertedId),
     });
 

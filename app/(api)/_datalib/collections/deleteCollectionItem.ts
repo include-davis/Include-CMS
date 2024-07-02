@@ -1,5 +1,6 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
+import { NextResponse } from 'next/server';
 
 export async function deleteCollectionItem(collection: string, id: string) {
   try {
@@ -14,20 +15,24 @@ export async function deleteCollectionItem(collection: string, id: string) {
       throw new NotFoundError(`No Items Found.`);
     }
 
-    return { ok: true, body: 'CollectionItem deleted.', error: null };
+    return NextResponse.json({
+      ok: true,
+      body: 'CollectionItem deleted.',
+      error: null,
+    });
   } catch (error) {
     if (error instanceof NotFoundError) {
-      return {
+      return NextResponse.json({
         ok: false,
         body: null,
         error: { code: error.status, message: error.message },
-      };
+      });
     } else {
-      return {
+      return NextResponse.json({
         ok: false,
         body: null,
         error: { code: 500, message: 'Internal Server Error' },
-      };
+      });
     }
   }
 }

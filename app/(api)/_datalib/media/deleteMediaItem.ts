@@ -1,11 +1,10 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError } from '@utils/response/Errors';
-import { media_collection } from '@utils/constants/media';
 
 export async function deleteMediaItem(id: string) {
   try {
     const db = await getDatabase();
-    const reqCollection = await db.collection(media_collection);
+    const reqCollection = await db.collection('media');
 
     const reqDocument = await reqCollection.findOneAndDelete({
       id: id,
