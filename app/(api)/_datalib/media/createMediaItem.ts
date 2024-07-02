@@ -3,15 +3,18 @@ import { ObjectId } from 'mongodb';
 
 import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
 import { HttpError, NoContentError } from '../../_utils/response/Errors';
+import parseAndReplace from '@utils/request/parseAndReplace';
 
 export default async function createMediaItem(data: object) {
   try {
-    if (!data || Object.keys(data).length === 0) {
+    const parsedData = await parseAndReplace(data);
+
+    if (!data || Object.keys(parsedData).length === 0) {
       throw new NoContentError();
     }
 
     const db = await getDatabase();
-    const creationStatus = await db.collection('media').insertOne(data);
+    const creationStatus = await db.collection('media').insertOne(parsedData);
 
     const newItem = await db.collection('media').findOne({
       _id: new ObjectId(creationStatus.insertedId),
@@ -21,14 +24,17 @@ export default async function createMediaItem(data: object) {
       throw new HttpError('Failed to fetch the created item');
     }
 
-    return NextResponse.json({ ok: true, body: newItem }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, body: newItem, error: null },
+      { status: 201 }
+    );
   } catch (e) {
     const error =
       e instanceof HttpError
         ? e
         : new HttpError((e as Error).message || 'Internal Server Error');
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 500 }
     );
   }

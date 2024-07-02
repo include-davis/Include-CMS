@@ -3,6 +3,7 @@ import { NotFoundError } from '@utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { NextResponse } from 'next/server';
 
+// Change to id
 export async function updateMediaItem(query = {}, update = {}) {
   const parsedQuery = await parseAndReplace(query);
   try {
