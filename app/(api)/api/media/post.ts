@@ -3,5 +3,6 @@ import createMediaItem from '../../../(api)/_datalib/media/createMediaItem';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  return createMediaItem(body);
+  const res = await createMediaItem(body);
+  return res;
 }

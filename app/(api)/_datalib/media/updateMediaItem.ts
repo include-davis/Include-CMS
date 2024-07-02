@@ -4,15 +4,11 @@ import parseAndReplace from '@utils/request/parseAndReplace';
 import { NextResponse } from 'next/server';
 
 // Change to id
-export async function updateCollectionItem(
-  collection: string,
-  query = {},
-  update = {}
-) {
+export async function updateMediaItem(query = {}, update = {}) {
   const parsedQuery = await parseAndReplace(query);
   try {
     const db = await getDatabase();
-    const reqCollection = await db.collection(collection);
+    const reqCollection = await db.collection('media');
     const reqDocument = await reqCollection.findOneAndUpdate(
       parsedQuery,
       update
