@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import { GetManyUsers } from '@datalib/users/getUser';
-import { createAuthToken } from './createToken';
+import { createAuthToken } from './createAuthToken';
 
 export async function Login(body: { email: string; password: string }) {
   try {
