@@ -1,6 +1,6 @@
 import { auth_expiration } from '@apidata/configs';
 import jwt, { Secret } from 'jsonwebtoken';
-import { HttpError } from '@utils/response/Errors';
+import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import { AuthTokenInt } from '@datatypes/authToken';
 
 /*
@@ -33,7 +33,7 @@ export async function verifyAuthToken(token: string) {
     // check if token has expired
     const now = Math.floor(Date.now() / 1000);
     if (decodedPayload.exp && decodedPayload.exp < now) {
-      throw new HttpError('Token has expired');
+      throw new NotAuthenticatedError('Token has expired.');
     }
 
     return { ok: true, body: decodedPayload, error: null };
