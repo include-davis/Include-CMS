@@ -13,7 +13,7 @@ import {
 /*
  *   Adds new user in the database
  *   @param request: {email: string, password: string}
- *   @returns {ok: boolean, body: {email: string, password: string, _id: string}, error: string}
+ *   @returns {ok: boolean, body: {_id: ObjectId, username: string, password: string} | null, error: number | null}
  */
 const collectionName = 'users';
 
@@ -31,7 +31,9 @@ export async function CreateUser(body: object) {
     });
 
     if (userExists) {
-      throw new DuplicateError('User already exists');
+      throw new DuplicateError(
+        `Email: '${parsedBody.email}' already in use. Please try again with a different email.`
+      );
     }
 
     const createdUser = await db
