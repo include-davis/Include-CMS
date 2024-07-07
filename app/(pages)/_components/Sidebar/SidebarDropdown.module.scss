@@ -34,6 +34,11 @@
 
 .link {
     padding: var(--small-spacer) var(--medium-spacer);
+
+    &.active {
+        background-color: var(--primary-light);
+        border-right: solid 4px var(--primary);
+    }
 }
 
 // .link.active {
