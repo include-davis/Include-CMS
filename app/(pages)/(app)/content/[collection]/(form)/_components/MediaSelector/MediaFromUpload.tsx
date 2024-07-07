@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from './MediaFromUpload.module.scss';
 import useContentFormContext from '@hooks/useContentFormContext';
 
-import uploadIcon from '/public/content/edit/upload.png';
+import uploadIcon from '/public/content/form/upload.png';
 
 interface MediaFromUploadProps {
   field_name: string;

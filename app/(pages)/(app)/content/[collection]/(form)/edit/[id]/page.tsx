@@ -6,7 +6,7 @@ import schema from '@configs/_schema/_index';
 import ContentForm from '../../_components/ContentForm/ContentForm';
 import ContentFormContextProvider from '@contexts/ContentFormContext';
 import useContent from '@hooks/useContent';
-import backButton from '/public/content/edit/back-button.png';
+import backButton from '/public/content/form/back-button.png';
 import Link from 'next/link';
 
 interface CreateContentProps {

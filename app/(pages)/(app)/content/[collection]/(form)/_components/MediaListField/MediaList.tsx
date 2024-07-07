@@ -4,8 +4,8 @@ import { useState, DragEvent } from 'react';
 import useContentFormContext from '@hooks/useContentFormContext';
 import Image from 'next/image';
 import styles from './MediaList.module.scss';
-import dragIcon from '/public/content/edit/drag-icon.png';
-import deleteIcon from '/public/content/edit/delete.png';
+import dragIcon from '/public/content/form/drag-icon.png';
+import deleteIcon from '/public/content/form/delete.png';
 import { MediaItem } from '@datatypes/media';
 
 interface MediaListProps {
