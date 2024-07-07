@@ -1,6 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 interface SidebarContextValue {
   activeLink: string;
@@ -21,6 +21,10 @@ export default function SidebarContextProvider({
 }) {
   const pathname = usePathname();
   const [activeLink, setActiveLink] = useState(pathname);
+
+  useEffect(() => {
+    setActiveLink(pathname);
+  }, [pathname]);
 
   const value = {
     activeLink,
