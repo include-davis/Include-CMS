@@ -1,4 +1,4 @@
-import { useRef, createRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styles from './ContentList.module.scss';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 
@@ -10,25 +10,36 @@ interface ContentListProps {
 export default function ContentList({ expanded, children }: ContentListProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const contentBeltRef = useRef<HTMLDivElement>(null);
-  const cardRefs = children.map((_) => createRef<HTMLDivElement>());
   const [progressWidth, setProgressWidth] = useState(0);
   const [progressShift, setProgressShift] = useState(0);
+  const [cardLocations, setCardLocations] = useState<number[]>([0]);
 
   useEffect(() => {
-    const handleResize = () => {
+    const initProgressData = () => {
       if (viewportRef.current && contentBeltRef.current) {
         const { clientWidth: viewportWidth } = viewportRef.current;
         const { clientWidth: contentWidth } = contentBeltRef.current;
 
         setProgressWidth((viewportWidth / contentWidth) * 100);
+
+        const cards = Array.from(
+          contentBeltRef.current.children
+        ) as HTMLLinkElement[];
+
+        if (cards.every((card: Element) => card)) {
+          const firstOffset = cards[0].offsetLeft || 0;
+          setCardLocations(
+            cards.map((card: any) => card.offsetLeft - firstOffset)
+          );
+        }
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    window.addEventListener('resize', initProgressData);
+    initProgressData();
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', initProgressData);
     };
   }, [viewportRef, contentBeltRef]);
 
@@ -48,6 +59,36 @@ export default function ContentList({ expanded, children }: ContentListProps) {
     }
   };
 
+  useEffect(() => {
+    setProgressShift(0);
+  }, [expanded]);
+
+  const handleRightShift = () => {
+    if (viewportRef.current && contentBeltRef.current) {
+      const { clientWidth: viewportWidth, scrollLeft: viewportScroll } =
+        viewportRef.current;
+
+      const targetShift = viewportScroll + viewportWidth;
+      const snapShift =
+        cardLocations.findLast((cardLoc) => targetShift >= cardLoc) || 0;
+
+      viewportRef.current.scrollTo({ left: snapShift, behavior: 'smooth' });
+    }
+  };
+
+  const handleLeftShift = () => {
+    if (viewportRef.current && contentBeltRef.current) {
+      const { clientWidth: viewportWidth, scrollLeft: viewportScroll } =
+        viewportRef.current;
+
+      const targetShift = viewportScroll - viewportWidth;
+      const snapShift =
+        cardLocations.find((cardLoc) => targetShift <= cardLoc) || 0;
+
+      viewportRef.current.scrollTo({ left: snapShift, behavior: 'smooth' });
+    }
+  };
+
   const progressStyles = {
     width: `${progressWidth}%`,
     left: `${progressShift}%`,
@@ -64,25 +105,17 @@ export default function ContentList({ expanded, children }: ContentListProps) {
           className={`${styles.cards} ${expanded ? styles.expanded : null}`}
           ref={contentBeltRef}
         >
-          {children.map((child: any, index: number) => (
-            <div
-              className={styles.card_wrapper}
-              key={index}
-              ref={cardRefs[index as any]}
-            >
-              {child}
-            </div>
-          ))}
+          {children}
         </div>
       </div>
       <div className={`${styles.controls} ${expanded ? styles.hidden : null}`}>
-        <button>
+        <button onClick={handleLeftShift}>
           <IoChevronBackOutline className={styles.icon} />
         </button>
         <div className={styles.progress_container}>
           <div className={styles.progress_indicator} style={progressStyles} />
         </div>
-        <button>
+        <button onClick={handleRightShift}>
           <IoChevronForwardOutline className={styles.icon} />
         </button>
       </div>
