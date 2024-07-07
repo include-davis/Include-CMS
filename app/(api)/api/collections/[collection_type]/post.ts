@@ -6,6 +6,5 @@ export async function POST(
   { params }: { params: { collection_type: string } }
 ) {
   const body = await request.json();
-  const res = await createCollectionItem(params.collection_type, body);
-  return res;
+  return createCollectionItem(params.collection_type, body);
 }

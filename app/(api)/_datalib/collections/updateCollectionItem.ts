@@ -1,47 +1,54 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
-import { NotFoundError } from '@utils/response/Errors';
+import {
+  HttpError,
+  NotFoundError,
+  NoContentError,
+} from '@utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
+import isBodyEmpty from '@utils/request/isBodyEmpty';
 
 // Change to id
 export async function updateCollectionItem(
   collection: string,
-  query = {},
-  update = {}
+  id: string,
+  body: object
 ) {
-  const parsedQuery = await parseAndReplace(query);
   try {
+    const object_id = new ObjectId(id);
+    if (isBodyEmpty(body)) {
+      throw new NoContentError();
+    }
+
+    const parsedData = await parseAndReplace(body);
+
     const db = await getDatabase();
-    const reqCollection = await db.collection(collection);
-    const reqDocument = await reqCollection.findOneAndUpdate(
-      parsedQuery,
-      update
+    const updateStatus = await db
+      .collection(collection)
+      .updateOne({ _id: object_id }, { $set: parsedData });
+
+    if (updateStatus.modifiedCount === 0) {
+      throw new NotFoundError(`CollectionItem ${id} not found`);
+    }
+
+    return NextResponse.json(
+      {
+        ok: true,
+        body: 'CollectionItem updated.',
+        error: null,
+      },
+      { status: 200 }
     );
-
-    if (!reqDocument || reqDocument.length === 0) {
-      throw new NotFoundError(`No Items Found.`);
-    }
-
-    return NextResponse.json({ ok: true, body: reqDocument, error: null });
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: error.status, message: error.message },
-        },
-        { status: error.status }
-      );
-    } else {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: 500, message: 'Internal Server Error' },
-        },
-        { status: 500 }
-      );
-    }
+  } catch (e) {
+    const error = e as HttpError;
+    return NextResponse.json(
+      {
+        ok: false,
+        body: null,
+        error: error.message,
+      },
+      { status: error.status || 400 }
+    );
   }
 }

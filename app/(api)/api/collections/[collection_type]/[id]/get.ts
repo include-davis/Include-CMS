@@ -1,10 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { findCollectionItem } from '@datalib/collections/findCollectionItem';
+import { NextRequest } from 'next/server';
+import { getCollectionItem } from '@datalib/collections/getCollectionItem';
 
 export async function GET(
   _: NextRequest,
   { params }: { params: { id: string; collection_type: string } }
 ) {
-  const res = await findCollectionItem(params.collection_type, params.id);
-  return NextResponse.json(res);
+  return getCollectionItem(params.collection_type, params.id);
 }

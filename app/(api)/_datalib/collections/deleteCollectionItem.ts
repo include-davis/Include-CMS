@@ -1,18 +1,20 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
-import { NotFoundError } from '@utils/response/Errors';
+import { NotFoundError, HttpError } from '@utils/response/Errors';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 
 export async function deleteCollectionItem(collection: string, id: string) {
   try {
     const db = await getDatabase();
     const reqCollection = await db.collection(collection);
+    const object_id = new ObjectId(id);
 
-    const reqDocument = await reqCollection.findOneAndDelete({
-      id: id,
+    const deleteStatus = await reqCollection.deleteOne({
+      _id: object_id,
     });
 
-    if (!reqDocument || reqDocument.length === 0) {
-      throw new NotFoundError(`No Items Found.`);
+    if (deleteStatus.deletedCount === 0) {
+      throw new NotFoundError(`CollectionItem ${id} not found`);
     }
 
     return NextResponse.json(
@@ -23,25 +25,15 @@ export async function deleteCollectionItem(collection: string, id: string) {
       },
       { status: 200 }
     );
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: error.status, message: error.message },
-        },
-        { status: error.status }
-      );
-    } else {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: 500, message: 'Internal Server Error' },
-        },
-        { status: 500 }
-      );
-    }
+  } catch (e) {
+    const error = e as HttpError;
+    return NextResponse.json(
+      {
+        ok: false,
+        body: null,
+        error: error.message,
+      },
+      { status: error.status || 400 }
+    );
   }
 }

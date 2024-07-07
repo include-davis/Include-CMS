@@ -10,11 +10,10 @@ export default async function createCollectionItem(
   data: object
 ) {
   try {
-    const parsedData = await parseAndReplace(data);
-
-    if (!data || Object.keys(parsedData).length === 0) {
+    if (!data || Object.keys(data).length === 0) {
       throw new NoContentError();
     }
+    const parsedData = await parseAndReplace(data);
 
     const db = await getDatabase();
     const creationStatus = await db
@@ -34,10 +33,7 @@ export default async function createCollectionItem(
       { status: 201 }
     );
   } catch (e) {
-    const error =
-      e instanceof HttpError
-        ? e
-        : new HttpError((e as Error).message || 'Internal Server Error');
+    const error = e instanceof HttpError ? e : new HttpError();
     return NextResponse.json(
       { ok: false, body: null, error: error.message },
       { status: error.status || 500 }
