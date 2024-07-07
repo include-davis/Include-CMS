@@ -6,7 +6,7 @@ const films = {
     { name: 'Title', type: Fields.ShortText },
     { name: 'Date', type: Fields.Date },
     { name: 'Description', type: Fields.LongText },
-    { name: 'Film', type: Fields.MediaItem },
+    { name: 'Film', type: Fields.MediaList },
   ],
 };
 

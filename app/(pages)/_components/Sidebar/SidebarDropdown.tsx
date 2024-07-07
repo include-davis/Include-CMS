@@ -48,7 +48,7 @@ export default function SidebarDropdown({
             href={link.url}
             key={link.url}
             className={`${styles.link} ${
-              activeLink === link.url ? styles.active : null
+              activeLink.startsWith(link.url) ? styles.active : null
             }`}
             onClick={() => setActiveLink(link.url)}
           >
