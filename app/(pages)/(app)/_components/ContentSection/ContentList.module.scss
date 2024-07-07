@@ -21,31 +21,63 @@
         display: flex;
         flex-direction: row;
         gap: var(--medium-spacer);
-        margin: 0 var(--medium-spacer);
-        padding: 0 var(--medium-spacer);
-    }
+        padding: 0 calc(2 * var(--medium-spacer));
+        width: max-content;
 
-    .cards::after {
-        content: "";
-        flex: 0 0 auto;
-        width: var(--medium-spacer);
-        height: 1px;
+        &.expanded {
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 var(--medium-spacer);
+        }
     }
 }
 
-
-.cards.expanded {
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0;
-}
-
-.cards.expanded::after {
-    display: none;
+.card_wrapper {
+    width: min-content;
 }
 
 .controls {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+    gap: var(--medium-spacer);
+    
+    > button {
+        padding: var(--tiny-spacer);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--primary);
+        * {
+            color: white;
+        }
+    }
+
+    .icon {
+        font-size: 1.5rem;
+    }
+
+    .progress_container {
+        position: relative;
+        width: var(--carousel-progress-width);
+        height: var(--carousel-progress-height);
+        border-radius: calc(var(--carousel-progress-height) / 2);
+        background-color: var(--background-lighter-gray);
+
+        .progress_indicator {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background-color: var(--primary);
+            border-radius: calc(var(--carousel-progress-height) / 2);
+        }
+    }
 }
+
+.controls.hidden {
+    display: none;
+}
+
