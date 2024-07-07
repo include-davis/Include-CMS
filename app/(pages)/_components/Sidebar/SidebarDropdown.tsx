@@ -5,6 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import arrow from '/public/navigation/sidebar/arrow.svg';
 import useToggle from '@hooks/useToggle';
+import useSidebarContext from '@hooks/useSidebar';
 
 interface LinkInt {
   name: string;
@@ -14,15 +15,20 @@ interface LinkInt {
 interface SidebarDropdownProps {
   icon: StaticImageData;
   name: string;
+  slug: string;
   links: LinkInt[];
 }
 
 export default function SidebarDropdown({
   icon,
   name,
+  slug,
   links,
 }: SidebarDropdownProps) {
-  const { state: active, toggleState: toggleActive } = useToggle(false);
+  const { activeLink, setActiveLink } = useSidebarContext();
+  const { state: active, toggleState: toggleActive } = useToggle(
+    activeLink.startsWith(slug)
+  );
 
   return (
     <div className={styles.container}>
@@ -41,7 +47,10 @@ export default function SidebarDropdown({
           <Link
             href={link.url}
             key={link.url}
-            className={`${styles.link} ${active ? styles.active : null}`}
+            className={`${styles.link} ${
+              activeLink === link.url ? styles.active : null
+            }`}
+            onClick={() => setActiveLink(link.url)}
           >
             {link.name}
           </Link>
