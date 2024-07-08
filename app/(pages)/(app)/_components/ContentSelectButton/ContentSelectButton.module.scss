@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacer);
+    align-items: center;
+    padding: var(--small-spacer) var(--spacer);
+    background-color: var(--background-light);
+    border-radius: var(--b-radius);
+    box-shadow: var(-b-shadow);
+
+    .icon {
+        height: 24px;
+        aspect-ratio: 1;
+        border-radius: 4px;
+        border: solid 1px black;
+    }
+
+    >p {
+        color: var(--primary);
+        font-size: 1.375rem;
+        font-weight: 500;
+    }
+}

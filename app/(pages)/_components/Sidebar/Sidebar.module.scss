@@ -39,6 +39,7 @@
         flex-direction: column;
         flex-grow: 1;
         padding: var(--small-spacer) 0;
+        gap: var(--small-spacer);
     }
 
     .settings {
