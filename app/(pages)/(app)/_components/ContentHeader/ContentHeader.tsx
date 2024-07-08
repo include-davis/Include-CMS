@@ -1,4 +1,5 @@
 import CreateButton from '../../content/_components/CreateButton/CreateButton';
+import ContentFilters from '../ContentFilters/ContentFilters';
 import styles from './ContentHeader.module.scss';
 
 interface ContentHeaderProps {
@@ -15,10 +16,7 @@ export default function ContentHeader({ collection }: ContentHeaderProps) {
           <CreateButton collection={collection} />
         </div>
       </div>
-      <div className={styles.bot_row}>
-        <div>SEARCH BAR</div>
-        <div>FILTER BY</div>
-      </div>
+      <ContentFilters searchPlaceholder={`Search in ${collection}...`} />
     </div>
   );
 }

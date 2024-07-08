@@ -6,6 +6,7 @@ import ContentHeader from '../../_components/ContentHeader/ContentHeader';
 import ContentSection from '../../_components/ContentSection/ContentSection';
 import ContentCard from '../_components/ContentCard/ContentCard';
 import SelectContextProvider from '@contexts/SelectContext';
+import FilterContextProvider from '@contexts/FilterContext';
 
 interface CollectionPageProps {
   params: {
@@ -108,11 +109,13 @@ export default function CollectionPage({ params }: CollectionPageProps) {
 
   return (
     <SelectContextProvider>
-      <div className={styles.container}>
-        <ContentHeader collection={currentCollection.name} />
-        <ContentSection title={'Published'}>{data_list}</ContentSection>
-        <ContentSection title={'Drafts'}>{data_list}</ContentSection>
-      </div>
+      <FilterContextProvider>
+        <div className={styles.container}>
+          <ContentHeader collection={currentCollection.name} />
+          <ContentSection title={'Published'}>{data_list}</ContentSection>
+          <ContentSection title={'Drafts'}>{data_list}</ContentSection>
+        </div>
+      </FilterContextProvider>
     </SelectContextProvider>
   );
 }
