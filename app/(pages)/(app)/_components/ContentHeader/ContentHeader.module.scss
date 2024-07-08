@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: var(--medium-spacer);
+    gap: var(--spacer);
     padding: 0 var(--medium-spacer);
 
     >div {
