@@ -10,11 +10,11 @@ export async function getCollectionItem(collection: string, id: string) {
     const object_id = new ObjectId(id);
 
     const reqDocument = await reqCollection.findOne({
-      id: object_id,
+      _id: object_id,
     });
 
     if (!reqDocument || reqDocument.length === 0) {
-      throw new NotFoundError(`No Items ${id} Found.`);
+      throw new NotFoundError(`No Items ${id} Found in ${collection}`);
     }
 
     return NextResponse.json(
