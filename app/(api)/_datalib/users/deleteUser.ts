@@ -3,13 +3,17 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
 
-/*
- *   Removes existing user in database if exists
- *   @param request: id: string
- *   @returns {ok: boolean, body: null, error: number | null}
- */
 const collectionName = 'users';
 
+/**
+ *   Removes an existing user in database
+ *   @param id - ID of user to delete
+ *   @returns: {
+ *     ok: boolean,
+ *     body: null,
+ *     error: string | null
+ *   }
+ */
 export async function DeleteUser(id: string) {
   try {
     const db = await getDatabase();

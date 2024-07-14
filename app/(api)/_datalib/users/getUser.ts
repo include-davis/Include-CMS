@@ -3,26 +3,27 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
 
-/*
- *   Retrieves user in the database
- *   @param request: id: string
- *   @returns {ok: boolean, body: { _id: string, email: string, password: string} | null, error: number | null}
- */
 const collectionName = 'users';
 
-export async function GetUser(id: string) {
+/**
+ *   Retrieves a user from the database by ID or Email
+ *   @param query - ID/Email of User
+ *   @returns: {
+ *     ok: boolean,
+ *     body: object | null,
+ *     error: number | null
+ *   }
+ */
+export async function GetUserByIdOrEmail(query: string) {
   try {
     const db = await getDatabase();
-    const objectId = ObjectId.createFromHexString(id);
-
-    const user = await db.collection(collectionName).findOne({
-      _id: objectId,
-    });
+    const userQuery = query.includes('@')
+      ? { email: query }
+      : { _id: ObjectId.createFromHexString(query) };
+    const user = await db.collection(collectionName).findOne(userQuery);
 
     if (!user) {
-      throw new NotFoundError(
-        `Could not retrieve user with ID: '${id}'. User does not exist or ID is incorrect.`
-      );
+      throw new NotFoundError(`Could not retrieve user. Invalid ID or Email.`);
     }
 
     return NextResponse.json(
@@ -50,15 +51,25 @@ export async function GetUser(id: string) {
   }
 }
 
-/*
- *   Retrieves multiple users in the database
- *   @param query: object
- *   @returns {ok: boolean, body: [{ _id: string, email: string, password: string}] | null, error: number | null}
+/**
+ *   Retrieves matched user(s) from database based on specified query
+ *   @param query - Object with key-value pairs to filter user(s) by (i.e { email: "example@gmail.com" })
+ *   @returns: {
+ *     ok: boolean,
+ *     body: User[] | null,
+ *     error: number | null
+ *   }
  */
-export async function GetManyUsers(query: object = {}) {
+export async function GetUser(query: object) {
   try {
     const db = await getDatabase();
     const users = await db.collection(collectionName).find(query).toArray();
+
+    if (users.length === 0) {
+      throw new NotFoundError(
+        `Could not retrieve user(s). Invalid filter options.`
+      );
+    }
 
     return NextResponse.json(
       {

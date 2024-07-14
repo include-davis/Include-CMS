@@ -11,13 +11,18 @@ import {
 
 // pass in id of user + new email/password to update (at least one must be provided)
 // check if user exists in db before updating
-/*
- *   Updates email & password of user in the database
- *   @param request: id: string, body: {email: string | null, password: string | null}
- *   @returns {ok: boolean, body: object | null, error: number | null}
- */
 const collectionName = 'users';
 
+/**
+ *   Updates user fields specified by the caller
+ *   @param id - ID of user to update
+ *   @param body - JSON object of fields with updated values
+ *   @returns: {
+ *     ok: boolean,
+ *     body: User | null,
+ *     error: number | null
+ *   }
+ */
 export async function UpdateUser(id: string, body: object) {
   try {
     if (isBodyEmpty(body)) {

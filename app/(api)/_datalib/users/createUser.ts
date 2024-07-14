@@ -10,21 +10,28 @@ import {
 
 // pass in email + password in body to create new user
 // check if the user exists in the db before creating
-/*
- *   Adds new user in the database
- *   @param request: {email: string, password: string}
- *   @returns {ok: boolean, body: {_id: ObjectId, username: string, password: string} | null, error: number | null}
- */
 const collectionName = 'users';
 
+/**
+ *   Adds new user in the database.
+ *   @param body - {
+ *     email: string,
+ *     password: string
+ *   }
+ *   @returns: {
+ *     ok: boolean,
+ *     body: User | null,
+ *     error: number | null
+ *   }
+ */
 export async function CreateUser(body: object) {
   try {
     if (isBodyEmpty(body)) {
       throw new NoContentError();
     }
 
-    const parsedBody = await parseAndReplace(body);
     const db = await getDatabase();
+    const parsedBody = await parseAndReplace(body);
 
     const userExists = await db.collection(collectionName).findOne({
       email: parsedBody.email,
