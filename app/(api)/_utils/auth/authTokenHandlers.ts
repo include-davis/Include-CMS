@@ -17,7 +17,11 @@ export async function createAuthToken(data: object) {
 /**
  *   Verifies the token provided by the user & returns the decoded payload if not expired
  *   @param token - string
- *   @returns: {ok: boolean, body: object | null, error: string | null}
+ *   @returns: {
+ *     ok: boolean,
+ *     body: object | null,
+ *     error: string | null
+ *   }
  */
 export async function verifyAuthToken(token: string) {
   const decodedPayload = jwt.verify(
