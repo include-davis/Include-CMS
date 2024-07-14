@@ -65,12 +65,6 @@ export async function GetUser(query: object) {
     const db = await getDatabase();
     const users = await db.collection(collectionName).find(query).toArray();
 
-    if (users.length === 0) {
-      throw new NotFoundError(
-        `Could not retrieve user(s). Invalid filter options.`
-      );
-    }
-
     return NextResponse.json(
       {
         ok: true,

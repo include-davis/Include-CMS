@@ -8,8 +8,6 @@ import {
   DuplicateError,
 } from '@utils/response/Errors';
 
-// pass in email + password in body to create new user
-// check if the user exists in the db before creating
 const collectionName = 'users';
 
 /**
