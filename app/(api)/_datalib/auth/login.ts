@@ -2,13 +2,13 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
-import { GetUserByIdOrEmail } from '@datalib/users/getUser';
+import { GetUserByEmail } from '@datalib/users/getUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
 
 export async function Login(body: { email: string; password: string }) {
   try {
     const { email, password } = body;
-    const res = await GetUserByIdOrEmail(email);
+    const res = await GetUserByEmail(email);
     const data = await res.json();
 
     if (!data.ok || !data.body.length) {
