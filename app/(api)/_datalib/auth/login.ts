@@ -2,33 +2,34 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
-import { GetUserByIdOrEmail } from '@datalib/users/getUser';
+import { GetUserByEmail } from '@datalib/users/getUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
 
-export async function Login(body: { email: string; password: string }) {
+interface LoginInt {
+  email: string;
+  password: string;
+}
+
+export async function Login(body: LoginInt) {
   try {
     const { email, password } = body;
-    const res = await GetUserByIdOrEmail(email);
+    // get user
+    const res = await GetUserByEmail(email);
     const data = await res.json();
+    const user = data.body;
 
-    if (!data.ok || !data.body.length) {
-      throw new NotAuthenticatedError('User not found.');
+    // check if password matches
+    const passwordMatches = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatches) {
+      throw new NotAuthenticatedError('Invalid email or password.');
     }
 
-    const user = data.body[0];
+    // create auth token for user
+    const authToken = await createAuthToken(user);
 
-    const isPasswordValid = await bcrypt.compare(
-      password as string,
-      user.password
-    );
-
-    if (!isPasswordValid) {
-      throw new NotAuthenticatedError('Invalid password.');
-    }
-
-    const token = await createAuthToken(user);
     return NextResponse.json(
-      { ok: true, body: token, error: null },
+      { ok: true, body: authToken, error: null },
       { status: 200 }
     );
   } catch (e) {
