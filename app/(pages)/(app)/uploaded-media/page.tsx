@@ -5,6 +5,7 @@ import MediaCard from './_components/MediaCard/MediaCard';
 import ContentHeader from '../_components/ContentHeader/ContentHeader';
 import ContentSection from '../_components/ContentSection/ContentSection';
 import SelectContextProvider from '@contexts/SelectContext';
+import FilterContextProvider from '@contexts/FilterContext';
 
 const collection_data = [
   {
@@ -58,12 +59,14 @@ export default function CollectionPage() {
 
   return (
     <SelectContextProvider>
-      <div className={styles.container}>
-        <ContentHeader collection={'Uploaded Media'} />
-        <ContentSection title={'Some Collection Type'}>
-          {data_list}
-        </ContentSection>
-      </div>
+      <FilterContextProvider>
+        <div className={styles.container}>
+          <ContentHeader collection={'Uploaded Media'} />
+          <ContentSection title={'Some Collection Type'}>
+            {data_list}
+          </ContentSection>
+        </div>
+      </FilterContextProvider>
     </SelectContextProvider>
   );
 }
