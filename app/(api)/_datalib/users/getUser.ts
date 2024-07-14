@@ -6,21 +6,62 @@ import { ObjectId } from 'mongodb';
 const collectionName = 'users';
 
 /**
- *   Retrieves a user from the database by ID or Email
- *   @param query - ID/Email of User
+ *   Retrieves a user from the database by email
+ *   @param query - Email of User
  *   @returns: {
  *     ok: boolean,
  *     body: object | null,
  *     error: number | null
  *   }
  */
-export async function GetUserByIdOrEmail(query: string) {
+export async function GetUserByEmail(email: string) {
   try {
     const db = await getDatabase();
-    const userQuery = query.includes('@')
-      ? { email: query }
-      : { _id: ObjectId.createFromHexString(query) };
-    const user = await db.collection(collectionName).findOne(userQuery);
+    const user = await db.collection(collectionName).findOne({ email });
+
+    if (!user) {
+      throw new NotFoundError(`Could not retrieve user. Invalid ID or Email.`);
+    }
+
+    return NextResponse.json(
+      {
+        ok: true,
+        body: user,
+        error: null,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (e) {
+    const error = e as HttpError;
+    return NextResponse.json(
+      {
+        ok: false,
+        body: null,
+        error: error.message,
+      },
+      {
+        status: error.status || 400,
+      }
+    );
+  }
+}
+
+/**
+ *   Retrieves a user from the database by id
+ *   @param query - ID of User
+ *   @returns: {
+ *     ok: boolean,
+ *     body: object | null,
+ *     error: number | null
+ *   }
+ */
+export async function GetUserById(id: string) {
+  try {
+    const db = await getDatabase();
+    const objectId = ObjectId.createFromHexString(id);
+    const user = await db.collection(collectionName).findOne({ _id: objectId });
 
     if (!user) {
       throw new NotFoundError(`Could not retrieve user. Invalid ID or Email.`);
