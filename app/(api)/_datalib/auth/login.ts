@@ -1,22 +1,27 @@
 'use server';
-import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
+import { NextResponse } from 'next/server';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import { GetUserByEmail } from '@datalib/users/getUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
+import type { User } from '@datatypes/user';
+import type { LoginInt } from '@typeDefs/login';
 
-interface LoginInt {
-  email: string;
-  password: string;
-}
-
+/**
+ * @param body - { email: string, password: string }
+ * @returns: {
+ *   ok: boolean,
+ *   body: AuthToken | null,
+ *   error: number | null
+ * }
+ */
 export async function Login(body: LoginInt) {
   try {
     const { email, password } = body;
     // get user
     const res = await GetUserByEmail(email);
     const data = await res.json();
-    const user = data.body;
+    const user: User = data.body;
 
     // check if password matches
     const passwordMatches = await bcrypt.compare(password, user.password);

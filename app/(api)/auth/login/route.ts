@@ -1,14 +1,15 @@
 'use server';
+import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import jwt from 'jsonwebtoken';
 import { Login } from '@datalib/auth/login';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import type { AuthTokenInt } from '@datatypes/authToken';
+import type { LoginInt } from '@typeDefs/login';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body: LoginInt = await request.json();
     const res = await Login(body);
     const data = await res.json();
 
