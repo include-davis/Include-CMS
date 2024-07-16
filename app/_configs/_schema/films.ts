@@ -1,6 +1,7 @@
 import Fields from './_fields';
+import { Schema } from './_types';
 
-const films = {
+const films: Schema = {
   name: 'Films',
   fields: [
     { name: 'Title', type: Fields.ShortText },
