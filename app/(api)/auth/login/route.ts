@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Login } from '@datalib/auth/login';
-import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
+import { HttpError } from '@utils/response/Errors';
 import type { AuthTokenInt } from '@datatypes/authToken';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
 
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     const data = await res.json();
 
     if (!data.ok) {
-      throw new NotAuthenticatedError(data.error);
+      throw new HttpError(data.error);
     }
 
     const payload = jwt.decode(data.body) as AuthTokenInt;
