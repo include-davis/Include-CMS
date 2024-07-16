@@ -5,11 +5,11 @@ import { cookies } from 'next/headers';
 import { Login } from '@datalib/auth/login';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import type { AuthTokenInt } from '@datatypes/authToken';
-import type { LoginInt } from '@typeDefs/login';
+import type { UserCredentials } from '@typeDefs/UserCredentials';
 
 export async function POST(request: NextRequest) {
   try {
-    const body: LoginInt = await request.json();
+    const body: UserCredentials = await request.json();
     const res = await Login(body);
     const data = await res.json();
 
