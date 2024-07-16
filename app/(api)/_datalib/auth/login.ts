@@ -5,7 +5,7 @@ import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import { GetUserByEmail } from '@datalib/users/getUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
 import type { User } from '@datatypes/user';
-import type { LoginInt } from '@typeDefs/login';
+import type { UserCredentials } from '@typeDefs/UserCredentials';
 
 /**
  * @param body - { email: string, password: string }
@@ -15,7 +15,7 @@ import type { LoginInt } from '@typeDefs/login';
  *   error: number | null
  * }
  */
-export async function Login(body: LoginInt) {
+export async function Login(body: UserCredentials) {
   try {
     const { email, password } = body;
     // get user
