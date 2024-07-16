@@ -23,11 +23,15 @@ export async function Login(body: UserCredentials) {
     const data = await res.json();
     const user: User = data.body;
 
+    if (!user) {
+      throw new HttpError(data.error);
+    }
+
     // check if password matches
     const passwordMatches = await bcrypt.compare(password, user.password);
 
     if (!passwordMatches) {
-      throw new NotAuthenticatedError('Invalid email or password.');
+      throw new NotAuthenticatedError('Invalid password. Please try again.');
     }
 
     // create auth token for user

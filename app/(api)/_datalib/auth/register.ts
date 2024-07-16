@@ -6,6 +6,7 @@ import { GetUserByEmail } from '@datalib/users/getUser';
 import { CreateUser } from '@datalib/users/createUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
+import type { User } from '@datatypes/user';
 
 /**
  * @param body - { email: string, password: string }
@@ -21,10 +22,13 @@ export async function Register(body: UserCredentials) {
 
     // check if user exists
     const userRes = await GetUserByEmail(email);
-    const user = await userRes.json();
+    const userData = await userRes.json();
+    const user: User = userData.body;
 
-    if (!user.ok || user.body) {
-      throw new DuplicateError('User already exists.');
+    if (user) {
+      throw new DuplicateError(
+        'User already exists. Please enter a different email.'
+      );
     }
 
     // hash the user password
@@ -32,14 +36,14 @@ export async function Register(body: UserCredentials) {
 
     // create a new user
     const newUserRes = await CreateUser({ email, password: hashedPassword });
-    const newUser = await newUserRes.json();
+    const newUserData = await newUserRes.json();
 
-    if (!newUser.ok) {
+    if (!newUserData.ok) {
       throw new HttpError('Failed to create user.');
     }
 
     // create auth token for user
-    const authToken = await createAuthToken(newUser.body);
+    const authToken = await createAuthToken(newUserData.body);
 
     return NextResponse.json(
       { ok: true, body: authToken, error: null },
