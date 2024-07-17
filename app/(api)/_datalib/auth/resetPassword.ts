@@ -11,7 +11,7 @@ import type { User } from '@datatypes/user';
  * @param body - { email: string, password: string }
  * @returns: {
  *   ok: boolean,
- *   body: boolean | null,
+ *   body: User | null,
  *   error: number | null
  * }
  */
