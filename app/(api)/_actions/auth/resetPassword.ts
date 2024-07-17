@@ -2,7 +2,7 @@
 import { ResetPassword } from '@datalib/auth/resetPassword';
 import { HttpError } from '@utils/response/Errors';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
-import FormToJson from '@utils/form/formToJson';
+import FormToJson from '@utils/form/FormToJson';
 
 export default async function ResetPasswordAction(formData: FormData): Promise<{
   ok: boolean;
