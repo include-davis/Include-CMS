@@ -11,7 +11,7 @@ import type { UserCredentials } from '@typeDefs/UserCredentials';
  * @param body - { email: string, password: string }
  * @returns: {
  *   ok: boolean,
- *   body: AuthToken | null,
+ *   body: string (Auth Token) | null,
  *   error: number | null
  * }
  */
