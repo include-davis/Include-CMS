@@ -21,7 +21,7 @@ export async function GetUserByEmail(email: string) {
     const user = await db.collection(collectionName).findOne({ email });
 
     if (!user) {
-      throw new NotFoundError(`Could not retrieve user. Invalid ID or Email.`);
+      throw new NotFoundError(`Could not retrieve user. Invalid Email.`);
     }
 
     return NextResponse.json(
@@ -65,7 +65,7 @@ export async function GetUserById(id: string) {
     const user = await db.collection(collectionName).findOne({ _id: objectId });
 
     if (!user) {
-      throw new NotFoundError(`Could not retrieve user. Invalid ID or Email.`);
+      throw new NotFoundError(`Could not retrieve user. Invalid ID.`);
     }
 
     return NextResponse.json(
