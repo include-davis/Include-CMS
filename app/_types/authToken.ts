@@ -1,13 +1,12 @@
-export interface DecodedToken {
+export interface DecodedTokenInt {
   userId: string;
   exp: number;
 }
 
-export interface AuthTokenInterface {
+export interface AuthTokenInt {
   _id: string;
-  name: string;
   email: string;
   password: string;
-  role: string;
+  iat: number;
   exp: number;
 }
