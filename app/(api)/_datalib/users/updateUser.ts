@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { ObjectId } from 'mongodb';
+import type { User } from '@datatypes/user';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import {
@@ -46,7 +47,7 @@ export async function UpdateUser(id: string, body: object) {
     return NextResponse.json(
       {
         ok: true,
-        body: user,
+        body: user as User,
         error: null,
       },
       {

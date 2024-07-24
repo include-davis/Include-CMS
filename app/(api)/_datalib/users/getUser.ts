@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
+import type { User } from '@datatypes/user';
 
 const collectionName = 'users';
 
@@ -20,13 +21,13 @@ export async function GetUserByEmail(email: string) {
     const user = await db.collection(collectionName).findOne({ email });
 
     if (!user) {
-      throw new NotFoundError(`Could not retrieve user. Invalid ID or Email.`);
+      throw new NotFoundError(`Could not retrieve user. Invalid Email.`);
     }
 
     return NextResponse.json(
       {
         ok: true,
-        body: user,
+        body: user as User,
         error: null,
       },
       {
@@ -64,13 +65,13 @@ export async function GetUserById(id: string) {
     const user = await db.collection(collectionName).findOne({ _id: objectId });
 
     if (!user) {
-      throw new NotFoundError(`Could not retrieve user. Invalid ID or Email.`);
+      throw new NotFoundError(`Could not retrieve user. Invalid ID.`);
     }
 
     return NextResponse.json(
       {
         ok: true,
-        body: user,
+        body: user as User,
         error: null,
       },
       {
@@ -109,7 +110,7 @@ export async function GetUser(query: object) {
     return NextResponse.json(
       {
         ok: true,
-        body: users,
+        body: users as User[],
         error: null,
       },
       {

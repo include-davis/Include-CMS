@@ -2,7 +2,7 @@
 import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { Login } from '@datalib/auth/login';
+import { Register } from '@datalib/auth/register';
 import { HttpError } from '@utils/response/Errors';
 import type { AuthTokenInt } from '@datatypes/authToken';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
@@ -10,7 +10,7 @@ import type { UserCredentials } from '@typeDefs/UserCredentials';
 export async function POST(request: NextRequest) {
   try {
     const body: UserCredentials = await request.json();
-    const res = await Login(body);
+    const res = await Register(body);
     const data = await res.json();
 
     if (!data.ok) {
