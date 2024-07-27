@@ -1,16 +1,20 @@
 'use server';
 import jwt from 'jsonwebtoken';
-import { NextRequest, NextResponse } from 'next/server';
+import { Register } from '@datalib/auth/register';
 import { cookies } from 'next/headers';
-import { Login } from '@datalib/auth/login';
 import { HttpError } from '@utils/response/Errors';
 import type { AuthTokenInt } from '@datatypes/authToken';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
+import FormToJson from '@utils/form/FormToJSON';
 
-export async function POST(request: NextRequest) {
+export default async function RegisterAction(formData: FormData): Promise<{
+  ok: boolean;
+  body: AuthTokenInt | null;
+  error: string | null;
+}> {
   try {
-    const body: UserCredentials = await request.json();
-    const res = await Login(body);
+    const body = FormToJson(formData) as UserCredentials;
+    const res = await Register(body);
     const data = await res.json();
 
     if (!data.ok) {
@@ -25,15 +29,18 @@ export async function POST(request: NextRequest) {
       secure: true,
       httpOnly: true,
     });
-    return NextResponse.json(
-      { ok: true, body: payload, error: null },
-      { status: 200 }
-    );
+
+    return {
+      ok: true,
+      body: payload,
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      { ok: false, body: null, error: error.message },
-      { status: error.status || 400 }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message,
+    };
   }
 }
