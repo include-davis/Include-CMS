@@ -29,59 +29,59 @@ function generateJsonSchema(schema) {
     }
   });
 
-  return {
+  const jsonSchema = {
     bsonType: 'object',
     properties: {
       _id: { bsonType: 'objectId' },
       ...properties,
     },
   };
+
+  const schemaContent = `
+    const ${schema.name.toLowerCase()} = ${JSON.stringify(jsonSchema, null, 2)};
+
+    export default ${schema.name.toLowerCase()};
+  `;
+
+  return schemaContent;
 }
 
 function generateMigration(schema) {
   const collectionName = schema.name.toLowerCase();
-  const jsonSchema = generateJsonSchema(schema);
 
   const migrationContent = `
-    module.exports = {
-      async up(db) {
-        await db.createCollection('${collectionName}', {
-          validator: {
-            $jsonSchema: ${JSON.stringify(jsonSchema, null, 2)}
-          }
-        });
+    import ${collectionName} from '../_schema/${collectionName}.mjs';
 
-        await db.command({
-          collMod: '${collectionName}',
-          validationAction: 'error',
-          validationLevel: 'strict'
-        });
+    export async function up(db) {
+      await db.createCollection('${collectionName}', {
+        validator: {
+          $jsonSchema: ${collectionName}
+        },
+      });
+    }
 
-        await db.collection('${collectionName}').createIndex({ createdAt: 1 });
-        await db.collection('${collectionName}').createIndex({ updatedAt: 1 });
-      },
-
-      async down(db) {
-        await db.collection('${collectionName}').drop();
-      }
-    };
+    export async function down(db) {
+      await db.collection('${collectionName}').drop();
+    }
   `;
 
   return migrationContent;
 }
 
-function writeMigrationFile(schema, outputDir) {
-  const fileName = `create_${schema.name.toLowerCase()}.js`;
-  const filePath = path.join(outputDir, fileName);
-
-  const migrationContent = generateMigration(schema);
-
-  fs.writeFileSync(filePath, migrationContent);
-  console.log(`Migration file created: ${filePath}`);
+function writeFile(path, content) {
+  fs.writeFileSync(path, content);
+  console.log(`File created: ${path}`);
 }
 
-const outputDir = 'app/(api)/_migrations';
-
 for (const schema of typeSchemas) {
-  writeMigrationFile(schema, outputDir);
+  const schemaName = `${schema.name.toLowerCase()}.mjs`;
+  const schemaPath = path.join('app/(api)/_schema', schemaName);
+  const schemaContent = generateJsonSchema(schema);
+
+  const migrationName = `create_${schema.name.toLowerCase()}.mjs`;
+  const migrationPath = path.join('app/(api)/_migrations', migrationName);
+  const migrationContent = generateMigration(schema);
+
+  writeFile(schemaPath, schemaContent);
+  writeFile(migrationPath, migrationContent);
 }

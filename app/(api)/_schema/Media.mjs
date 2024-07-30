@@ -1,4 +1,4 @@
-const Media = {
+const media = {
   bsonType: 'object',
   title: 'Media Object Validation',
   properties: {
@@ -36,4 +36,4 @@ const Media = {
   },
 };
 
-export default Media;
+export default media;
