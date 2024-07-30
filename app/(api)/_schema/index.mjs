@@ -1,11 +1,11 @@
-import Media from './Media.mjs';
-import Pokemon from './Pokemon.mjs';
-import Trainer from './Trainer.mjs';
+import media from './media.mjs';
+import films from './films.mjs';
+import weddings from './weddings.mjs';
 
 const schema = {
-  pokemon: Pokemon,
-  trainers: Trainer,
-  media: Media,
+  media,
+  films,
+  weddings,
 };
 
 export default schema;

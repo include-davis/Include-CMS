@@ -1,7 +1,6 @@
-import Fields from './_fields';
-import { Schema } from './_types';
+import Fields from './_fields.mjs';
 
-const films: Schema = {
+const films = {
   name: 'Films',
   fields: [
     { name: 'Title', type: Fields.ShortText },

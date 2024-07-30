@@ -6,9 +6,9 @@ const config = {
   mongodb: { url: process.env.MONGO_CONNECTION_STRING },
   migrationsDir: 'app/(api)/_migrations',
   changelogCollectionName: 'changelog',
-  migrationFileExtension: '.js',
+  migrationFileExtension: '.mjs',
   useFileHash: false,
-  moduleSystem: 'commonjs',
+  moduleSystem: 'esm',
 };
 
 module.exports = config;
