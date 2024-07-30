@@ -1,12 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-import Fields from '@configs/_schema/_fields';
-import { Schema } from '@configs/_schema/_types';
-import typeSchemas from '@configs/_schema/_index';
+import Fields from '../../../_configs/_schema/_fields.mjs';
+import typeSchemas from '../../../_configs/_schema/_index.mjs';
 
-function generateJsonSchema(schema: Schema) {
-  const properties: Record<string, any> = {};
+function generateJsonSchema(schema) {
+  const properties = {};
 
   schema.fields.forEach((field) => {
     const fieldName = field.name.toLowerCase().replace(/\s+/g, '_');
@@ -39,7 +38,7 @@ function generateJsonSchema(schema: Schema) {
   };
 }
 
-function generateMigration(schema: Schema) {
+function generateMigration(schema) {
   const collectionName = schema.name.toLowerCase();
   const jsonSchema = generateJsonSchema(schema);
 
@@ -71,7 +70,7 @@ function generateMigration(schema: Schema) {
   return migrationContent;
 }
 
-function writeMigrationFile(schema: Schema, outputDir: string) {
+function writeMigrationFile(schema, outputDir) {
   const fileName = `create_${schema.name.toLowerCase()}.js`;
   const filePath = path.join(outputDir, fileName);
 

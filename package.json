@@ -15,8 +15,8 @@
     "seed:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\"",
     "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\"",
     "setup": "run-script-os",
-    "setup:nix": "ts-node \"app/(api)/_utils/mongodb/dbSetup.ts\"",
-    "setup:windows": "ts-node \".\\app\\(api)\\_utils\\mongodb\\dbSetup.ts\""
+    "setup:nix": "node \"app/(api)/_utils/mongodb/dbSetup.mjs\"",
+    "setup:windows": "node \".\\app\\(api)\\_utils\\mongodb\\dbSetup.mjs\""
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -58,7 +58,6 @@
     "prettier": "3.0.3",
     "run-script-os": "^1.1.6",
     "tailwindcss": "^3.3.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
