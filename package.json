@@ -10,12 +10,12 @@
     "test:watch": "jest --watch",
     "lint": "next lint",
     "type-check": "npx tsc",
-    "init": "run-script-os",
-    "init:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbInit.mjs\"",
-    "init:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbInit.mjs\"",
     "seed": "run-script-os",
     "seed:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\"",
-    "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\""
+    "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\"",
+    "setup": "run-script-os",
+    "setup:nix": "node \"app/(api)/_utils/mongodb/dbSetup.mjs\"",
+    "setup:windows": "node \".\\app\\(api)\\_utils\\mongodb\\dbSetup.mjs\""
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -50,6 +50,7 @@
     "@typescript-eslint/parser": "^6.16.0",
     "autoprefixer": "^10.0.1",
     "babel-jest": "^29.7.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",

@@ -1,6 +1,6 @@
 'use server';
 
-import { verifyAuthToken } from '@datalib/auth/verifyAuthToken';
+import { verifyAuthToken } from '@utils/auth/authTokenHandlers';
 import { cookies } from 'next/headers';
 
 export default async function VerifyAuthToken() {
