@@ -39,6 +39,7 @@
     "@babel/preset-env": "^7.24.8",
     "@faker-js/faker": "^8.4.1",
     "@next/eslint-plugin-next": "^14.0.4",
+    "@shelf/jest-mongodb": "^4.3.2",
     "@testing-library/jest-dom": "^6.4.6",
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.12",
