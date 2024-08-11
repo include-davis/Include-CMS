@@ -9,7 +9,7 @@ import {
   NotFoundError,
 } from '@utils/response/Errors';
 
-export async function bodyMediaItem(id: string, body = {}) {
+export async function updateMediaItem(id: string, body = {}) {
   try {
     if (!body || Object.keys(body).length === 0) {
       throw new NoContentError();
