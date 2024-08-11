@@ -1,40 +1,41 @@
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
-import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
-import { HttpError, NoContentError } from '../../_utils/response/Errors';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import parseAndReplace from '@utils/request/parseAndReplace';
+import { HttpError, NoContentError } from '@utils/response/Errors';
 
-export default async function createMediaItem(data: object) {
+export async function createMediaItem(body: object) {
   try {
-    const parsedData = await parseAndReplace(data);
-
-    if (!data || Object.keys(parsedData).length === 0) {
+    if (!body || Object.keys(body).length === 0) {
       throw new NoContentError();
     }
 
-    const db = await getDatabase();
-    const creationStatus = await db.collection('media').insertOne(parsedData);
+    const parsedBody = await parseAndReplace(body);
 
-    const newItem = await db.collection('media').findOne({
-      _id: new ObjectId(creationStatus.insertedId),
+    const db = await getDatabase();
+    const creationStatus = await db.collection('media').insertOne(parsedBody);
+
+    const createdMedia = await db.collection('media').findOne({
+      _id: ObjectId.createFromHexString(creationStatus.insertedId),
     });
 
-    if (!newItem) {
+    if (!createdMedia) {
       throw new HttpError('Failed to fetch the created item');
     }
 
     return NextResponse.json(
-      { ok: true, body: newItem, error: null },
+      { ok: true, body: createdMedia, error: null },
       { status: 201 }
     );
   } catch (e) {
-    const error =
-      e instanceof HttpError
-        ? e
-        : new HttpError((e as Error).message || 'Internal Server Error');
+    const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, body: null, error: error.message },
+      {
+        ok: false,
+        body: null,
+        error: error.message || 'Internal Server Error',
+      },
       { status: error.status || 500 }
     );
   }

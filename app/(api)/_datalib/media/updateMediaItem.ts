@@ -1,43 +1,46 @@
-import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
-import { NotFoundError } from '@utils/response/Errors';
-import parseAndReplace from '@utils/request/parseAndReplace';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 
-// Change to id
-export async function updateMediaItem(query = {}, update = {}) {
-  const parsedQuery = await parseAndReplace(query);
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
+import parseAndReplace from '@utils/request/parseAndReplace';
+import {
+  HttpError,
+  NoContentError,
+  NotFoundError,
+} from '@utils/response/Errors';
+
+export async function bodyMediaItem(id: string, body = {}) {
   try {
+    if (!body || Object.keys(body).length === 0) {
+      throw new NoContentError();
+    }
+
     const db = await getDatabase();
-    const reqCollection = await db.collection('media');
-    const reqDocument = await reqCollection.findOneAndUpdate(
-      parsedQuery,
-      update
+
+    const objectId = ObjectId.createFromHexString(id);
+    const updates = await parseAndReplace(body);
+
+    const updateStatus = await db.collection('media').upadateOne(
+      {
+        id: objectId,
+      },
+      updates
     );
 
-    if (!reqDocument || reqDocument.length === 0) {
-      throw new NotFoundError(`No Items Found.`);
+    if (updateStatus === null) {
+      throw new NotFoundError(`Judge with id: ${id} not found.`);
     }
 
-    return NextResponse.json({ ok: true, body: reqDocument, error: null });
+    return NextResponse.json({ ok: true, body: updateStatus, error: null });
   } catch (error) {
-    if (error instanceof NotFoundError) {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: error.status, message: error.message },
-        },
-        { status: error.status }
-      );
-    } else {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: 500, message: 'Internal Server Error' },
-        },
-        { status: 500 }
-      );
-    }
+    const e = error as HttpError;
+    return NextResponse.json(
+      {
+        ok: false,
+        body: null,
+        error: e.message || 'Internal Server Error',
+      },
+      { status: e.status || 500 }
+    );
   }
 }

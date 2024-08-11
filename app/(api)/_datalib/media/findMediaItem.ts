@@ -1,43 +1,57 @@
-import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
-import { NotFoundError } from '@utils/response/Errors';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
+
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
+import { HttpError, NotFoundError } from '@utils/response/Errors';
 
 export async function findMediaItem(id: string) {
   try {
     const db = await getDatabase();
     const reqCollection = await db.collection('media');
+    const objectId = ObjectId.createFromHexString(id);
 
-    const reqDocument = await reqCollection.findOne({
-      id: id,
+    const mediaItem = await reqCollection.findOne({
+      _id: objectId,
     });
 
-    if (!reqDocument || reqDocument.length === 0) {
+    if (!mediaItem) {
       throw new NotFoundError(`No Items Found.`);
     }
 
     return NextResponse.json(
-      { ok: true, body: reqDocument, error: null },
+      { ok: true, body: mediaItem, error: null },
       { status: 200 }
     );
   } catch (error) {
-    if (error instanceof NotFoundError) {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: error.status, message: error.message },
-        },
-        { status: error.status }
-      );
-    } else {
-      return NextResponse.json(
-        {
-          ok: false,
-          body: null,
-          error: { code: 500, message: 'Internal Server Error' },
-        },
-        { status: 500 }
-      );
-    }
+    const e = error as HttpError;
+    return NextResponse.json(
+      {
+        ok: false,
+        body: null,
+        error: e.message || 'Internal Server Error',
+      },
+      { status: e.status || 500 }
+    );
+  }
+}
+
+export async function findMediaItems(query: object = {}) {
+  try {
+    const db = await getDatabase();
+    const mediaItems = await db.collection('media').find(query).toArray();
+    return NextResponse.json(
+      { ok: true, body: mediaItems, error: null },
+      { status: 200 }
+    );
+  } catch (error) {
+    const e = error as HttpError;
+    return NextResponse.json(
+      {
+        ok: false,
+        body: null,
+        error: e.message || 'Internal Server Error',
+      },
+      { status: e.status || 500 }
+    );
   }
 }
