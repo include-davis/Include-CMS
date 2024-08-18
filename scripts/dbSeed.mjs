@@ -1,6 +1,6 @@
 import { getClient } from '../app/(api)/_utils/mongodb/mongoClient.mjs';
 import readline from 'readline';
-import generateData from '../app/(api)/_utils/mongodb/generateData.mjs';
+import generateData from './generateData.mjs';
 import schema from '../app/(api)/_schema/index.mjs';
 
 const rl = readline.createInterface({
