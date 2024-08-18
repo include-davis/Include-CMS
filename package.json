@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "next lint",
     "type-check": "npx tsc",
     "migrate:up": "migrate-mongo up",
@@ -13,8 +15,11 @@
     "migrate:create": "migrate-mongo create",
     "migrate:status": "migrate-mongo status",
     "seed": "run-script-os",
-    "seed:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\"",
-    "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\""
+    "seed:nix": "node --env-file='.env' \"scripts/dbSeed.mjs\"",
+    "seed:windows": "node --env-file=\".\\.env\" \".\\scripts\\dbSeed.mjs\"",
+    "setup": "run-script-os",
+    "setup:nix": "node \"scripts/dbSetup.mjs\"",
+    "setup:windows": "node \".\\scripts\\dbSetup.mjs\""
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -33,9 +38,14 @@
     "sass": "^1.69.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.8",
+    "@babel/preset-env": "^7.24.8",
     "@faker-js/faker": "^8.4.1",
     "@next/eslint-plugin-next": "^14.0.4",
+    "@shelf/jest-mongodb": "^4.3.2",
+    "@testing-library/jest-dom": "^6.4.6",
     "@types/bcrypt": "^5.0.2",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -56,6 +66,7 @@
     "prettier": "3.0.3",
     "run-script-os": "^1.1.6",
     "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

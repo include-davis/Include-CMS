@@ -1,4 +1,4 @@
-import Fields from './_fields';
+import Fields from './_fields.mjs';
 
 const films = {
   name: 'Films',

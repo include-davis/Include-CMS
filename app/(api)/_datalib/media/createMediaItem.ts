@@ -2,15 +2,24 @@ import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
 import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
-import { HttpError, NoContentError } from '../../_utils/response/Errors';
+import {
+  BadRequestError,
+  HttpError,
+  NoContentError,
+} from '../../_utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
+import Media from '@typeDefs/Media';
 
 export default async function createMediaItem(data: object) {
   try {
-    const parsedData = await parseAndReplace(data);
+    const parsedData: Media = await parseAndReplace(data);
 
     if (!data || Object.keys(parsedData).length === 0) {
       throw new NoContentError();
+    }
+
+    if (parsedData.media_type === 'video' && !parsedData.preview_url) {
+      throw new BadRequestError('Bad Request: Videos must contain preview_url');
     }
 
     const db = await getDatabase();
