@@ -9,14 +9,6 @@
     "next",
     "prettier"
   ],
-  "overrides": [
-    {
-      "files": ["__tests__/**/*"],
-      "env": {
-        "jest": true
-      }
-    }
-  ],
   "plugins": ["@typescript-eslint", "prettier", "unicorn", "lit-a11y"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
