@@ -50,7 +50,7 @@ function generateMigration(schema) {
   const collectionName = schema.name.toLowerCase();
 
   const migrationContent = `
-    import ${collectionName} from '../_schema/${collectionName}.mjs';
+    import ${collectionName} from '../app/(api)/_schema/${collectionName}.mjs';
 
     export async function up(db) {
       await db.createCollection('${collectionName}', {
@@ -79,7 +79,7 @@ for (const schema of typeSchemas) {
   const schemaContent = generateJsonSchema(schema);
 
   const migrationName = `create_${schema.name.toLowerCase()}.mjs`;
-  const migrationPath = path.join('app/(api)/_migrations', migrationName);
+  const migrationPath = path.join('migrations', migrationName);
   const migrationContent = generateMigration(schema);
 
   writeFile(schemaPath, schemaContent);

@@ -1,27 +1,25 @@
-
-    const films = {
-  "bsonType": "object",
-  "properties": {
-    "_id": {
-      "bsonType": "objectId"
+const films = {
+  bsonType: 'object',
+  properties: {
+    _id: {
+      bsonType: 'objectId',
     },
-    "title": {
-      "bsonType": "string"
+    title: {
+      bsonType: 'string',
     },
-    "date": {
-      "bsonType": "date"
+    date: {
+      bsonType: 'date',
     },
-    "description": {
-      "bsonType": "string"
+    description: {
+      bsonType: 'string',
     },
-    "film": {
-      "bsonType": "array",
-      "items": {
-        "bsonType": "objectId"
-      }
-    }
-  }
+    film: {
+      bsonType: 'array',
+      items: {
+        bsonType: 'objectId',
+      },
+    },
+  },
 };
 
-    export default films;
-  
+export default films;
