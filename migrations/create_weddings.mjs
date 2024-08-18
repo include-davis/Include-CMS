@@ -1,4 +1,4 @@
-import weddings from '../_schema/weddings.mjs';
+import weddings from '../app/(api)/_schema/weddings.mjs';
 
 export async function up(db) {
   await db.createCollection('weddings', {

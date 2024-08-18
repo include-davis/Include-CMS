@@ -4,7 +4,7 @@ interface Media {
   name: string;
   alt_text: string;
   media_url: string;
-  preview_url: string;
+  preview_url?: string;
   date_added: Date;
 }
 

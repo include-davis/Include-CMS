@@ -11,11 +11,15 @@
     "lint": "next lint",
     "type-check": "npx tsc",
     "seed": "run-script-os",
-    "seed:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\"",
-    "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\"",
+    "seed:nix": "node --env-file='.env' \"scripts/dbSeed.mjs\"",
+    "seed:windows": "node --env-file=\".\\.env\" \".\\scripts\\dbSeed.mjs\"",
     "setup": "run-script-os",
-    "setup:nix": "node \"app/(api)/_utils/mongodb/dbSetup.mjs\"",
-    "setup:windows": "node \".\\app\\(api)\\_utils\\mongodb\\dbSetup.mjs\""
+    "setup:nix": "node \"scripts/dbSetup.mjs\"",
+    "setup:windows": "node \".\\scripts\\dbSetup.mjs\"",
+    "migrate:init": "sh -c 'ts-node node_modules/.bin/migrate-mongo create $0 -f migrate-mongo-config.ts' ",
+    "migrate:status": "migrate-mongo status",
+    "migrate:down": "ts-node node_modules/.bin/migrate-mongo down -f migrate-mongo-config.ts && npm run migrate:status",
+    "migrate:up": "ts-node node_modules/.bin/migrate-mongo up -f migrate-mongo-config.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",

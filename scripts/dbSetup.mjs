@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import Fields from '../../../_configs/_schema/_fields.mjs';
-import typeSchemas from '../../../_configs/_schema/_index.mjs';
+import Fields from '../app/_configs/_schema/_fields.mjs';
+import typeSchemas from '../app/_configs/_schema/_index.mjs';
 
 function generateJsonSchema(schema) {
   const properties = {};

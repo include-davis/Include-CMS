@@ -1,4 +1,4 @@
-import films from '../_schema/films.mjs';
+import films from '../app/(api)/_schema/films.mjs';
 
 export async function up(db) {
   await db.createCollection('films', {

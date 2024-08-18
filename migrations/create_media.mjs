@@ -1,4 +1,4 @@
-import media from '../_schema/media.mjs';
+import media from '../app/(api)/_schema/media.mjs';
 
 export async function up(db) {
   await db.createCollection('media', {

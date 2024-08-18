@@ -4,11 +4,11 @@ require('dotenv').config({ path: './.env' }); // migrate-mongo doesn't have acce
 
 const config = {
   mongodb: { url: process.env.MONGO_CONNECTION_STRING },
-  migrationsDir: 'app/(api)/_migrations',
+  migrationsDir: 'migrations',
   changelogCollectionName: 'changelog',
   migrationFileExtension: '.mjs',
   useFileHash: false,
-  moduleSystem: 'esm',
+  // moduleSystem: 'esm',
 };
 
 module.exports = config;

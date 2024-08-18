@@ -1,10 +1,9 @@
 import { NextRequest } from 'next/server';
-import { getClient } from '@utils/mongodb/mongoClient.mjs';
 import testCases from './api_test_cases';
 
 describe('API Routes', () => {
   afterAll(async () => {
-    const client = await getClient();
+    const client = (global as any).__MONGO_CLIENT__;
     await client.close();
   });
 

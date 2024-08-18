@@ -25,9 +25,6 @@ const media = {
     preview_url: {
       bsonType: 'string',
       description: 'Preview url must be a string',
-      required: function () {
-        return this.media_type === 'video'; // Preview URL required only for videos
-      },
     },
     date_added: {
       type: Date,
