@@ -1,6 +1,7 @@
 'use client';
 import { useState, createContext } from 'react';
-import schema from '@configs/_schema/_index';
+import schema from '@schema/_index';
+import { CollectionSchema } from '@datatypes/schema';
 
 interface ContentFormContextValue {
   collection: string;
@@ -27,7 +28,7 @@ export default function ContentFormContextProvider({
   initialValue,
   children,
 }: ContentFormContextProviderProps) {
-  const collection_schema = schema[collection];
+  const collection_schema = (schema as CollectionSchema)[collection];
   const generateInitialValue = () => {
     const res: { [key: string]: any } = {};
     for (const field of collection_schema.fields) {

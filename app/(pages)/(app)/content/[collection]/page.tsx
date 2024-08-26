@@ -1,5 +1,5 @@
 'use client';
-import schema from '@configs/_schema/_index';
+import schema from '@schema/_index';
 import styles from './page.module.scss';
 
 import ContentHeader from '../../_components/ContentHeader/ContentHeader';
@@ -7,6 +7,7 @@ import ContentSection from '../../_components/ContentSection/ContentSection';
 import ContentCard from '../_components/ContentCard/ContentCard';
 import SelectContextProvider from '@contexts/SelectContext';
 import FilterContextProvider from '@contexts/FilterContext';
+import { CollectionSchema } from '@datatypes/schema';
 
 interface CollectionPageProps {
   params: {
@@ -91,9 +92,9 @@ export default function CollectionPage({ params }: CollectionPageProps) {
   const { collection } = params;
 
   // place into hook
-  const currentCollection = schema[collection];
+  const collection_schema = (schema as CollectionSchema)[collection];
 
-  if (!currentCollection) {
+  if (!collection_schema) {
     return <div>Invalid collection</div>;
   }
 
@@ -102,7 +103,7 @@ export default function CollectionPage({ params }: CollectionPageProps) {
       <ContentCard
         {...card}
         key={card.id}
-        collection={currentCollection.name.toLowerCase()}
+        collection={collection_schema.name.toLowerCase()}
       />
     );
   });
@@ -111,7 +112,7 @@ export default function CollectionPage({ params }: CollectionPageProps) {
     <SelectContextProvider>
       <FilterContextProvider>
         <div className={styles.container}>
-          <ContentHeader collection={currentCollection.name} />
+          <ContentHeader collection={collection_schema.name} />
           <ContentSection title={'Published'}>{data_list}</ContentSection>
           <ContentSection title={'Drafts'}>{data_list}</ContentSection>
         </div>

@@ -1,15 +1,34 @@
-import { type NextRequest } from 'next/server';
+import { NextRequest } from 'next/server';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { ObjectId } from 'mongodb';
 
-export default function getQueries(request: NextRequest) {
+function typeCast(value: string, type: string) {
+  switch (type) {
+    case 'int':
+      return isNaN(+value) ? value : +value;
+    case 'objectId':
+      try {
+        return ObjectId.createFromHexString(value);
+      } catch {
+        return value;
+      }
+    default:
+      return value;
+  }
+}
+
+export default async function getQueries(
+  request: NextRequest,
+  collection: string
+) {
+  const db = await getDatabase();
   const query_entries = request.nextUrl.searchParams.entries();
-  const output: { [key: string]: string | ObjectId } = {};
+  const schema = (await db.listCollections({ name: collection }).toArray())[0]
+    .options.validator;
+
+  const output: { [key: string]: any } = {};
   for (const [key, val] of query_entries) {
-    if (key.endsWith('_id')) {
-      output[key] = ObjectId.createFromHexString(val);
-      continue;
-    }
-    output[key] = val;
+    output[key] = typeCast(val, schema.$jsonSchema.properties[key]?.bsonType);
   }
   return output;
 }
