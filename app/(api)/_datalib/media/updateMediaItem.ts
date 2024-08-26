@@ -20,9 +20,9 @@ export async function updateMediaItem(id: string, body = {}) {
     const objectId = ObjectId.createFromHexString(id);
     const updates = await parseAndReplace(body);
 
-    const updateStatus = await db.collection('media').upadateOne(
+    const updateStatus = await db.collection('media').updateOne(
       {
-        id: objectId,
+        _id: objectId,
       },
       updates
     );

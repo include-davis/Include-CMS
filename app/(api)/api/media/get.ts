@@ -3,6 +3,6 @@ import { findMediaItems } from '@datalib/media/findMediaItem';
 import getQueries from '@utils/request/getQueries';
 
 export async function GET(request: NextRequest) {
-  const queries = getQueries(request);
+  const queries = await getQueries(request, 'media');
   return findMediaItems(queries);
 }

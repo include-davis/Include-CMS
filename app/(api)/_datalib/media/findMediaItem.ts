@@ -7,15 +7,16 @@ import { HttpError, NotFoundError } from '@utils/response/Errors';
 export async function findMediaItem(id: string) {
   try {
     const db = await getDatabase();
-    const reqCollection = await db.collection('media');
     const objectId = ObjectId.createFromHexString(id);
 
-    const mediaItem = await reqCollection.findOne({
+    const mediaItem = await db.collection('media').findOne({
       _id: objectId,
     });
 
+    console.log(mediaItem);
+
     if (!mediaItem) {
-      throw new NotFoundError(`No Items Found.`);
+      throw new NotFoundError(`Media item with id: ${id} not found.`);
     }
 
     return NextResponse.json(

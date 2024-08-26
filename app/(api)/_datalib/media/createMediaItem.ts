@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
-
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { HttpError, NoContentError } from '@utils/response/Errors';
@@ -17,7 +15,7 @@ export async function createMediaItem(body: object) {
     const creationStatus = await db.collection('media').insertOne(parsedBody);
 
     const createdMedia = await db.collection('media').findOne({
-      _id: ObjectId.createFromHexString(creationStatus.insertedId),
+      _id: creationStatus.insertedId,
     });
 
     if (!createdMedia) {
