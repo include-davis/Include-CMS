@@ -2,12 +2,14 @@
 
 import Image from 'next/image';
 import styles from './page.module.scss';
-import schema from '@configs/_schema/_index';
+import schema from '@schema/_index';
 import ContentForm from '../../_components/ContentForm/ContentForm';
 import ContentFormContextProvider from '@contexts/ContentFormContext';
 import useContent from '@hooks/useContent';
 import backButton from '/public/content/form/back-button.png';
 import Link from 'next/link';
+
+import { CollectionSchema } from '@datatypes/schema';
 
 interface CreateContentProps {
   params: {
@@ -18,7 +20,7 @@ interface CreateContentProps {
 
 export default function CreateContent({ params }: CreateContentProps) {
   const { collection, id } = params;
-  const schema_collection = schema[collection];
+  const collection_schema = (schema as CollectionSchema)[collection];
 
   const { data, loading } = useContent(collection, id);
 
@@ -38,12 +40,12 @@ export default function CreateContent({ params }: CreateContentProps) {
       </Link>
       <div className={styles.form_container}>
         <ContentFormContextProvider
-          collection={schema_collection.name.toLowerCase()}
+          collection={collection_schema.name.toLowerCase()}
           initialValue={data}
         >
           <ContentForm
             type="Edit"
-            collection={schema_collection.name.toLowerCase()}
+            collection={collection_schema.name.toLowerCase()}
           />
         </ContentFormContextProvider>
       </div>

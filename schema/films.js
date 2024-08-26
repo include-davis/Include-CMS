@@ -1,4 +1,5 @@
-import Fields from './_fields';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Fields = require('./_fields');
 
 const films = {
   name: 'Films',
@@ -10,4 +11,4 @@ const films = {
   ],
 };
 
-export default films;
+module.exports = films;

@@ -1,6 +1,4 @@
-import { FieldType } from './_types';
-
-const Fields: { [key: string]: FieldType } = {
+const Fields = {
   ShortText: { name: 'shortText', defaultValue: '' },
   LongText: { name: 'longText', defaultValue: '' },
   Date: { name: 'date', defaultValue: '00-00-0000' },
@@ -8,4 +6,4 @@ const Fields: { [key: string]: FieldType } = {
   MediaList: { name: 'mediaList', defaultValue: [] },
 };
 
-export default Fields;
+module.exports = Fields;

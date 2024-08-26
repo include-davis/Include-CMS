@@ -1,5 +1,5 @@
-import Fields from './_fields';
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Fields = require('./_fields');
 const weddings = {
   name: 'Weddings',
   fields: [
@@ -13,4 +13,4 @@ const weddings = {
   ],
 };
 
-export default weddings;
+module.exports = weddings;

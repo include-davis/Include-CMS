@@ -2,12 +2,14 @@
 import styles from './DynamicFormFields.module.scss';
 import useContentFormContext from '@hooks/useContentFormContext';
 
-import schema from '@configs/_schema/_index';
+import schema from '@schema/_index';
 import ShortTextField from '../ShortTextField/ShortTextField';
 import LongTextField from '../LongTextField/LongTextField';
 import DateField from '../DateField/DateField';
 import MediaListField from '../MediaListField/MediaListField';
 import { Field } from '@datatypes/schema';
+
+import { CollectionSchema } from '@datatypes/schema';
 
 const FieldMapping = {
   shortText: ShortTextField,
@@ -18,7 +20,8 @@ const FieldMapping = {
 
 export default function DynamicFormFields() {
   const { collection } = useContentFormContext();
-  const collection_schema = schema[collection];
+  const collection_schema = (schema as CollectionSchema)[collection];
+
   if (!collection_schema) {
     return `Collection: ${collection} does not exist.`;
   }
