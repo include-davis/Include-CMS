@@ -6,20 +6,22 @@ import settingsIcon from '/public/navigation/sidebar/settings-icon.png';
 import uploadedMediaIcon from '/public/navigation/sidebar/uploaded-media-icon.png';
 import contentIcon from '/public/navigation/sidebar/content-icon.png';
 
-import schema from '@configs/_schema/_index';
+import schema from '@schema/_index';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarContextProvider from '@contexts/SidebarContext';
+import { CollectionSchema } from '@datatypes/schema';
 
 export default function Sidebar() {
   const collection_types = Object.keys(schema);
+  const collection_schema = schema as CollectionSchema;
   const collections = collection_types.map((key: string) => ({
-    name: schema[key].name,
-    url: `/content/${schema[key].name.toLowerCase()}`,
+    name: collection_schema[key].name,
+    url: `/content/${collection_schema[key].name.toLowerCase()}`,
   }));
 
   const uploaded_media = collection_types.map((key: string) => ({
-    name: schema[key].name,
-    url: `/uploaded-media/${schema[key].name.toLowerCase()}`,
+    name: collection_schema[key].name,
+    url: `/uploaded-media/${collection_schema[key].name.toLowerCase()}`,
   }));
 
   return (

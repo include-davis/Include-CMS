@@ -27,7 +27,7 @@
     "@utils/*": ["./app/(api)/_utils/*"],   
     "@actions/*": ["./app/(api)/_actions/*"],
     "@apidata/*": ["./app/(api)/_data/*"],
-    "@schema/*": ["./app/(api)/_schema/*"],
+    "@schema/*": ["./schema/*"],
     "@datatypes/*": ["./app/_types/*"],
     "@datalib/*": ["./app/(api)/_datalib/*"],
     "@typeDefs/*": ["./app/(api)/_types/*"],

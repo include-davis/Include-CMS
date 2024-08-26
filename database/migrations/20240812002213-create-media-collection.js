@@ -5,6 +5,9 @@ module.exports = {
         bsonType: 'object',
         required: ['name', 'type', 'format', 'src', 'size', 'width', 'height'],
         properties: {
+          _id: {
+            bsonType: 'objectId',
+          },
           name: {
             bsonType: 'string',
             description: 'Must be a string and is required',
