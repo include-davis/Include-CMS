@@ -9,27 +9,28 @@ import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 
-// Change to id
 export async function updateCollectionItem(
   collection: string,
   id: string,
   body: object
 ) {
   try {
-    const object_id = new ObjectId(id);
     if (isBodyEmpty(body)) {
       throw new NoContentError();
     }
 
-    const parsedData = await parseAndReplace(body);
+    const object_id = ObjectId.createFromHexString(id);
+    const parsedBody = await parseAndReplace(body);
 
     const db = await getDatabase();
     const updateStatus = await db
       .collection(collection)
-      .updateOne({ _id: object_id }, { $set: parsedData });
+      .updateOne({ _id: object_id }, parsedBody);
 
     if (updateStatus.modifiedCount === 0) {
-      throw new NotFoundError(`CollectionItem ${id} not found`);
+      throw new NotFoundError(
+        `CollectionItem ${id} not found from ${collection}`
+      );
     }
 
     return NextResponse.json(
@@ -46,7 +47,7 @@ export async function updateCollectionItem(
       {
         ok: false,
         body: null,
-        error: error.message,
+        error: error.message || 'Internal Server Error',
       },
       { status: error.status || 400 }
     );
