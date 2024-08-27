@@ -6,15 +6,14 @@ import { ObjectId } from 'mongodb';
 export async function deleteCollectionItem(collection: string, id: string) {
   try {
     const db = await getDatabase();
-    const reqCollection = await db.collection(collection);
-    const object_id = new ObjectId(id);
+    const object_id = ObjectId.createFromHexString(id);
 
-    const deleteStatus = await reqCollection.deleteOne({
+    const deleteStatus = await db.collection(collection).deleteOne({
       _id: object_id,
     });
 
     if (deleteStatus.deletedCount === 0) {
-      throw new NotFoundError(`CollectionItem ${id} not found`);
+      throw new NotFoundError(`${collection} with id: ${id} not found`);
     }
 
     return NextResponse.json(
@@ -31,7 +30,7 @@ export async function deleteCollectionItem(collection: string, id: string) {
       {
         ok: false,
         body: null,
-        error: error.message,
+        error: error.message || 'Internal Server Error',
       },
       { status: error.status || 400 }
     );

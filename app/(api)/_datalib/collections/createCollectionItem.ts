@@ -1,27 +1,28 @@
 import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
-
-import { getDatabase } from '../../_utils/mongodb/mongoClient.mjs';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NoContentError } from '../../_utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
+import isBodyEmpty from '@app/(api)/_utils/request/isBodyEmpty';
 
 export default async function createCollectionItem(
   collection: string,
-  data: object
+  body: object
 ) {
   try {
-    if (!data || Object.keys(data).length === 0) {
+    if (isBodyEmpty(body)) {
       throw new NoContentError();
     }
-    const parsedData = await parseAndReplace(data);
+    const parsedBody = await parseAndReplace(body);
 
     const db = await getDatabase();
     const creationStatus = await db
       .collection(collection)
-      .insertOne(parsedData);
+      .insertOne(parsedBody);
+
+    console.log(creationStatus);
 
     const newItem = await db.collection(collection).findOne({
-      _id: new ObjectId(creationStatus.insertedId),
+      _id: creationStatus.insertedId,
     });
 
     if (!newItem) {
@@ -33,9 +34,13 @@ export default async function createCollectionItem(
       { status: 201 }
     );
   } catch (e) {
-    const error = e instanceof HttpError ? e : new HttpError();
+    const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, body: null, error: error.message },
+      {
+        ok: false,
+        body: null,
+        error: error.message || 'Internal Server Error',
+      },
       { status: error.status || 500 }
     );
   }
