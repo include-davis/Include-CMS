@@ -1,10 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const schema = require('../../schema/_index.js');
 
-const toLowerCaseSnakeCase = (name) => {
-  return name.toLowerCase().split(' ').join('_');
-};
-
 const typeMapping = {
   shortText: {
     bsonType: 'string',
@@ -30,41 +26,54 @@ const typeMapping = {
   },
 };
 
-const collections = Object.keys(schema);
-const collectionSchemas = collections.map((c) => schema[c]);
+const baseFields = {
+  _id: {
+    bsonType: 'objectId',
+  },
+  $name: typeMapping.shortText,
+  $description: typeMapping.shortText,
+  created_at: typeMapping.date,
+  last_modified: typeMapping.date,
+};
+
+const contentTypes = Object.keys(schema);
 
 module.exports = {
   async up(db, _) {
-    collectionSchemas.forEach(async (collectionSchema) => {
-      const fields = collectionSchema.fields;
-      const fieldNames = fields.map((f) => toLowerCaseSnakeCase(f.name));
+    contentTypes.forEach(async (contentType) => {
+      const fields = schema[contentType].getFields();
+      const fieldNames = Object.keys(fields);
       const generatedProps = {};
-      fields.forEach((field) => {
-        generatedProps[toLowerCaseSnakeCase(field.name)] =
-          typeMapping[field.type.name];
+      fieldNames.forEach((fieldName) => {
+        generatedProps[fieldName] = typeMapping[fields[fieldName].type];
       });
+
+      const requiredFields = fieldNames.filter(
+        (fieldName) => fields[fieldName].required
+      );
+
       const generatedSchema = {
         $jsonSchema: {
           bsonType: 'object',
-          required: fieldNames,
+          required: [...Object.keys(baseFields), ...requiredFields],
           properties: {
-            _id: {
-              bsonType: 'objectId',
-            },
+            ...baseFields,
             ...generatedProps,
           },
         },
       };
 
-      const collectionName = toLowerCaseSnakeCase(collectionSchema.name);
-      await db.createCollection(collectionName, { validator: generatedSchema });
+      const contentTypeName = schema[contentType].getName();
+      await db.createCollection(contentTypeName, {
+        validator: generatedSchema,
+      });
     });
   },
 
   async down(db, _) {
-    collectionSchemas.forEach(async (collectionSchema) => {
-      const collectionName = toLowerCaseSnakeCase(collectionSchema.name);
-      await db.collection(collectionName).drop();
+    contentTypes.forEach(async (contentType) => {
+      const contentTypeName = schema[contentType].getName();
+      await db.collection(contentTypeName).drop();
     });
   },
 };

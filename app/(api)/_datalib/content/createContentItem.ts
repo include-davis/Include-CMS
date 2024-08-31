@@ -4,10 +4,7 @@ import { HttpError, NoContentError } from '../../_utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import isBodyEmpty from '@app/(api)/_utils/request/isBodyEmpty';
 
-export default async function createContentItem(
-  collection: string,
-  body: object
-) {
+export async function createContentItem(content_type: string, body: object) {
   try {
     if (isBodyEmpty(body)) {
       throw new NoContentError();
@@ -16,12 +13,12 @@ export default async function createContentItem(
 
     const db = await getDatabase();
     const creationStatus = await db
-      .collection(collection)
+      .collection(content_type)
       .insertOne(parsedBody);
 
     console.log(creationStatus);
 
-    const newItem = await db.collection(collection).findOne({
+    const newItem = await db.collection(content_type).findOne({
       _id: creationStatus.insertedId,
     });
 

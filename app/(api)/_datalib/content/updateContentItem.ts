@@ -10,7 +10,7 @@ import { ObjectId } from 'mongodb';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 
 export async function updateContentItem(
-  collection: string,
+  content_type: string,
   id: string,
   body: object
 ) {
@@ -24,12 +24,12 @@ export async function updateContentItem(
 
     const db = await getDatabase();
     const updateStatus = await db
-      .collection(collection)
+      .collection(content_type)
       .updateOne({ _id: object_id }, parsedBody);
 
     if (updateStatus.modifiedCount === 0) {
       throw new NotFoundError(
-        `CollectionItem ${id} not found from ${collection}`
+        `CollectionItem ${id} not found from ${content_type}`
       );
     }
 

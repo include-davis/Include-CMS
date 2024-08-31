@@ -3,16 +3,16 @@ import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
-export async function findContentItem(collection: string, id: string) {
+export async function findContentItem(content_type: string, id: string) {
   try {
     const db = await getDatabase();
 
-    const contentItem = await db.collection(collection).findOne({
+    const contentItem = await db.collection(content_type).findOne({
       _id: ObjectId.createFromHexString(id),
     });
 
     if (!contentItem) {
-      throw new NotFoundError(`No Items ${id} Found in ${collection}`);
+      throw new NotFoundError(`No Items ${id} Found in ${content_type}`);
     }
 
     return NextResponse.json(
@@ -33,12 +33,15 @@ export async function findContentItem(collection: string, id: string) {
 }
 
 export async function findContentItems(
-  collection: string,
+  content_type: string,
   query: object = {}
 ) {
   try {
     const db = await getDatabase();
-    const contentItems = await db.collection(collection).find(query).toArray();
+    const contentItems = await db
+      .collection(content_type)
+      .find(query)
+      .toArray();
 
     return NextResponse.json(
       { ok: true, body: contentItems, error: null },

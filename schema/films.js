@@ -1,14 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const Fields = require('./_fields');
+const ContentType = require('./_contentType');
 
-const films = {
-  name: 'Films',
-  fields: [
-    { name: 'Title', type: Fields.ShortText },
-    { name: 'Date', type: Fields.Date },
-    { name: 'Description', type: Fields.LongText },
-    { name: 'Film', type: Fields.MediaList },
-  ],
-};
+const films = new ContentType({ name: 'films', displayName: 'Films' });
+films
+  .addField({ type: 'shortText', name: 'name', displayName: 'Name' })
+  .addField({
+    type: 'longText',
+    name: 'description',
+    displayName: 'Description',
+  })
+  .addField({ type: 'date', name: 'end_date', displayName: 'End date' });
 
 module.exports = films;

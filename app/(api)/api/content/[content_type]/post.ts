@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import createContentItem from '@datalib/content/createContentItem';
+import { createContentItem } from '@datalib/content/createContentItem';
 
 export async function POST(
   request: NextRequest,
