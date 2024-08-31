@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Register } from '@datalib/auth/register';
 import { HttpError } from '@utils/response/Errors';
-import type { AuthTokenInt } from '@datatypes/authToken';
+import type { AuthTokenInt } from '@typeDefs/authToken';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
 
 export async function POST(request: NextRequest) {

@@ -7,7 +7,7 @@ import ContentSection from '../../_components/ContentSection/ContentSection';
 import ContentCard from '../_components/ContentCard/ContentCard';
 import SelectContextProvider from '@contexts/SelectContext';
 import FilterContextProvider from '@contexts/FilterContext';
-import { CollectionSchema } from '@datatypes/schema';
+import { CollectionSchema } from '@typeDefs/content/schema';
 
 interface CollectionPageProps {
   params: {

@@ -6,7 +6,7 @@ import { GetUserByEmail } from '@datalib/users/getUser';
 import { CreateUser } from '@datalib/users/createUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
-import type { User } from '@datatypes/user';
+import type { User } from '@typeDefs/user';
 
 /**
  * @param body - { email: string, password: string }

@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import jwt, { Secret } from 'jsonwebtoken';
 import NotAuthenticatedError from '@utils/response/NotAuthenticatedError';
-import type { DecodedTokenInt } from '@datatypes/authToken';
+import type { DecodedTokenInt } from '@typeDefs/authToken';
 
 export async function authFromRequest(request: NextRequest) {
   const token = request.cookies.get('auth_token')?.value;

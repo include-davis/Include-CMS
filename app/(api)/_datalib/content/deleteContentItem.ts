@@ -3,7 +3,7 @@ import { NotFoundError, HttpError } from '@utils/response/Errors';
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
-export async function deleteCollectionItem(collection: string, id: string) {
+export async function deleteContentItem(collection: string, id: string) {
   try {
     const db = await getDatabase();
     const object_id = ObjectId.createFromHexString(id);

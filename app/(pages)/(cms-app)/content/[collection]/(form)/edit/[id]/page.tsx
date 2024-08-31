@@ -9,7 +9,7 @@ import useContent from '@hooks/useContent';
 import backButton from '/public/content/form/back-button.png';
 import Link from 'next/link';
 
-import { CollectionSchema } from '@datatypes/schema';
+import { CollectionSchema } from '@typeDefs/content/schema';
 
 interface CreateContentProps {
   params: {

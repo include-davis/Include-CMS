@@ -9,7 +9,7 @@ import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 
-export async function updateCollectionItem(
+export async function updateContentItem(
   collection: string,
   id: string,
   body: object

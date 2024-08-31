@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import { GetUserByEmail } from '@datalib/users/getUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
-import type { User } from '@datatypes/user';
+import type { User } from '@typeDefs/user';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
 
 /**

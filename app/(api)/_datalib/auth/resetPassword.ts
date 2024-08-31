@@ -5,7 +5,7 @@ import { GetUserByEmail } from '@datalib/users/getUser';
 import { UpdateUser } from '@datalib/users/updateUser';
 import { HttpError } from '@utils/response/Errors';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
-import type { User } from '@datatypes/user';
+import type { User } from '@typeDefs/user';
 
 /**
  * @param body - { email: string, password: string }

@@ -1,7 +1,7 @@
 'use client';
 import { useState, createContext } from 'react';
 import schema from '@schema/_index';
-import { CollectionSchema } from '@datatypes/schema';
+import { CollectionSchema } from '@typeDefs/content/schema';
 
 interface ContentFormContextValue {
   collection: string;

@@ -3,7 +3,7 @@ import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
-export async function findCollectionItem(collection: string, id: string) {
+export async function findContentItem(collection: string, id: string) {
   try {
     const db = await getDatabase();
 
@@ -32,7 +32,7 @@ export async function findCollectionItem(collection: string, id: string) {
   }
 }
 
-export async function findCollectionItems(
+export async function findContentItems(
   collection: string,
   query: object = {}
 ) {

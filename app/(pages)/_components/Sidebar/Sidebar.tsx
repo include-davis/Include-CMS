@@ -9,17 +9,17 @@ import contentIcon from '/public/navigation/sidebar/content-icon.png';
 import schema from '@schema/_index';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarContextProvider from '@contexts/SidebarContext';
-import { CollectionSchema } from '@datatypes/schema';
+import { CollectionSchema } from '@typeDefs/content/schema';
 
 export default function Sidebar() {
-  const collection_types = Object.keys(schema);
+  const content_types = Object.keys(schema);
   const collection_schema = schema as CollectionSchema;
-  const collections = collection_types.map((key: string) => ({
+  const collections = content_types.map((key: string) => ({
     name: collection_schema[key].name,
     url: `/content/${collection_schema[key].name.toLowerCase()}`,
   }));
 
-  const uploaded_media = collection_types.map((key: string) => ({
+  const uploaded_media = content_types.map((key: string) => ({
     name: collection_schema[key].name,
     url: `/uploaded-media/${collection_schema[key].name.toLowerCase()}`,
   }));

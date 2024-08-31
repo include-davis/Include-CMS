@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const schema = require('../../schema/_index.js');
 
-const processName = (name) => {
+const toLowerCaseSnakeCase = (name) => {
   return name.toLowerCase().split(' ').join('_');
 };
 
@@ -16,7 +16,8 @@ const typeMapping = {
   },
   date: {
     bsonType: 'string',
-    description: 'Must be a string and is required',
+    description: 'must be a string and match the ISO 8601 format',
+    pattern: '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$',
   },
   mediaItem: {
     bsonType: 'objectId',
@@ -36,10 +37,11 @@ module.exports = {
   async up(db, _) {
     collectionSchemas.forEach(async (collectionSchema) => {
       const fields = collectionSchema.fields;
-      const fieldNames = fields.map((f) => processName(f.name));
+      const fieldNames = fields.map((f) => toLowerCaseSnakeCase(f.name));
       const generatedProps = {};
       fields.forEach((field) => {
-        generatedProps[processName(field.name)] = typeMapping[field.type.name];
+        generatedProps[toLowerCaseSnakeCase(field.name)] =
+          typeMapping[field.type.name];
       });
       const generatedSchema = {
         $jsonSchema: {
@@ -54,14 +56,14 @@ module.exports = {
         },
       };
 
-      const collectionName = processName(collectionSchema.name);
+      const collectionName = toLowerCaseSnakeCase(collectionSchema.name);
       await db.createCollection(collectionName, { validator: generatedSchema });
     });
   },
 
   async down(db, _) {
     collectionSchemas.forEach(async (collectionSchema) => {
-      const collectionName = processName(collectionSchema.name);
+      const collectionName = toLowerCaseSnakeCase(collectionSchema.name);
       await db.collection(collectionName).drop();
     });
   },

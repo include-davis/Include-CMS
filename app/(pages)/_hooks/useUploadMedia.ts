@@ -1,4 +1,4 @@
-import { MediaItem } from '@datatypes/media';
+import { MediaItem } from '@typeDefs/media';
 
 export default function useUploadMedia(data: MediaItem) {
   return data;

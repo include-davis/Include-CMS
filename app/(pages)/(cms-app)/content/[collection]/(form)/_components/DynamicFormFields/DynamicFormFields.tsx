@@ -7,9 +7,9 @@ import ShortTextField from '../ShortTextField/ShortTextField';
 import LongTextField from '../LongTextField/LongTextField';
 import DateField from '../DateField/DateField';
 import MediaListField from '../MediaListField/MediaListField';
-import { Field } from '@datatypes/schema';
+import { Field } from '@typeDefs/content/schema';
 
-import { CollectionSchema } from '@datatypes/schema';
+import { CollectionSchema } from '@typeDefs/content/schema';
 
 const FieldMapping = {
   shortText: ShortTextField,

@@ -24,7 +24,6 @@
       "@api/*": ["./app/(api)/*"],
       "@settings/*": ["./settings/*"],
       "@schema/*": ["./schema/*"],
-      "@datatypes/*": ["./app/_types/*"],
       "@typeDefs/*": ["./app/_types/*"],
       "@globals/*": ["./app/(pages)/_globals/*"],
       "@components/*": ["./app/(pages)/_components/*"],

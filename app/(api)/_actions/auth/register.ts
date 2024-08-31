@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Register } from '@datalib/auth/register';
 import { cookies } from 'next/headers';
 import { HttpError } from '@utils/response/Errors';
-import type { AuthTokenInt } from '@datatypes/authToken';
+import type { AuthTokenInt } from '@typeDefs/authToken';
 import type { UserCredentials } from '@typeDefs/UserCredentials';
 import FormToJson from '@utils/form/FormToJSON';
 

@@ -4,7 +4,7 @@ import { HttpError, NoContentError } from '../../_utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import isBodyEmpty from '@app/(api)/_utils/request/isBodyEmpty';
 
-export default async function createCollectionItem(
+export default async function createContentItem(
   collection: string,
   body: object
 ) {
