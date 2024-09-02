@@ -8,14 +8,16 @@ import SelectContextProvider from '@contexts/SelectContext';
 import FilterContextProvider from '@contexts/FilterContext';
 import useFindContentItems from '@hooks/useFindContentItems';
 import ContentItemPreview from '@app/_types/content/contentItemPreview';
+import schema from '@app/_utils/schema';
+import MediaItem from '@app/_types/media/media';
 
-interface CollectionPageProps {
+interface ContentPageProps {
   params: {
     content_type: string;
   };
 }
 
-export default function CollectionPage({ params }: CollectionPageProps) {
+export default function ContentPage({ params }: ContentPageProps) {
   const { content_type } = params;
   const { loading, res } = useFindContentItems(content_type);
 
@@ -23,25 +25,52 @@ export default function CollectionPage({ params }: CollectionPageProps) {
     return 'loading...';
   }
 
-  if (res.error) {
+  if (!res.ok) {
     return res.error;
   }
 
-  const data_list = res.data.map((contentItemPreview: ContentItemPreview) => {
-    return (
-      <ContentCard
-        {...card}
-        key={card.id}
-        collection={collection_schema.name.toLowerCase()}
-      />
+  const preview_data = res?.body.map((item: ContentItemPreview) => {
+    const fieldArray = schema[content_type].getFieldArray();
+    const itemMedia = fieldArray
+      .filter(
+        (fieldItem) => !['mediaList', 'mediaItem'].includes(fieldItem.type)
+      )
+      .flat();
+
+    const previewMedia = itemMedia.filter(
+      (mediaItem: MediaItem) => mediaItem.type === 'image'
     );
+
+    return {
+      _id: item._id,
+      _name: item._name,
+      _description: item._description,
+      last_modified: item.last_modified,
+      preview_media: previewMedia,
+    };
   });
+
+  const data_list = preview_data.map(
+    (contentItemPreview: ContentItemPreview) => {
+      return (
+        <ContentCard
+          content_type={schema[content_type].getDisplayName()}
+          _id={contentItemPreview._id}
+          _name={contentItemPreview._name}
+          _description={contentItemPreview._description || ''}
+          last_modified={contentItemPreview.last_modified}
+          preview_media={contentItemPreview.preview_media}
+          key={contentItemPreview._id}
+        />
+      );
+    }
+  );
 
   return (
     <SelectContextProvider>
       <FilterContextProvider>
         <div className={styles.container}>
-          <ContentHeader collection={collection_schema.name} />
+          <ContentHeader content_type={schema[content_type].getDisplayName()} />
           <ContentSection title={'Published'}>{data_list}</ContentSection>
           <ContentSection title={'Drafts'}>{data_list}</ContentSection>
         </div>

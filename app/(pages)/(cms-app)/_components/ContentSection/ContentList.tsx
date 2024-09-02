@@ -27,7 +27,7 @@ export default function ContentList({ expanded, children }: ContentListProps) {
         ) as HTMLLinkElement[];
 
         if (cards.every((card: Element) => card)) {
-          const firstOffset = cards[0].offsetLeft || 0;
+          const firstOffset = cards[0]?.offsetLeft || 0;
           setCardLocations(
             cards.map((card: any) => card.offsetLeft - firstOffset)
           );
@@ -108,17 +108,22 @@ export default function ContentList({ expanded, children }: ContentListProps) {
           {children}
         </div>
       </div>
-      <div className={`${styles.controls} ${expanded ? styles.hidden : null}`}>
-        <button onClick={handleLeftShift}>
-          <IoChevronBackOutline className={styles.icon} />
-        </button>
-        <div className={styles.progress_container}>
-          <div className={styles.progress_indicator} style={progressStyles} />
+      {(viewportRef.current?.clientWidth ?? 0) <
+        (contentBeltRef.current?.clientWidth ?? 0) && (
+        <div
+          className={`${styles.controls} ${expanded ? styles.hidden : null}`}
+        >
+          <button onClick={handleLeftShift}>
+            <IoChevronBackOutline className={styles.icon} />
+          </button>
+          <div className={styles.progress_container}>
+            <div className={styles.progress_indicator} style={progressStyles} />
+          </div>
+          <button onClick={handleRightShift}>
+            <IoChevronForwardOutline className={styles.icon} />
+          </button>
         </div>
-        <button onClick={handleRightShift}>
-          <IoChevronForwardOutline className={styles.icon} />
-        </button>
-      </div>
+      )}
     </div>
   );
 }

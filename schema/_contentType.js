@@ -2,7 +2,6 @@ class ContentType {
   constructor({ name, displayName = name }) {
     this.name = name;
     this.displayName = displayName;
-    this.preview_media_field = null;
     this.fields = {};
   }
 
@@ -29,20 +28,19 @@ class ContentType {
   }
 
   getDisplayName() {
-    return this.getDisplayName;
+    return this.displayName;
   }
 
   getFields() {
     return this.fields;
   }
 
-  getPreviewMediaField() {
-    return this.preview_media_field;
-  }
-
-  setPreviewMediaField(field_name) {
-    this.preview_media_field = field_name;
-    return this;
+  getFieldArray() {
+    const fieldNames = Object.keys(this.fields);
+    return fieldNames.map((fieldName) => ({
+      name: fieldName,
+      ...this.fields[fieldName],
+    }));
   }
 }
 

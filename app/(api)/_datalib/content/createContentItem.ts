@@ -10,11 +10,15 @@ export async function createContentItem(content_type: string, body: object) {
       throw new NoContentError();
     }
     const parsedBody = await parseAndReplace(body);
-
     const db = await getDatabase();
-    const creationStatus = await db
-      .collection(content_type)
-      .insertOne(parsedBody);
+
+    const currentDate = new Date().toISOString();
+
+    const creationStatus = await db.collection(content_type).insertOne({
+      ...parsedBody,
+      last_modified: currentDate,
+      created_at: currentDate,
+    });
 
     console.log(creationStatus);
 

@@ -1,3 +1,5 @@
+import ContentType from '@schema/_contentType';
+
 export interface FieldType {
   name: string;
   defaultValue: any;
@@ -8,11 +10,6 @@ export interface Field {
   type: FieldType;
 }
 
-export interface Schema {
-  name: string;
-  fields: Field[];
-}
-
-export interface CollectionSchema {
-  [key: string]: Schema;
+export interface ContentSchema {
+  [key: string]: ContentType;
 }

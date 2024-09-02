@@ -1,7 +1,8 @@
 import MediaItem from '@typeDefs/media/media';
 export default interface ContentItemPreview {
-  content_name: string;
-  content_description: string;
-  last_edited: string;
+  _id: string;
+  _name: string;
+  _description: string | null;
+  last_modified: string;
   preview_media: MediaItem[];
 }
