@@ -1,8 +1,21 @@
 class ContentType {
   constructor({ name, displayName = name }) {
+    const baseFields = {
+      _name: {
+        type: 'shortText',
+        displayName: 'Internal name',
+        required: true,
+      },
+      _description: {
+        type: 'shortText',
+        displayName: 'Internal description',
+        defaultValue: '',
+      },
+    }
+
     this.name = name;
     this.displayName = displayName;
-    this.fields = {};
+    this.fields = baseFields;
   }
 
   addField({ defaultValue, displayName, name, required = true, type }) {

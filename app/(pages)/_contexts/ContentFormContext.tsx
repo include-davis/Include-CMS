@@ -1,38 +1,41 @@
 'use client';
 import { useState, createContext } from 'react';
-import schema from '@schema/_index';
-import { CollectionSchema } from '@typeDefs/content/schema';
+import schema from '@app/_utils/schema';
 
 interface ContentFormContextValue {
-  collection: string;
-  data: { [_: string]: any };
+  content_type: string;
+  id: string | null;
+  data: { [key: string]: any };
   updateField: (field_name: string, value: any) => void;
 }
 
 export type { ContentFormContextValue };
 
 export const ContentFormContext = createContext<ContentFormContextValue>({
-  collection: '',
+  content_type: '',
+  id: null,
   data: {},
   updateField: (_, __) => {},
 });
 
 interface ContentFormContextProviderProps {
-  collection: string;
-  initialValue?: { [_: string]: any };
+  content_type: string;
+  id?: string | null;
+  initialValue?: object;
   children: React.ReactNode;
 }
 
 export default function ContentFormContextProvider({
-  collection,
+  content_type,
+  id = null,
   initialValue,
   children,
 }: ContentFormContextProviderProps) {
-  const collection_schema = (schema as CollectionSchema)[collection];
+  const content_schema = schema[content_type];
   const generateInitialValue = () => {
     const res: { [key: string]: any } = {};
-    for (const field of collection_schema.fields) {
-      res[field.name] = field.type.defaultValue;
+    for (const field of content_schema.getFieldArray()) {
+      res[field.name] = field.defaultValue;
     }
     return res;
   };
@@ -46,10 +49,9 @@ export default function ContentFormContextProvider({
     }));
   };
 
-  // const upload = async () => {};
-
   const value = {
-    collection,
+    content_type,
+    id,
     data,
     updateField,
   };

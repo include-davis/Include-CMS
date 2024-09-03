@@ -16,7 +16,7 @@ export default function DateField({ field_name }: DateFieldProps) {
     <input
       className={styles.input}
       type="date"
-      value={data[field_name]}
+      value={data[field_name] || ''}
       onChange={handleChange}
     />
   );

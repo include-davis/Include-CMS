@@ -16,5 +16,5 @@ export default function useFindContentItem(content_type: string, id: string) {
     fetchContent();
   }, [content_type, id]);
 
-  return { loading, data: res };
+  return { loading, res };
 }

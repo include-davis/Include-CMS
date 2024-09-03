@@ -1,24 +1,28 @@
 'use client';
 import styles from './ContentForm.module.scss';
-
-// import useContentFormContext from '@hooks/useContentFormContext';
 import DynamicFormFields from '../DynamicFormFields/DynamicFormFields';
 import SubmitButtons from '../SubmitButtons/SubmitButtons';
+import useContentFormContext from '@app/(pages)/_hooks/useContentFormContext';
+
 
 interface ContentFormProps {
-  type: string;
-  collection: string;
+  action: string;
+  content_type: string;
 }
 
-export default function ContentForm({ type, collection }: ContentFormProps) {
-  // const { data } = useContentFormContext();
+export default function ContentForm({
+  action,
+  content_type,
+}: ContentFormProps) {
+  const { data } = useContentFormContext();
+
   return (
     <div className={styles.container}>
       <h1>
-        {type} {collection.toLowerCase()}
+        {action} {content_type}
       </h1>
       <DynamicFormFields />
-      <SubmitButtons submission_type={type} />
+      <SubmitButtons action={action} />
     </div>
   );
 }

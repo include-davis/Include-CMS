@@ -12,7 +12,7 @@ export async function findContentItem(content_type: string, id: string) {
     });
 
     if (!contentItem) {
-      throw new NotFoundError(`No Items ${id} Found in ${content_type}`);
+      throw new NotFoundError(`No Items ${id} found in ${content_type}`);
     }
 
     return NextResponse.json(

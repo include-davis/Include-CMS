@@ -54,7 +54,7 @@ export default function ContentPage({ params }: ContentPageProps) {
     (contentItemPreview: ContentItemPreview) => {
       return (
         <ContentCard
-          content_type={schema[content_type].getDisplayName()}
+          content_type={schema[content_type].getName()}
           _id={contentItemPreview._id}
           _name={contentItemPreview._name}
           _description={contentItemPreview._description || ''}

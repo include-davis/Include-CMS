@@ -20,8 +20,6 @@ export async function createContentItem(content_type: string, body: object) {
       created_at: currentDate,
     });
 
-    console.log(creationStatus);
-
     const newItem = await db.collection(content_type).findOne({
       _id: creationStatus.insertedId,
     });

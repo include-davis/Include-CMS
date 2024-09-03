@@ -13,7 +13,7 @@ const typeMapping = {
   date: {
     bsonType: 'string',
     description: 'must be a string and match the ISO 8601 format',
-    pattern: '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$',
+    // pattern: '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$',
   },
   mediaItem: {
     bsonType: 'objectId',
@@ -52,7 +52,7 @@ module.exports = {
       const generatedSchema = {
         $jsonSchema: {
           bsonType: 'object',
-          required: ['_name', 'created_at', 'last_modified', ...requiredFields],
+          required: ['created_at', 'last_modified', ...requiredFields],
           properties: {
             _id: {
               bsonType: 'objectId',

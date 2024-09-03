@@ -2,14 +2,11 @@
 import styles from './DynamicFormFields.module.scss';
 import useContentFormContext from '@hooks/useContentFormContext';
 
-import schema from '@schema/_index';
+import schema from '@app/_utils/schema';
 import ShortTextField from '../ShortTextField/ShortTextField';
 import LongTextField from '../LongTextField/LongTextField';
 import DateField from '../DateField/DateField';
 import MediaListField from '../MediaListField/MediaListField';
-import { Field } from '@typeDefs/content/schema';
-
-import { CollectionSchema } from '@typeDefs/content/schema';
 
 const FieldMapping = {
   shortText: ShortTextField,
@@ -19,20 +16,20 @@ const FieldMapping = {
 } as { [_: string]: any };
 
 export default function DynamicFormFields() {
-  const { collection } = useContentFormContext();
-  const collection_schema = (schema as CollectionSchema)[collection];
+  const { content_type } = useContentFormContext();
+  const contentSchema = schema[content_type];
 
-  if (!collection_schema) {
-    return `Collection: ${collection} does not exist.`;
+  if (!contentSchema) {
+    return `Content type: ${content_type} does not exist.`;
   }
 
   return (
     <div className={styles.container}>
-      {collection_schema.fields.map((field: Field) => {
-        const Field = FieldMapping[field.type.name];
+      {contentSchema.getFieldArray().map((field) => {
+        const Field = FieldMapping[field.type];
         return (
           <div key={field.name} className={styles.field_container}>
-            <label>{field.name}</label>
+            <label>{field.displayName}</label>
             <Field field_name={field.name} />
           </div>
         );

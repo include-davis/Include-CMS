@@ -23,7 +23,7 @@ export default function ShortTextField({
     <input
       className={styles.input}
       type="text"
-      value={data[field_name]}
+      value={data[field_name] || ''}
       placeholder={placeholder}
       onChange={handleChange}
     />

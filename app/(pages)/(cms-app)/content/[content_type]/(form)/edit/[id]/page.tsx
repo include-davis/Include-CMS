@@ -2,50 +2,55 @@
 
 import Image from 'next/image';
 import styles from './page.module.scss';
-import schema from '@schema/_index';
+import schema from '@app/_utils/schema';
 import ContentForm from '../../_components/ContentForm/ContentForm';
 import ContentFormContextProvider from '@contexts/ContentFormContext';
-import useContent from '@hooks/useContent';
 import backButton from '/public/content/form/back-button.png';
 import Link from 'next/link';
-
-import { CollectionSchema } from '@typeDefs/content/schema';
+import useFindContentItem from '@app/(pages)/_hooks/useFindContentItem';
 
 interface CreateContentProps {
   params: {
-    collection: string;
+    content_type: string;
     id: string;
   };
 }
 
 export default function CreateContent({ params }: CreateContentProps) {
-  const { collection, id } = params;
-  const collection_schema = (schema as CollectionSchema)[collection];
+  const { content_type, id } = params;
+  const contentSchema = schema[content_type];
 
-  const { data, loading } = useContent(collection, id);
+  const { res, loading } = useFindContentItem(content_type, id);
 
   if (loading) {
     return 'loading...';
   }
 
+  if (!res.ok) {
+    return res.error;
+  }
+
+  const {_id, created_at, last_modified, ...body} = res.body;
+
   return (
     <div className={styles.container}>
-      <Link className={styles.back_button} href={`/content/${collection}`}>
+      <Link className={styles.back_button} href={`/content/${content_type}`}>
         <Image
           className={styles.back_icon}
           src={backButton}
           alt="back button"
         />
-        <p>{`Back to ${collection}`}</p>
+        <p>{`Back to ${content_type}`}</p>
       </Link>
       <div className={styles.form_container}>
         <ContentFormContextProvider
-          collection={collection_schema.name.toLowerCase()}
-          initialValue={data}
+          content_type={contentSchema.getName()}
+          id={id}
+          initialValue={body}
         >
           <ContentForm
-            type="Edit"
-            collection={collection_schema.name.toLowerCase()}
+            action="Edit"
+            content_type={contentSchema.getName()}
           />
         </ContentFormContextProvider>
       </div>

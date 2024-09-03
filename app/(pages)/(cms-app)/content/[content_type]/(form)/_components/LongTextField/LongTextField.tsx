@@ -24,7 +24,7 @@ export default function LongTextField({ field_name }: LongTextFieldProps) {
     <div className={styles.editContainer}>
       <ReactQuill
         theme="snow"
-        value={data[field_name]}
+        value={data[field_name] || ''}
         onChange={handleChange}
         modules={{
           toolbar: [['bold', 'italic', 'underline', 'strike']],
