@@ -1,13 +1,14 @@
 interface MediaItem {
-  _id: string;
+  _id: string | null;
   name: string;
   type: string;
   format: string;
   src: string;
-  alt: string;
+  alt?: string;
   size: number;
-  width: number;
-  height: number;
+  width: number | null;
+  height: number | null;
+  uploaded: boolean;
 }
 
 export default MediaItem;

@@ -6,7 +6,8 @@ import Image from 'next/image';
 import styles from './MediaList.module.scss';
 import dragIcon from '/public/content/form/drag-icon.png';
 import deleteIcon from '/public/content/form/delete.png';
-import { MediaItem } from '@typeDefs/media';
+import MediaItem from '@typeDefs/media/media';
+import convertFileToMediaItem from '../../_utils/convertFileToMediaItem';
 
 interface MediaListProps {
   field_name: string;
@@ -37,17 +38,11 @@ export default function MediaList({ field_name }: MediaListProps) {
   const handleReplace = (index: number) => {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image/*';
     input.addEventListener('change', (e) => {
       const newFile = (e.target as HTMLInputElement).files?.[0];
       if (newFile) {
         const updatedFiles = [...data[field_name]];
-        const updatedFile = {
-          name: newFile.name,
-          size: newFile.size,
-          file: URL.createObjectURL(newFile),
-          onRemote: false,
-        };
+        const updatedFile = convertFileToMediaItem(newFile);
         updatedFiles[index] = updatedFile;
         updateField(field_name, updatedFiles);
       }
@@ -110,7 +105,7 @@ export default function MediaList({ field_name }: MediaListProps) {
             />
             <p className={styles.index}>#{index + 1}</p>
             <Image
-              src={file.file}
+              src={file.src}
               alt={file.name}
               className={styles.image}
               height={80}

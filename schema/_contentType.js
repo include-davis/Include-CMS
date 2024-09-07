@@ -18,20 +18,36 @@ class ContentType {
     this.fields = baseFields;
   }
 
-  addField({ defaultValue, displayName, name, required = true, type }) {
-    const defaults = {
-      shortText: '',
-      longText: '',
-      date: '',
-      mediaItem: [],
-      mediaList: [],
+  addField({ displayName, name, required = true, type }) {
+    const fieldTypeAttributes = {
+      shortText: {
+        defaultValue: '',
+        isPopulated: Boolean
+      },
+      longText: {
+        defaultValue: '',
+        isPopulated: Boolean
+      },
+      date: {
+        defaultValue: '',
+        isPopulated: Boolean
+      },
+      mediaItem: {
+        defaultValue: null,
+        isPopulated: Boolean,
+      },
+      mediaList: {
+        defaultValue: [],
+        isPopulated: (value) => value.length !== 0
+      },
     };
 
     this.fields[name] = {
       type,
       displayName: displayName ?? name,
-      defaultValue: required ? null : defaultValue || defaults[type],
+      defaultValue: fieldTypeAttributes[type].defaultValue,
       required,
+      isPopulated: fieldTypeAttributes[type].isPopulated
     };
     return this;
   }

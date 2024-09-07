@@ -16,7 +16,7 @@ const FieldMapping = {
 } as { [_: string]: any };
 
 export default function DynamicFormFields() {
-  const { content_type } = useContentFormContext();
+  const { content_type, data } = useContentFormContext();
   const contentSchema = schema[content_type];
 
   if (!contentSchema) {
@@ -25,6 +25,7 @@ export default function DynamicFormFields() {
 
   return (
     <div className={styles.container}>
+      {JSON.stringify(data)}
       {contentSchema.getFieldArray().map((field) => {
         const Field = FieldMapping[field.type];
         return (
