@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { ObjectId } from 'mongodb';
-import type { User } from '@datatypes/user';
+import type { User } from '@typeDefs/user';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import {

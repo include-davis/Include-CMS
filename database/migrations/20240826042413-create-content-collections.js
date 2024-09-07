@@ -1,10 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const schema = require('../../schema/_index.js');
 
-const processName = (name) => {
-  return name.toLowerCase().split(' ').join('_');
-};
-
 const typeMapping = {
   shortText: {
     bsonType: 'string',
@@ -16,7 +12,8 @@ const typeMapping = {
   },
   date: {
     bsonType: 'string',
-    description: 'Must be a string and is required',
+    description: 'must be a string and match the ISO 8601 format',
+    // pattern: '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$',
   },
   mediaItem: {
     bsonType: 'objectId',
@@ -29,40 +26,54 @@ const typeMapping = {
   },
 };
 
-const collections = Object.keys(schema);
-const collectionSchemas = collections.map((c) => schema[c]);
+const baseFields = {
+  _name: typeMapping.shortText,
+  _description: typeMapping.shortText,
+  created_at: typeMapping.date,
+  last_modified: typeMapping.date,
+};
+
+const contentTypes = Object.keys(schema);
 
 module.exports = {
   async up(db, _) {
-    collectionSchemas.forEach(async (collectionSchema) => {
-      const fields = collectionSchema.fields;
-      const fieldNames = fields.map((f) => processName(f.name));
+    contentTypes.forEach(async (contentType) => {
+      const fields = schema[contentType].getFields();
+      const fieldNames = Object.keys(fields);
       const generatedProps = {};
-      fields.forEach((field) => {
-        generatedProps[processName(field.name)] = typeMapping[field.type.name];
+      fieldNames.forEach((fieldName) => {
+        generatedProps[fieldName] = typeMapping[fields[fieldName].type];
       });
+
+      const requiredFields = fieldNames.filter(
+        (fieldName) => fields[fieldName].required
+      );
+
       const generatedSchema = {
         $jsonSchema: {
           bsonType: 'object',
-          required: fieldNames,
+          required: ['created_at', 'last_modified', ...requiredFields],
           properties: {
             _id: {
               bsonType: 'objectId',
             },
+            ...baseFields,
             ...generatedProps,
           },
         },
       };
 
-      const collectionName = processName(collectionSchema.name);
-      await db.createCollection(collectionName, { validator: generatedSchema });
+      const contentTypeName = schema[contentType].getName();
+      await db.createCollection(contentTypeName, {
+        validator: generatedSchema,
+      });
     });
   },
 
   async down(db, _) {
-    collectionSchemas.forEach(async (collectionSchema) => {
-      const collectionName = processName(collectionSchema.name);
-      await db.collection(collectionName).drop();
+    contentTypes.forEach(async (contentType) => {
+      const contentTypeName = schema[contentType].getName();
+      await db.collection(contentTypeName).drop();
     });
   },
 };

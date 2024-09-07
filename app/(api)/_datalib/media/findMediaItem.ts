@@ -13,8 +13,6 @@ export async function findMediaItem(id: string) {
       _id: objectId,
     });
 
-    console.log(mediaItem);
-
     if (!mediaItem) {
       throw new NotFoundError(`Media item with id: ${id} not found.`);
     }

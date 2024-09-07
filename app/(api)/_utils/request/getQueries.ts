@@ -19,11 +19,11 @@ function typeCast(value: string, type: string) {
 
 export default async function getQueries(
   request: NextRequest,
-  collection: string
+  content_type: string
 ) {
   const db = await getDatabase();
   const query_entries = request.nextUrl.searchParams.entries();
-  const schema = (await db.listCollections({ name: collection }).toArray())[0]
+  const schema = (await db.listCollections({ name: content_type }).toArray())[0]
     .options.validator;
 
   const output: { [key: string]: any } = {};

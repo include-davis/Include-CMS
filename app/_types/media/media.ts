@@ -4,6 +4,7 @@ interface MediaItem {
   type: string;
   format: string;
   src: string;
+  alt: string;
   size: number;
   width: number;
   height: number;

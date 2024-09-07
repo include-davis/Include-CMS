@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
-import type { User } from '@datatypes/user';
+import type { User } from '@typeDefs/user';
 
 const collectionName = 'users';
 

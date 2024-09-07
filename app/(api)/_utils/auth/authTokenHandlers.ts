@@ -1,7 +1,7 @@
 import { auth_expiration } from '@apidata/configs';
 import jwt, { Secret } from 'jsonwebtoken';
 import { NotAuthenticatedError } from '@utils/response/Errors';
-import { AuthTokenInt } from '@datatypes/authToken';
+import { AuthTokenInt } from '@typeDefs/authToken';
 
 /**
  * Create a JWT token with the given data

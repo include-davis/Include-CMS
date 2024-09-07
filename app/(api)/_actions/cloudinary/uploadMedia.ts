@@ -1,5 +1,5 @@
 'use server';
-import { MediaItem } from '@datatypes/media';
+import MediaItem from '@typeDefs/media/media';
 import HttpError from '@utils/response/HttpError';
 import { v2 as cloudinary } from 'cloudinary';
 
