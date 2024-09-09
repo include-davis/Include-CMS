@@ -5,32 +5,53 @@ class ContentType {
         type: 'shortText',
         displayName: 'Internal name',
         required: true,
+        visible: true,
       },
       _description: {
         type: 'shortText',
         displayName: 'Internal description',
-        defaultValue: '',
+        visible: true,
       },
-    }
+      _published: {
+        type: 'boolean',
+        defaultValue: false,
+        visible: false,
+      },
+      _created_at: {
+        type: 'date',
+        visible: false,
+      },
+      _last_modified: {
+        type: 'date',
+        visible: false,
+      },
+    };
 
     this.name = name;
     this.displayName = displayName;
     this.fields = baseFields;
   }
 
-  addField({ displayName, name, required = true, type }) {
+  addField({
+    defaultValue,
+    displayName,
+    name,
+    required = true,
+    type,
+    visible = true,
+  }) {
     const fieldTypeAttributes = {
       shortText: {
         defaultValue: '',
-        isPopulated: Boolean
+        isPopulated: Boolean,
       },
       longText: {
         defaultValue: '',
-        isPopulated: Boolean
+        isPopulated: Boolean,
       },
       date: {
         defaultValue: '',
-        isPopulated: Boolean
+        isPopulated: Boolean,
       },
       mediaItem: {
         defaultValue: null,
@@ -38,16 +59,21 @@ class ContentType {
       },
       mediaList: {
         defaultValue: [],
-        isPopulated: (value) => value.length !== 0
+        isPopulated: (value) => value.length !== 0,
+      },
+      boolean: {
+        defaultValue: null,
+        isPopulated: (value) => value === null,
       },
     };
 
     this.fields[name] = {
       type,
       displayName: displayName ?? name,
-      defaultValue: fieldTypeAttributes[type].defaultValue,
+      defaultValue: defaultValue ?? fieldTypeAttributes[type].defaultValue,
+      isPopulated: fieldTypeAttributes[type].isPopulated,
       required,
-      isPopulated: fieldTypeAttributes[type].isPopulated
+      visible,
     };
     return this;
   }

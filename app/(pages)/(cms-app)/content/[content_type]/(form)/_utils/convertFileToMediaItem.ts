@@ -4,6 +4,7 @@ export default function convertFileToMediaItem(file: File): MediaItem {
   const [fileType, fileFormat] = file.type.split('/');
   return {
     _id: null,
+    cloudinary_id: null,
     name: file.name,
     type: fileType,
     format: fileFormat,
@@ -11,6 +12,5 @@ export default function convertFileToMediaItem(file: File): MediaItem {
     size: file.size,
     width: null,
     height: null,
-    uploaded: false,
   };
 }

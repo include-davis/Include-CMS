@@ -16,8 +16,8 @@ export async function createContentItem(content_type: string, body: object) {
 
     const creationStatus = await db.collection(content_type).insertOne({
       ...parsedBody,
-      last_modified: currentDate,
-      created_at: currentDate,
+      _last_modified: currentDate,
+      _created_at: currentDate,
     });
 
     const newItem = await db.collection(content_type).findOne({

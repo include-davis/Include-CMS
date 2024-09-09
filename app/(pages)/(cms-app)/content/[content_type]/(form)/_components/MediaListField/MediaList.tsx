@@ -104,6 +104,7 @@ export default function MediaList({ field_name }: MediaListProps) {
               className={styles.drag_icon}
             />
             <p className={styles.index}>#{index + 1}</p>
+            <p>{file.cloudinary_id ? 'uploaded' : 'local'}</p>
             <Image
               src={file.src}
               alt={file.name}

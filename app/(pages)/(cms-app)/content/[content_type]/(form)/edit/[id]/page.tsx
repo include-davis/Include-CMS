@@ -30,7 +30,7 @@ export default function CreateContent({ params }: CreateContentProps) {
     return res.error;
   }
 
-  const { _id: _, created_at: __, last_modified: ___, ...body } = res.body;
+  const { _id: _, _created_at: __, _last_modified: ___, ...body } = res.body;
 
   return (
     <div className={styles.container}>

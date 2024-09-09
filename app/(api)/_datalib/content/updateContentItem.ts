@@ -21,7 +21,7 @@ export async function updateContentItem(
 
     const object_id = ObjectId.createFromHexString(id);
     const parsedBody = await parseAndReplace(body);
-    parsedBody.$set.last_modified = new Date().toISOString();
+    parsedBody.$set._last_modified = new Date().toISOString();
 
     const db = await getDatabase();
     const updateStatus = await db

@@ -19,6 +19,7 @@ export async function updateMediaItem(id: string, body = {}) {
 
     const objectId = ObjectId.createFromHexString(id);
     const updates = await parseAndReplace(body);
+    updates.$set._last_modified = new Date().toISOString();
 
     const updateStatus = await db.collection('media').updateOne(
       {

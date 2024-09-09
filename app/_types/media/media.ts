@@ -1,5 +1,6 @@
 interface MediaItem {
   _id: string | null;
+  cloudinary_id: string | null;
   name: string;
   type: string;
   format: string;
@@ -8,7 +9,8 @@ interface MediaItem {
   size: number;
   width: number | null;
   height: number | null;
-  uploaded: boolean;
+  _created_at: string | null;
+  _last_modified: string | null;
 }
 
 export default MediaItem;
