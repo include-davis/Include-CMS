@@ -30,7 +30,7 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
         $set: serverDataValue,
       });
       if (!res.ok) {
-        throw new Error(res.error);
+        throw new Error(res.error || '');
       }
       alert('Everything worked!');
     } catch (e) {
@@ -54,7 +54,7 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
         serverDataValue as object
       );
       if (!res.ok) {
-        throw new Error(res.error);
+        throw new Error(res.error || '');
       }
       alert('Everything worked!');
     } catch (e) {

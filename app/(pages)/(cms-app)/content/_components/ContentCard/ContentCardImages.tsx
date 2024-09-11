@@ -1,4 +1,4 @@
-import MediaItem from '@app/_types/media/media';
+import MediaItem from '@typeDefs/media/MediaItem';
 import styles from './ContentCardImages.module.scss';
 import Image from 'next/image';
 

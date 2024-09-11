@@ -1,4 +1,4 @@
-import MediaItem from '@app/_types/media/media';
+import MediaItem from '@typeDefs/media/MediaItem';
 import schema from '@app/_utils/schema';
 import uploadMediaItem from './uploadMediaItem';
 

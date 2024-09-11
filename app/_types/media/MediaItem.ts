@@ -9,8 +9,8 @@ interface MediaItem {
   size: number;
   width: number | null;
   height: number | null;
-  _created_at: string | null;
-  _last_modified: string | null;
+  _created_at?: string | null;
+  _last_modified?: string | null;
 }
 
 export default MediaItem;
