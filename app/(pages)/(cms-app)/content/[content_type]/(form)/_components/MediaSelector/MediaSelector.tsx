@@ -13,10 +13,9 @@ export default function MediaSelector({ field_name }: MediaSelectorProps) {
   const { data, updateField } = useContentFormContext();
 
   const onInput = (files: FileList) => {
-    const firstFile = files[0];
     const updatedFieldValue = [
       ...data[field_name],
-      convertFileToMediaItem(firstFile),
+      ...Array.from(files).map(convertFileToMediaItem),
     ];
     updateField(field_name, updatedFieldValue);
   };

@@ -8,20 +8,42 @@
     box-shadow: var(--b-shadow);
     background-color: var(--background-light);
 
-    min-width: 300px;
+    min-width: 324px;
     width: calc(calc(100% - 5 * var(--medium-spacer)) / 3);
-    max-width: 380px;
+    max-width: 424px;
     height: min-content;
 }
 
 .top_row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
+    gap: var(--small-spacer);
 
-    h2 {
-        font-size: 1.875rem;
+    .item_name {
+        font-size: 1.5rem;
         font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-wrap: nowrap;
+    }
+
+    .checkbox_container {
+        height: 1.5rem;
+        aspect-ratio: 1;
+        border-radius: 4px;
+        border: solid 1px black;
+        cursor: pointer;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        .checkbox_internals {
+            position: relative;
+            background-color: var(--primary);
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
     }
 }
 

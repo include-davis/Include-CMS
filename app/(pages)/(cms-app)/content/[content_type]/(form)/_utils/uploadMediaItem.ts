@@ -68,8 +68,9 @@ export default async function uploadMediaItem(mediaItem: MediaItem) {
 }
 
 function getCloudinaryType(type: string) {
-  if (type === 'image' || type === 'video') {
+  if (type === 'video') {
     return type;
+  } else {
+    return 'image';
   }
-  return 'raw';
 }

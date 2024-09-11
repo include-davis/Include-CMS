@@ -9,24 +9,44 @@ interface ContentCardImagesInterface {
 export default function ContentCardImages({
   images,
 }: ContentCardImagesInterface) {
-  const n = images.length;
+  const previewImages = images.map((image) => ({
+    ...image,
+    src: image.src.replace(/\.pdf$/, '.jpg'),
+  }));
+
+  const n = previewImages.length;
   switch (n) {
     case 0:
       return <div className={styles.container} />;
     case 1:
       return (
         <div className={styles.container}>
-          <Image src={images[0].src} alt={images[0].alt || ''} fill />
+          <Image
+            src={previewImages[0].src}
+            alt={previewImages[0].alt || ''}
+            fill
+            sizes="300px"
+          />
         </div>
       );
     case 2:
       return (
         <div className={styles.container}>
           <div className={styles.primary}>
-            <Image src={images[0].src} alt={images[0].alt || ''} fill />
+            <Image
+              src={previewImages[0].src}
+              alt={previewImages[0].alt || ''}
+              fill
+              sizes="300px"
+            />
           </div>
           <div className={styles.secondary}>
-            <Image src={images[1].src} alt={images[1].alt || ''} fill />
+            <Image
+              src={previewImages[1].src}
+              alt={previewImages[1].alt || ''}
+              fill
+              sizes="300px"
+            />
           </div>
         </div>
       );
@@ -34,14 +54,29 @@ export default function ContentCardImages({
       return (
         <div className={styles.container}>
           <div className={styles.primary}>
-            <Image src={images[0].src} alt={images[0].alt || ''} fill />
+            <Image
+              src={previewImages[0].src}
+              alt={previewImages[0].alt || ''}
+              fill
+              sizes="300px"
+            />
           </div>
           <div className={styles.secondary}>
             <div>
-              <Image src={images[1].src} alt={images[1].alt || ''} fill />
+              <Image
+                src={previewImages[1].src}
+                alt={previewImages[1].alt || ''}
+                fill
+                sizes="300px"
+              />
             </div>
             <div className={styles.bottom}>
-              <Image src={images[2].src} alt={images[2].alt || ''} fill />
+              <Image
+                src={previewImages[2].src}
+                alt={previewImages[2].alt || ''}
+                fill
+                sizes="300px"
+              />
               <p
                 className={`${styles.additional} ${n > 3 ? styles.show : null}`}
               >

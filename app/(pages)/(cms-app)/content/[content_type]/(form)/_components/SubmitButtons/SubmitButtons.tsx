@@ -13,7 +13,8 @@ interface SubmitButtonsProps {
 }
 
 export default function SubmitButtons({ action }: SubmitButtonsProps) {
-  const { content_type, id, data, setData } = useContentFormContext();
+  const { content_type, id, data, setData, updateField } =
+    useContentFormContext();
 
   const updateContentItem = async () => {
     try {
@@ -58,6 +59,19 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
     }
   };
 
+  const togglePublishStatus = async () => {
+    const newPublishStatus = !data._published;
+    const updateStatus = await UpdateContentItem(content_type, id ?? '', {
+      $set: { _published: newPublishStatus },
+    });
+
+    if (updateStatus.ok) {
+      updateField('_published', newPublishStatus);
+    }
+
+    alert(`Publish status: ${newPublishStatus}`);
+  };
+
   const saveAction =
     action === 'Create' ? createContentItem : updateContentItem;
 
@@ -66,7 +80,9 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
       <button className={styles.save_button} onClick={saveAction}>
         Save Draft
       </button>
-      <button className={styles.publish_button}>Publish Draft</button>
+      <button className={styles.publish_button} onClick={togglePublishStatus}>
+        Publish Draft
+      </button>
     </div>
   );
 }

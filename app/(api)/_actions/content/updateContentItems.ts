@@ -1,5 +1,6 @@
 'use server';
 import { updateContentItem } from '@datalib/content/updateContentItem';
+import { revalidatePath } from 'next/cache';
 
 export async function UpdateContentItem(
   content_type: string,
@@ -7,5 +8,6 @@ export async function UpdateContentItem(
   body: object
 ) {
   const updateContentRes = await updateContentItem(content_type, id, body);
+  revalidatePath(`/content/${content_type}`);
   return updateContentRes.json();
 }
