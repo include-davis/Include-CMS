@@ -1,22 +1,18 @@
 import { NextRequest } from 'next/server';
-import jwt, { Secret } from 'jsonwebtoken';
 import NotAuthenticatedError from '@utils/response/NotAuthenticatedError';
-import type { DecodedTokenInt } from '@typeDefs/authToken';
+import { verifyAuthToken } from './authTokenHandlers';
 
 export async function authFromRequest(request: NextRequest) {
+  console.log('hello');
   const token = request.cookies.get('auth_token')?.value;
   if (!token) {
     throw new NotAuthenticatedError('User not authenticated');
   }
 
-  const decoded = jwt.verify(
-    token,
-    process.env.JWT_SECRET as Secret
-  ) as DecodedTokenInt;
-
-  if (decoded.exp * 1000 < Date.now()) {
-    throw new NotAuthenticatedError('Authentication expired');
+  const verifyRes = await verifyAuthToken(token);
+  if (!verifyRes.ok) {
+    throw verifyRes.error;
   }
 
-  return decoded;
+  return verifyRes.body;
 }

@@ -8,40 +8,57 @@ interface ContentListProps {
 }
 
 export default function ContentList({ expanded, children }: ContentListProps) {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const contentBeltRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const viewportResizeObserverRef = useRef<ResizeObserver | null>(null);
+  const contentBeltRef = useRef<HTMLDivElement | null>(null);
+  const contentBeltResizeObserverRef = useRef<ResizeObserver | null>(null);
   const [progressWidth, setProgressWidth] = useState(0);
   const [progressShift, setProgressShift] = useState(0);
   const [cardLocations, setCardLocations] = useState<number[]>([0]);
 
-  useEffect(() => {
-    const initProgressData = () => {
-      if (viewportRef.current && contentBeltRef.current) {
-        const { clientWidth: viewportWidth } = viewportRef.current;
-        const { clientWidth: contentWidth } = contentBeltRef.current;
+  const initProgressData = () => {
+    if (viewportRef.current && contentBeltRef.current) {
+      const { clientWidth: viewportWidth } = viewportRef.current;
+      const { clientWidth: contentWidth } = contentBeltRef.current;
 
-        setProgressWidth((viewportWidth / contentWidth) * 100);
+      setProgressWidth((viewportWidth / contentWidth) * 100);
 
-        const cards = Array.from(
-          contentBeltRef.current.children
-        ) as HTMLLinkElement[];
+      const cards = Array.from(
+        contentBeltRef.current.children
+      ) as HTMLLinkElement[];
 
-        if (cards.every((card: Element) => card)) {
-          const firstOffset = cards[0]?.offsetLeft || 0;
-          setCardLocations(
-            cards.map((card: any) => card.offsetLeft - firstOffset)
-          );
-        }
+      if (cards.every((card: Element) => card)) {
+        const firstOffset = cards[0]?.offsetLeft || 0;
+        setCardLocations(
+          cards.map((card: any) => card.offsetLeft - firstOffset)
+        );
       }
-    };
+    }
+  };
 
-    window.addEventListener('resize', initProgressData);
-    initProgressData();
+  const setViewportRef = (e: HTMLDivElement) => {
+    if (viewportResizeObserverRef.current) {
+      viewportResizeObserverRef.current.disconnect();
+    }
+    viewportRef.current = e;
+    if (e) {
+      viewportResizeObserverRef.current = new ResizeObserver(initProgressData);
+      viewportResizeObserverRef.current.observe(e);
+    }
+  };
 
-    return () => {
-      window.removeEventListener('resize', initProgressData);
-    };
-  }, [viewportRef, contentBeltRef]);
+  const setContentBeltRef = (e: HTMLDivElement) => {
+    if (contentBeltResizeObserverRef.current) {
+      contentBeltResizeObserverRef.current.disconnect();
+    }
+    contentBeltRef.current = e;
+    if (e) {
+      contentBeltResizeObserverRef.current = new ResizeObserver(
+        initProgressData
+      );
+      contentBeltResizeObserverRef.current.observe(e);
+    }
+  };
 
   const handleScroll = () => {
     if (viewportRef.current && contentBeltRef.current) {
@@ -98,12 +115,12 @@ export default function ContentList({ expanded, children }: ContentListProps) {
     <div className={styles.container}>
       <div
         className={styles.viewport}
-        ref={viewportRef}
+        ref={setViewportRef}
         onScroll={handleScroll}
       >
         <div
           className={`${styles.cards} ${expanded ? styles.expanded : null}`}
-          ref={contentBeltRef}
+          ref={setContentBeltRef}
         >
           {children}
         </div>

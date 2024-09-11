@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { findContentItems } from '@datalib/content/findContentItem';
 import getQueries from '@utils/request/getQueries';
 
@@ -8,5 +8,5 @@ export async function GET(
 ) {
   const collection = params.content_type;
   const query = await getQueries(request, collection);
-  return findContentItems(collection, query);
+  return NextResponse.json(await findContentItems(collection, query));
 }

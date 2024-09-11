@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { updateMediaItem } from '@datalib/media/updateMediaItem';
 
 export async function PUT(
@@ -6,5 +6,5 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const body = await request.json();
-  return updateMediaItem(params.id, body);
+  return NextResponse.json(await updateMediaItem(params.id, body));
 }

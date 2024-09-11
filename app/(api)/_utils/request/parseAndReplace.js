@@ -18,7 +18,7 @@ async function expandIds(obj) {
   const documents = await db
     .collection(obj.from)
     .find({
-      _id: { $in: obj.ids.map((id) => new ObjectId(id)) },
+      _id: { $in: obj.ids.map((id) => ObjectId.createFromHexString(id)) },
     })
     .toArray();
   return documents;
@@ -39,7 +39,7 @@ async function expandId(obj) {
   obj = obj['*expandId'];
   const db = await getDatabase();
   const documents = await db.collection(obj.from).findOne({
-    _id: new ObjectId(obj.id),
+    _id: ObjectId.createFromHexString(obj.id),
   });
   return documents;
 }
@@ -56,7 +56,7 @@ async function expandId(obj) {
  */
 async function convertIds(obj) {
   obj = obj['*convertIds'];
-  return obj.ids.map((id) => new ObjectId(id));
+  return obj.ids.map((id) => ObjectId.createFromHexString(id));
 }
 
 /**
@@ -71,7 +71,7 @@ async function convertIds(obj) {
  */
 async function convertId(obj) {
   obj = obj['*convertId'];
-  return new ObjectId(obj.id);
+  return ObjectId.createFromHexString(obj.id);
 }
 
 /**
@@ -85,13 +85,13 @@ async function convertId(obj) {
  * }
  */
 async function searchAndReplace(obj, replacements) {
-  if (typeof obj !== 'object') {
+  if (obj === null || typeof obj !== 'object') {
     return obj;
   }
   for (const [key, val] of Object.entries(obj)) {
     let replaced = false;
     for (const [keyword, replaceFunc] of Object.entries(replacements)) {
-      if (val[keyword] !== undefined) {
+      if (val?.[keyword] !== undefined) {
         obj[key] = await replaceFunc(val);
         replaced = true;
         break;

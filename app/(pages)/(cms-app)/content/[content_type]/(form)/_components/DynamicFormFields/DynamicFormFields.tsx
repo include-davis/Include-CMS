@@ -25,15 +25,18 @@ export default function DynamicFormFields() {
 
   return (
     <div className={styles.container}>
-      {contentSchema.getFieldArray().map((field) => {
-        const Field = FieldMapping[field.type];
-        return (
-          <div key={field.name} className={styles.field_container}>
-            <label>{field.displayName}</label>
-            <Field field_name={field.name} />
-          </div>
-        );
-      })}
+      {contentSchema
+        .getFieldArray()
+        .filter((field) => field.visible)
+        .map((field) => {
+          const Field = FieldMapping[field.type];
+          return (
+            <div key={field.name} className={styles.field_container}>
+              <label>{field.displayName}</label>
+              <Field field_name={field.name} />
+            </div>
+          );
+        })}
     </div>
   );
 }

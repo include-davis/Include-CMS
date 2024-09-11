@@ -2,31 +2,30 @@
 import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { Register } from '@datalib/auth/register';
+import { register } from '@datalib/auth/register';
 import { HttpError } from '@utils/response/Errors';
-import type { AuthTokenInt } from '@typeDefs/authToken';
-import type { UserCredentials } from '@typeDefs/UserCredentials';
+import type { AuthToken } from '@typeDefs/auth/AuthToken';
+import type UserCredentials from '@typeDefs/auth/UserCredentials';
 
 export async function POST(request: NextRequest) {
   try {
     const body: UserCredentials = await request.json();
-    const res = await Register(body);
-    const data = await res.json();
+    const registerRes = await register(body);
 
-    if (!data.ok) {
-      throw new HttpError(data.error);
+    if (!registerRes.ok) {
+      throw new HttpError(registerRes.error || '');
     }
 
-    const payload = jwt.decode(data.body) as AuthTokenInt;
+    const payload = jwt.decode(registerRes.body || '') as AuthToken;
     cookies().set({
       name: 'auth_token',
-      value: data.body,
+      value: registerRes.body || '',
       expires: payload.exp * 1000,
       secure: true,
       httpOnly: true,
     });
     return NextResponse.json(
-      { ok: true, body: payload, error: null },
+      { ok: true, body: null, error: null },
       { status: 200 }
     );
   } catch (e) {

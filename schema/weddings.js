@@ -16,6 +16,11 @@ weddings
     type: 'date',
     name: 'wedding_date',
     displayName: 'Wedding date',
+  })
+  .addField({
+    type: 'mediaList',
+    name: 'images',
+    displayName: 'Images',
   });
 
 module.exports = weddings;

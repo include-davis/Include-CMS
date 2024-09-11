@@ -2,45 +2,29 @@
 import { useRef, DragEvent, ChangeEvent } from 'react';
 import Image from 'next/image';
 import styles from './MediaFromUpload.module.scss';
-import useContentFormContext from '@hooks/useContentFormContext';
 
 import uploadIcon from '/public/content/form/upload.png';
 
 interface MediaFromUploadProps {
-  field_name: string;
+  onInput: (files: FileList) => void;
 }
 
-export default function MediaFromUpload({ field_name }: MediaFromUploadProps) {
-  const { data, updateField } = useContentFormContext();
-
+export default function MediaFromUpload({ onInput }: MediaFromUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const droppedFiles = Array.from(e.dataTransfer.files) as File[];
-    const newFiles = droppedFiles.map((file) => ({
-      name: file.name,
-      size: file.size,
-      file: URL.createObjectURL(file),
-      onRemote: false,
-    }));
-    updateField(field_name, [...data[field_name], ...newFiles]);
+    const droppedFiles = e.dataTransfer.files;
+    onInput(droppedFiles);
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputFiles = e.target.files;
-    if (inputFiles) {
-      const newFiles = Array.from(inputFiles).map((file) => ({
-        name: file.name,
-        size: file.size,
-        file: URL.createObjectURL(file),
-        onRemote: false,
-      }));
-      updateField(field_name, [...data[field_name], ...newFiles]);
-    }
+    onInput(inputFiles ?? new FileList());
+    e.target.value = '';
   };
 
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: DragEvent<HTMLInputElement>) => {
     e.preventDefault();
   };
 

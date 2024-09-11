@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
-import type { User } from '@typeDefs/user';
+import type User from '@typeDefs/auth/User';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import {
@@ -8,8 +7,6 @@ import {
   NoContentError,
   DuplicateError,
 } from '@utils/response/Errors';
-
-const collectionName = 'users';
 
 /**
  *   Adds new user in the database.
@@ -23,7 +20,7 @@ const collectionName = 'users';
  *     error: number | null
  *   }
  */
-export async function CreateUser(body: object) {
+export async function createUser(body: object) {
   try {
     if (isBodyEmpty(body)) {
       throw new NoContentError();
@@ -32,44 +29,32 @@ export async function CreateUser(body: object) {
     const db = await getDatabase();
     const parsedBody = await parseAndReplace(body);
 
-    const userExists = await db.collection(collectionName).findOne({
+    const existingUser = await db.collection('users').findOne({
       email: parsedBody.email,
     });
 
-    if (userExists) {
+    if (existingUser) {
       throw new DuplicateError(
         `Email: '${parsedBody.email}' already in use. Please try again with a different email.`
       );
     }
 
-    const createdUser = await db
-      .collection(collectionName)
-      .insertOne(parsedBody);
-    const user = await db.collection(collectionName).findOne({
+    const createdUser = await db.collection('users').insertOne(parsedBody);
+    const user = await db.collection('users').findOne({
       _id: createdUser.insertedId,
     });
 
-    return NextResponse.json(
-      {
-        ok: true,
-        body: user as User,
-        error: null,
-      },
-      {
-        status: 201,
-      }
-    );
+    return {
+      ok: true,
+      body: user as User,
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message,
-      },
-      {
-        status: error.status || 400,
-      }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message,
+    };
   }
 }

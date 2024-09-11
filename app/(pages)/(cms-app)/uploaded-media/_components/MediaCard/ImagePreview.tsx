@@ -12,6 +12,7 @@ export default function ImagePreview({ src, alt }: ImagePreviewProps) {
       alt={alt}
       fill
       style={{ objectFit: 'cover', objectPosition: 'center center' }}
+      sizes="300px"
     />
   );
 }

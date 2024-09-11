@@ -30,7 +30,7 @@ export default function CreateContent({ params }: CreateContentProps) {
     return res.error;
   }
 
-  const {_id, created_at, last_modified, ...body} = res.body;
+  const { _id: _, _created_at: __, _last_modified: ___, ...body } = res.body;
 
   return (
     <div className={styles.container}>
@@ -48,10 +48,7 @@ export default function CreateContent({ params }: CreateContentProps) {
           id={id}
           initialValue={body}
         >
-          <ContentForm
-            action="Edit"
-            content_type={contentSchema.getName()}
-          />
+          <ContentForm action="Edit" content_type={contentSchema.getName()} />
         </ContentFormContextProvider>
       </div>
     </div>

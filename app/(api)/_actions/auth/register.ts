@@ -1,13 +1,13 @@
 'use server';
 import jwt from 'jsonwebtoken';
-import { Register } from '@datalib/auth/register';
+import { register } from '@datalib/auth/register';
 import { cookies } from 'next/headers';
 import { HttpError } from '@utils/response/Errors';
-import type { AuthTokenInt } from '@typeDefs/authToken';
-import type { UserCredentials } from '@typeDefs/UserCredentials';
+import type { AuthTokenInt } from '@typeDefs/auth/AuthToken';
+import type { UserCredentials } from '@typeDefs/auth/UserCredentials';
 import FormToJson from '@utils/form/FormToJSON';
 
-export default async function RegisterAction(formData: FormData): Promise<{
+export default async function Register(formData: FormData): Promise<{
   ok: boolean;
   body: AuthTokenInt | null;
   error: string | null;

@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import styles from './ContentSection.module.scss';
 import { IoChevronUp } from 'react-icons/io5';

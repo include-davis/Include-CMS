@@ -1,7 +1,6 @@
-import { auth_expiration } from '@apidata/configs';
+import { auth_expiration } from '@settings/configs';
 import jwt, { Secret } from 'jsonwebtoken';
-import { NotAuthenticatedError } from '@utils/response/Errors';
-import { AuthTokenInt } from '@typeDefs/authToken';
+import type { AuthToken } from '@typeDefs/auth/AuthToken';
 
 /**
  * Create a JWT token with the given data
@@ -24,20 +23,13 @@ export async function createAuthToken(data: object) {
  *   }
  */
 export async function verifyAuthToken(token: string) {
-  const decodedPayload = jwt.verify(
-    token,
-    process.env.JWT_SECRET as Secret
-  ) as AuthTokenInt;
-
-  if (!decodedPayload) {
-    throw new NotAuthenticatedError('Unauthorized. Invalid token.');
+  try {
+    const decodedToken = jwt.verify(
+      token,
+      process.env.JWT_SECRET as Secret
+    ) as AuthToken;
+    return { ok: true, body: decodedToken, error: null };
+  } catch (e) {
+    return { ok: false, body: null, error: e };
   }
-
-  // check if token has expired
-  const now = Math.floor(Date.now() / 1000);
-  if (decodedPayload.exp && decodedPayload.exp < now) {
-    throw new NotAuthenticatedError('Token has expired.');
-  }
-
-  return decodedPayload;
 }

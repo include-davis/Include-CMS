@@ -1,10 +1,10 @@
 'use server';
-import { ResetPassword } from '@datalib/auth/resetPassword';
+import { resetPassword } from '@datalib/auth/resetPassword';
 import { HttpError } from '@utils/response/Errors';
-import type { UserCredentials } from '@typeDefs/UserCredentials';
+import type { UserCredentials } from '@typeDefs/auth/UserCredentials';
 import FormToJson from '@utils/form/FormToJSON';
 
-export default async function ResetPasswordAction(formData: FormData): Promise<{
+export default async function ResetPassword(formData: FormData): Promise<{
   ok: boolean;
   body: object | null;
   error: string | null;
