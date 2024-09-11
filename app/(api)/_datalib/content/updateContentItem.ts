@@ -5,7 +5,6 @@ import {
   NoContentError,
 } from '@utils/response/Errors';
 import parseAndReplace from '@utils/request/parseAndReplace';
-import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 
@@ -34,23 +33,17 @@ export async function updateContentItem(
       );
     }
 
-    return NextResponse.json(
-      {
-        ok: true,
-        body: 'CollectionItem updated.',
-        error: null,
-      },
-      { status: 200 }
-    );
+    return {
+      ok: true,
+      body: 'CollectionItem updated.',
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message || 'Internal Server Error',
-      },
-      { status: error.status || 400 }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message || 'Internal Server Error',
+    };
   }
 }

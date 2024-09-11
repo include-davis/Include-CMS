@@ -1,6 +1,4 @@
-import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
-
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import {
@@ -32,16 +30,13 @@ export async function updateMediaItem(id: string, body = {}) {
       throw new NotFoundError(`Judge with id: ${id} not found.`);
     }
 
-    return NextResponse.json({ ok: true, body: updateStatus, error: null });
+    return { ok: true, body: updateStatus, error: null };
   } catch (error) {
     const e = error as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: e.message || 'Internal Server Error',
-      },
-      { status: e.status || 500 }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: e.message || 'Internal Server Error',
+    };
   }
 }

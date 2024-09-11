@@ -1,12 +1,13 @@
 import uploadMediaList from './uploadMediaList';
-import MediaItem from '@typeDefs/media/media';
+import MediaItem from '@typeDefs/media/MediaItem';
 import schema from '@app/_utils/schema';
 
 export default async function processFormData(
   content_type: string,
   data: {
     [key: string]: any;
-  }
+  },
+  dataSetter: (value: any) => void
 ) {
   const uploadedMedia = await uploadMediaList(content_type, data);
   const clientDataValue = structuredClone(data);
@@ -34,6 +35,8 @@ export default async function processFormData(
         }
       ))
   );
+
+  dataSetter(clientDataValue);
 
   // convert dates to iso time and mediaItems to _ids
   const serverDataValue = structuredClone(clientDataValue);

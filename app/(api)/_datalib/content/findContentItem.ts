@@ -1,6 +1,5 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
-import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import schema from '@app/_utils/schema';
 
@@ -36,20 +35,14 @@ export async function findContentItem(content_type: string, id: string) {
       throw new NotFoundError(`No Items ${id} found in ${content_type}`);
     }
 
-    return NextResponse.json(
-      { ok: true, body: contentItem, error: null },
-      { status: 200 }
-    );
+    return { ok: true, body: contentItem, error: null };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message || 'Internal Server Error',
-      },
-      { status: error.status || 400 }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message || 'Internal Server Error',
+    };
   }
 }
 
@@ -82,19 +75,13 @@ export async function findContentItems(
       ])
       .toArray();
 
-    return NextResponse.json(
-      { ok: true, body: contentItems, error: null },
-      { status: 200 }
-    );
+    return { ok: true, body: contentItems, error: null };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message || 'Internal Server Error',
-      },
-      { status: error.status || 400 }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message || 'Internal Server Error',
+    };
   }
 }

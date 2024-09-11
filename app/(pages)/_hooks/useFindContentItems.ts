@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { FindContentItems } from '@actions/content/findContentItem';
-import CMSResponse from '@app/_types/response/response';
+import CMSResponse from '@typeDefs/response/Response';
 
 export default function useFindContentItems(
   content_type: string,

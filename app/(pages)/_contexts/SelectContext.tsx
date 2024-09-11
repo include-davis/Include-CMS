@@ -4,7 +4,7 @@ import { createContext, useState, useCallback } from 'react';
 interface SelectContextValue {
   selectMode: boolean;
   toggleSelectMode: () => void;
-  selectedIds: { [key: string]: boolean };
+  selectedIds: { [key: string]: any };
   toggleId: (id: string) => void;
   resetSelectedIds: () => void;
 }

@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createContentItem } from '@datalib/content/createContentItem';
 
 export async function POST(
@@ -6,5 +6,5 @@ export async function POST(
   { params }: { params: { content_type: string } }
 ) {
   const body = await request.json();
-  return createContentItem(params.content_type, body);
+  return NextResponse.json(await createContentItem(params.content_type, body));
 }

@@ -1,9 +1,9 @@
-export interface DecodedTokenInt {
+export default interface DecodedTokenInt {
   userId: string;
   exp: number;
 }
 
-export interface AuthTokenInt {
+export default interface AuthTokenInt {
   _id: string;
   email: string;
   password: string;

@@ -9,5 +9,5 @@ export async function UpdateContentItem(
 ) {
   const updateContentRes = await updateContentItem(content_type, id, body);
   revalidatePath(`/content/${content_type}`);
-  return updateContentRes.json();
+  return updateContentRes;
 }

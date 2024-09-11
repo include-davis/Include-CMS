@@ -1,7 +1,7 @@
 import GenerateCloudinarySignature from '@actions/cloudinary/generateCloudinarySignature';
 import { CreateMediaItem } from '@actions/media/createMediaItem';
 import HttpError from '@utils/response/HttpError';
-import MediaItem from '@typeDefs/media/media';
+import MediaItem from '@typeDefs/media/MediaItem';
 import DeleteCloudinaryObject from '@actions/cloudinary/deleteCloudinaryItem';
 
 export default async function uploadMediaItem(mediaItem: MediaItem) {

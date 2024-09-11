@@ -1,6 +1,5 @@
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError, HttpError } from '@utils/response/Errors';
-import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
 export async function deleteContentItem(content_type: string, id: string) {
@@ -16,23 +15,17 @@ export async function deleteContentItem(content_type: string, id: string) {
       throw new NotFoundError(`${content_type} with id: ${id} not found`);
     }
 
-    return NextResponse.json(
-      {
-        ok: true,
-        body: 'CollectionItem deleted.',
-        error: null,
-      },
-      { status: 200 }
-    );
+    return {
+      ok: true,
+      body: 'CollectionItem deleted.',
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message || 'Internal Server Error',
-      },
-      { status: error.status || 400 }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message || 'Internal Server Error',
+    };
   }
 }

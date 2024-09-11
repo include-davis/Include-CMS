@@ -1,7 +1,6 @@
-import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { ObjectId } from 'mongodb';
-import type { User } from '@typeDefs/user';
+import type User from '@typeDefs/auth/User';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import {
@@ -9,10 +8,6 @@ import {
   NoContentError,
   NotFoundError,
 } from '@utils/response/Errors';
-
-// pass in id of user + new email/password to update (at least one must be provided)
-// check if user exists in db before updating
-const collectionName = 'users';
 
 /**
  *   Updates user fields specified by the caller
@@ -24,7 +19,7 @@ const collectionName = 'users';
  *     error: number | null
  *   }
  */
-export async function UpdateUser(id: string, body: object) {
+export async function updateUser(id: string, body: object) {
   try {
     if (isBodyEmpty(body)) {
       throw new NoContentError();
@@ -35,8 +30,8 @@ export async function UpdateUser(id: string, body: object) {
     const parsedBody = await parseAndReplace(body);
 
     const user = await db
-      .collection(collectionName)
-      .updateOne({ _id: objectId }, { $set: parsedBody });
+      .collection('users')
+      .updateOne({ _id: objectId }, parsedBody);
 
     if (user.matchedCount === 0) {
       throw new NotFoundError(
@@ -44,27 +39,17 @@ export async function UpdateUser(id: string, body: object) {
       );
     }
 
-    return NextResponse.json(
-      {
-        ok: true,
-        body: user as User,
-        error: null,
-      },
-      {
-        status: 200,
-      }
-    );
+    return {
+      ok: true,
+      body: user as User,
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message,
-      },
-      {
-        status: error.status || 400,
-      }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message,
+    };
   }
 }

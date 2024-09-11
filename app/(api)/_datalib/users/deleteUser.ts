@@ -1,9 +1,6 @@
-import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
-
-const collectionName = 'users';
 
 /**
  *   Removes an existing user in database
@@ -14,12 +11,12 @@ const collectionName = 'users';
  *     error: string | null
  *   }
  */
-export async function DeleteUser(id: string) {
+export async function deleteUser(id: string) {
   try {
     const db = await getDatabase();
     const objectId = ObjectId.createFromHexString(id);
 
-    const deletion = await db.collection(collectionName).deleteOne({
+    const deletion = await db.collection('users').deleteOne({
       _id: objectId,
     });
 
@@ -29,27 +26,17 @@ export async function DeleteUser(id: string) {
       );
     }
 
-    return NextResponse.json(
-      {
-        ok: true,
-        body: null,
-        error: null,
-      },
-      {
-        status: 200,
-      }
-    );
+    return {
+      ok: true,
+      body: null,
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message,
-      },
-      {
-        status: error.status || 400,
-      }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message,
+    };
   }
 }

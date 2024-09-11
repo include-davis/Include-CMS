@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { HttpError, NoContentError } from '@utils/response/Errors';
@@ -27,19 +26,13 @@ export async function createMediaItem(body: object) {
       throw new HttpError('Failed to fetch the created item');
     }
 
-    return NextResponse.json(
-      { ok: true, body: createdMedia, error: null },
-      { status: 201 }
-    );
+    return { ok: true, body: createdMedia, error: null };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      {
-        ok: false,
-        body: null,
-        error: error.message || 'Internal Server Error',
-      },
-      { status: error.status || 500 }
-    );
+    return {
+      ok: false,
+      body: null,
+      error: error.message || 'Internal Server Error',
+    };
   }
 }

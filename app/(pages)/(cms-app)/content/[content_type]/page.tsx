@@ -6,7 +6,7 @@ import ContentCard from '../_components/ContentCard/ContentCard';
 import SelectContextProvider from '@contexts/SelectContext';
 import BaseContentItem from '@app/_types/content/BaseContentItem';
 import schema from '@app/_utils/schema';
-import { FindContentItems } from '@app/(api)/_actions/content/findContentItem';
+import { findContentItems } from '@datalib/content/findContentItem';
 
 interface ContentPageProps {
   params: {
@@ -16,7 +16,7 @@ interface ContentPageProps {
 
 export default async function ContentPage({ params }: ContentPageProps) {
   const { content_type } = params;
-  const res = await FindContentItems(content_type);
+  const res = await findContentItems(content_type);
 
   const publishedDataList = res.body
     .filter((item: BaseContentItem) => item._published)
@@ -29,6 +29,7 @@ export default async function ContentPage({ params }: ContentPageProps) {
         />
       );
     });
+
   const draftDataList = res.body
     .filter((item: BaseContentItem) => !item._published)
     .map((contentItem: BaseContentItem) => {

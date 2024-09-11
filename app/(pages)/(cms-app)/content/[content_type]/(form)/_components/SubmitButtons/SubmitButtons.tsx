@@ -18,9 +18,11 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
 
   const updateContentItem = async () => {
     try {
-      const [clientDataValue, serverDataValue, uploadSuccess] =
-        await processFormData(content_type, data);
-      setData(clientDataValue);
+      const [_, serverDataValue, uploadSuccess] = await processFormData(
+        content_type,
+        data,
+        setData
+      );
       if (!uploadSuccess) {
         throw new Error('Not all uploads were successful');
       }
@@ -39,9 +41,11 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
 
   const createContentItem = async () => {
     try {
-      const [clientDataValue, serverDataValue, uploadSuccess] =
-        await processFormData(content_type, data);
-      setData(clientDataValue);
+      const [_, serverDataValue, uploadSuccess] = await processFormData(
+        content_type,
+        data,
+        setData
+      );
       if (!uploadSuccess) {
         throw new Error('Not all uploads were successful');
       }
