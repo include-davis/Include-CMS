@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authFromRequest } from './authFromRequest';
 import { HttpError } from '@utils/response/Errors';
-export async function ProtectedRoute(
+export function authenticatedRoute(
   handler: (request: NextRequest, params: object) => Promise<NextResponse>
 ) {
   return async (request: NextRequest, params: object) => {
@@ -9,7 +9,7 @@ export async function ProtectedRoute(
       await authFromRequest(request);
     } catch (e) {
       const error = e as HttpError;
-      return Response.json(
+      return NextResponse.json(
         { ok: false, body: null, error: error.message },
         { status: error.status || 401 }
       );

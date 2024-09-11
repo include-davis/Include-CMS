@@ -1,12 +1,11 @@
 'use server';
 import bcrypt from 'bcryptjs';
-import { NextResponse } from 'next/server';
 import { DuplicateError, HttpError } from '@utils/response/Errors';
-import { GetUserByEmail } from '@datalib/users/getUser';
-import { CreateUser } from '@datalib/users/createUser';
+import { findUserByEmail } from '@datalib/users/findUser';
+import { createUser } from '@datalib/users/createUser';
 import { createAuthToken } from '@utils/auth/authTokenHandlers';
-import type { UserCredentials } from '@typeDefs/UserCredentials';
-import type { User } from '@typeDefs/user';
+import type UserCredentials from '@typeDefs/auth/UserCredentials';
+import User from '@typeDefs/auth/User';
 
 /**
  * @param body - { email: string, password: string }
@@ -16,16 +15,14 @@ import type { User } from '@typeDefs/user';
  *   error: number | null
  * }
  */
-export async function Register(body: UserCredentials) {
+export async function register(body: UserCredentials) {
   try {
     const { email, password } = body;
 
     // check if user exists
-    const userRes = await GetUserByEmail(email);
-    const userData = await userRes.json();
-    const user: User = userData.body;
+    const userRes = await findUserByEmail(email);
 
-    if (user) {
+    if (userRes.body) {
       throw new DuplicateError(
         'User already exists. Please enter a different email.'
       );
@@ -35,25 +32,18 @@ export async function Register(body: UserCredentials) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // create a new user
-    const newUserRes = await CreateUser({ email, password: hashedPassword });
-    const newUserData = await newUserRes.json();
+    const newUserRes = await createUser({ email, password: hashedPassword });
 
-    if (!newUserData.ok) {
-      throw new HttpError('Failed to create user.');
+    if (!newUserRes.ok) {
+      throw new HttpError(`Failed to create user: ${newUserRes.error}`);
     }
 
     // create auth token for user
-    const authToken = await createAuthToken(newUserData.body);
+    const authToken = await createAuthToken(newUserRes.body as User);
 
-    return NextResponse.json(
-      { ok: true, body: authToken, error: null },
-      { status: 200 }
-    );
+    return { ok: true, body: authToken, error: null };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      { ok: false, body: null, error: error.message },
-      { status: error.status || 400 }
-    );
+    return { ok: false, body: null, error: error.message };
   }
 }

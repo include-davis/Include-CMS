@@ -1,11 +1,9 @@
 'use server';
 import bcrypt from 'bcryptjs';
-import { NextResponse } from 'next/server';
-import { GetUserByEmail } from '@datalib/users/getUser';
-import { UpdateUser } from '@datalib/users/updateUser';
+import { findUserByEmail } from '@datalib/users/findUser';
+import { updateUser } from '@datalib/users/updateUser';
 import { HttpError } from '@utils/response/Errors';
-import type { UserCredentials } from '@typeDefs/UserCredentials';
-import type { User } from '@typeDefs/user';
+import type UserCredentials from '@typeDefs/auth/UserCredentials';
 
 /**
  * @param body - { email: string, password: string }
@@ -16,41 +14,33 @@ import type { User } from '@typeDefs/user';
  * }
  */
 
-export async function ResetPassword(body: UserCredentials) {
+export async function resetPassword(body: UserCredentials) {
   try {
     const { email, password } = body;
 
     // get user
-    const userRes = await GetUserByEmail(email);
-    const data = await userRes.json();
-    const user: User = data.body;
+    const userRes = await findUserByEmail(email);
+    const user = userRes.body;
 
     if (!user) {
-      throw new HttpError(data.error);
+      throw new HttpError(userRes.error || '');
     }
 
     // hash the user password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // update the user password
-    const updatedUserRes = await UpdateUser(user._id, {
+    const updatedUserRes = await updateUser(user._id, {
       $set: { password: hashedPassword },
     });
 
-    const updatedUser = await updatedUserRes.json();
-    return NextResponse.json(
-      {
-        ok: true,
-        body: updatedUser,
-        error: null,
-      },
-      { status: 200 }
-    );
+    return {
+      ok: true,
+      body: updatedUserRes,
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
-    return NextResponse.json(
-      { ok: false, body: null, error: error.message },
-      { status: error.status || 400 }
-    );
+    return { ok: false, body: null, error: error.message };
   }
 }
