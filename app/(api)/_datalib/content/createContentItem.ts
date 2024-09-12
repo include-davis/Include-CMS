@@ -27,7 +27,7 @@ export async function createContentItem(content_type: string, body: object) {
       throw new HttpError('Failed to fetch the created item');
     }
 
-    return { ok: true, body: newItem, error: null };
+    return { ok: true, body: JSON.parse(JSON.stringify(newItem)), error: null };
   } catch (e) {
     const error = e as HttpError;
     return {

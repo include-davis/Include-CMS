@@ -16,7 +16,7 @@ interface CreateContentProps {
   };
 }
 
-export default function CreateContent({ params }: CreateContentProps) {
+export default function EditContent({ params }: CreateContentProps) {
   const { content_type, id } = params;
   const contentSchema = schema[content_type];
 
@@ -29,6 +29,8 @@ export default function CreateContent({ params }: CreateContentProps) {
   if (!res.ok) {
     return res.error;
   }
+
+  console.log(res.body);
 
   const { _id: _, _created_at: __, _last_modified: ___, ...body } = res.body;
 

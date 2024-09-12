@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer);
+    width: 100%;
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        gap: var(--tiny-spacer);
+        width: 100%;
+
+        > label {
+            font-family: var(--font-manrope);
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        > input {
+            border-radius: 16px;
+            border: 1px solid black;
+            padding: 12px 20px;
+        }
+    }
+}

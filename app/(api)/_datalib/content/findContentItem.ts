@@ -75,7 +75,11 @@ export async function findContentItems(
       ])
       .toArray();
 
-    return { ok: true, body: contentItems, error: null };
+    return {
+      ok: true,
+      body: JSON.parse(JSON.stringify(contentItems)),
+      error: null,
+    };
   } catch (e) {
     const error = e as HttpError;
     return {

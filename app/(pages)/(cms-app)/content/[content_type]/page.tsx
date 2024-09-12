@@ -16,7 +16,7 @@ interface ContentPageProps {
 
 export default async function ContentPage({ params }: ContentPageProps) {
   const { content_type } = params;
-  const res = await findContentItems(content_type);
+  const res = JSON.parse(JSON.stringify(await findContentItems(content_type)));
 
   const publishedDataList = res.body
     .filter((item: BaseContentItem) => item._published)

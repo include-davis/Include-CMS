@@ -5,15 +5,13 @@ import { login } from '@datalib/auth/login';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import type { AuthToken } from '@typeDefs/auth/AuthToken';
 import type UserCredentials from '@typeDefs/auth/UserCredentials';
-import FormToJson from '@utils/form/FormToJSON';
 
-export default async function Login(formData: FormData): Promise<{
+export default async function Login(body: UserCredentials): Promise<{
   ok: boolean;
   body: AuthToken | null;
   error: string | null;
 }> {
   try {
-    const body = FormToJson(formData) as UserCredentials;
     const res = await login(body);
 
     if (!res.ok) {

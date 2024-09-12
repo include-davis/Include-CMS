@@ -1,12 +1,6 @@
-export interface DecodedToken {
-  userId: string;
-  exp: number;
-}
+import User from './User';
 
-export interface AuthToken {
-  _id: string;
-  email: string;
-  password: string;
+export interface AuthToken extends User {
   iat: number;
   exp: number;
 }
