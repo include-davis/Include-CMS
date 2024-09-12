@@ -1,6 +1,8 @@
 import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
 import Sidebar from '@components/Sidebar/Sidebar';
 import styles from './layout.module.scss';
+import ProtectedDisplay from '../_components/ProtectedDisplay/ProtectedDisplay';
+import AuthFailureRedirect from '../_components/ProtectedDisplay/AuthFailureRedirect';
 
 export default function SidebarLayout({
   children,
@@ -20,7 +22,11 @@ export default function SidebarLayout({
           capitalizeLinks
         />
       </div>
-      <div className={styles.content}>{children}</div>
+      <div className={styles.content}>
+        <ProtectedDisplay failDisplay={<AuthFailureRedirect />}>
+          {children}
+        </ProtectedDisplay>
+      </div>
     </div>
   );
 }

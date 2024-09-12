@@ -1,30 +1,27 @@
 'use server';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
-import { Login } from '@datalib/auth/login';
+import { login } from '@datalib/auth/login';
 import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
-import type { AuthTokenInt } from '@typeDefs/authToken';
-import type { UserCredentials } from '@typeDefs/UserCredentials';
-import FormToJson from '@utils/form/FormToJSON';
+import type { AuthToken } from '@typeDefs/auth/AuthToken';
+import type UserCredentials from '@typeDefs/auth/UserCredentials';
 
-export default async function LoginAction(formData: FormData): Promise<{
+export default async function Login(body: UserCredentials): Promise<{
   ok: boolean;
-  body: AuthTokenInt | null;
+  body: AuthToken | null;
   error: string | null;
 }> {
   try {
-    const body = FormToJson(formData) as UserCredentials;
-    const res = await Login(body);
-    const data = await res.json();
+    const res = await login(body);
 
     if (!res.ok) {
-      throw new NotAuthenticatedError(data.error);
+      throw new NotAuthenticatedError(res.error || '');
     }
 
-    const payload = jwt.decode(data.body) as AuthTokenInt;
+    const payload = jwt.decode(res.body || '') as AuthToken;
     cookies().set({
       name: 'auth_token',
-      value: data.body,
+      value: res.body || '',
       expires: payload.exp * 1000,
       secure: true,
       httpOnly: true,

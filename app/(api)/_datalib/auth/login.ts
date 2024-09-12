@@ -34,7 +34,7 @@ export async function login(body: UserCredentials) {
     }
 
     // create auth token for user
-    const authToken = await createAuthToken(foundUser);
+    const authToken = await createAuthToken(foundUser.body || {});
 
     return { ok: true, body: authToken, error: null };
   } catch (e) {

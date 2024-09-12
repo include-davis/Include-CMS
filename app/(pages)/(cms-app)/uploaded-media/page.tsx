@@ -10,7 +10,7 @@ import { findMediaItems } from '@datalib/media/findMediaItem';
 import MediaItem from '@typeDefs/media/MediaItem';
 
 export default async function MediaPage() {
-  const res = await findMediaItems();
+  const res = JSON.parse(JSON.stringify(await findMediaItems()));
   if (!res.ok) {
     return 'Error fetching Media data';
   }

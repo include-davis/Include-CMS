@@ -6,6 +6,8 @@ import '@globals/styles/globals.scss';
 
 import fonts from '@globals/fonts';
 import metadata from '@globals/metadata.json';
+import { AuthContextProvider } from '@contexts/AuthContext';
+import { Suspense } from 'react';
 
 export { metadata };
 
@@ -16,7 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={fonts}> {children} </body>
+      <body className={fonts}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AuthContextProvider>{children} </AuthContextProvider>
+        </Suspense>
+      </body>
     </html>
   );
 }

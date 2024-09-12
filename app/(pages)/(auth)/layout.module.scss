@@ -1,0 +1,9 @@
+.container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100vh;
+}
+
+.auth_decorator {
+    background: linear-gradient(135deg, var(--primary), #84197D);
+}

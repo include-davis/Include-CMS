@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 430px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    > h1 {
+        font-family: var(--font-manrope);
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+}
+
+.login_button {
+    border-radius: 16px;
+    background: var(--primary);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    font-family: var(--font-dm-sans);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-light);
+}

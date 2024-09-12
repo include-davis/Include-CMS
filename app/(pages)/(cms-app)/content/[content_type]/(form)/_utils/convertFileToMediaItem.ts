@@ -1,5 +1,4 @@
-import MediaItem from '@app/_types/media/media';
-
+import MediaItem from '@typeDefs/media/MediaItem';
 export default function convertFileToMediaItem(file: File): MediaItem {
   const [fileType, fileFormat] = file.type.split('/');
   return {

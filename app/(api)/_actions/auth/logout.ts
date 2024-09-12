@@ -1,7 +1,7 @@
 'use server';
 import { cookies } from 'next/headers';
 
-export default async function DeleteAuthToken() {
+export default async function Logout() {
   const cookieStore = cookies();
   const authTokenCookie = cookieStore.get('auth_token');
   if (!authTokenCookie) {
