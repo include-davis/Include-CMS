@@ -19,15 +19,13 @@
       }
     ],
     "paths": {
+      "@public/*": ["./public/*"],
       "@app/*": ["./app/*"],
       "@pages/*": ["./app/(pages)/*"],
       "@api/*": ["./app/(api)/*"],
-      "@settings/*": ["./settings/*"],
-      "@schema/*": ["./schema/*"],
       "@typeDefs/*": ["./app/_types/*"],
       "@globals/*": ["./app/(pages)/_globals/*"],
       "@components/*": ["./app/(pages)/_components/*"],
-      "@pagedata/*": ["./app/(pages)/_data/*"],
       "@hooks/*": ["./app/(pages)/_hooks/*"],
       "@contexts/*": ["./app/(pages)/_contexts/*"],
       "@utils/*": ["./app/(api)/_utils/*"],   

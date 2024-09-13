@@ -1,7 +1,13 @@
 {
-  "name": "include-cms",
-  "version": "0.1.0",
+  "name": "@include/hearth",
+  "version": "1.0.0",
   "private": true,
+  "bin": {
+    "hearth": "scripts/cli.mjs",
+    "hearth-prebuild": "scripts/generate-build-assets.mjs"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,16 +17,16 @@
     "migrate:up": "migrate-mongo up",
     "migrate:down": "migrate-mongo down",
     "migrate:create": "migrate-mongo create",
-    "migrate:status": "migrate-mongo status",
-    "seed": "run-script-os",
-    "seed:nix": "node --env-file='.env' \"app/(api)/_utils/mongodb/dbSeed.mjs\"",
-    "seed:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbSeed.mjs\""
+    "build-assets": "ts-node scripts/generate-build-assets.mjs"
+
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.2.0",
+    "fs": "^0.0.1-security",
+    "globby": "^14.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "next": "^14.2.4",
@@ -30,7 +36,8 @@
     "react-icons": "^4.11.0",
     "react-quill": "^2.0.0",
     "readline": "^1.3.0",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",

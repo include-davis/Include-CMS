@@ -4,8 +4,8 @@ import Image from 'next/image';
 import useFilterContext from '@hooks/useFilters';
 import styles from './ContentFilters.module.scss';
 
-import searchIcon from '/public/app/search.svg';
-import chevronDown from '/public/app/chevron-down.svg';
+import searchIcon from '@public/app/search.svg';
+import chevronDown from '@public/app/chevron-down.svg';
 
 interface ContentFiltersProps {
   searchPlaceholder: string;

@@ -3,7 +3,7 @@ import { useRef, DragEvent, ChangeEvent } from 'react';
 import Image from 'next/image';
 import styles from './MediaFromUpload.module.scss';
 
-import uploadIcon from '/public/content/form/upload.png';
+import uploadIcon from '@public/content/form/upload.png';
 
 interface MediaFromUploadProps {
   onInput: (files: FileList) => void;

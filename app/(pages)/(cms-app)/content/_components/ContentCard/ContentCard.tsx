@@ -7,7 +7,8 @@ import schema from '@app/_utils/schema';
 
 import BaseContentItem from '@app/_types/content/BaseContentItem';
 import useSelectContext from '@hooks/useSelectContext';
-import checkMark from '/public/content/[content_type]/check.svg';
+import checkMark from '@public/content/[content_type]/check.svg';
+import { FieldType, Field } from '@include/hearth';
 
 interface ContentCardInterface {
   content_type: string;
@@ -20,11 +21,10 @@ export default function ContentCard({
 }: ContentCardInterface) {
   const { selectedIds, toggleId, selectMode } = useSelectContext();
 
-  const contentSchema = schema[content_type];
-  const mediaItems = contentSchema
-    .getFieldArray()
-    .filter((field) => field.type === 'mediaList')
-    .map((field) => contentItem[field.name])
+  const contentSchema = schema?.get(content_type);
+  const mediaItems = (contentSchema?.getFieldArray() || [])
+    .filter((field: Field) => field.type === FieldType.MEDIA_LIST)
+    .map((field: Field) => contentItem[field.name])
     .flat();
 
   const cardContent = (

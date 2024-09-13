@@ -6,11 +6,11 @@ import styles from './page.module.scss';
 import LoginFormFields from '../_components/LoginFormFields/LoginFormFields';
 import { useAuthContext } from '@hooks/useAuthContext';
 import LoginAction from '@actions/auth/login';
-import includeLogo from '/public/icons/logo.png';
+import includeLogo from '@public/icons/logo.png';
 import { AuthToken } from '@app/_types/auth/AuthToken';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import Logout from '@app/(api)/_actions/auth/logout';
+import Logout from '@actions/auth/logout';
 
 interface LoginFormData {
   email: string;

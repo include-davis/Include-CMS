@@ -23,7 +23,7 @@ export default async function ContentPage({ params }: ContentPageProps) {
     .map((contentItem: BaseContentItem) => {
       return (
         <ContentCard
-          content_type={schema[content_type].getName()}
+          content_type={schema.get(content_type)?.getName() || ''}
           contentItem={contentItem}
           key={contentItem._id}
         />
@@ -35,7 +35,7 @@ export default async function ContentPage({ params }: ContentPageProps) {
     .map((contentItem: BaseContentItem) => {
       return (
         <ContentCard
-          content_type={schema[content_type].getName()}
+          content_type={schema.get(content_type)?.getName() || ''}
           contentItem={contentItem}
           key={contentItem._id}
         />
@@ -47,7 +47,9 @@ export default async function ContentPage({ params }: ContentPageProps) {
       <div className={styles.container}>
         <ContentHeader
           content_type={content_type}
-          contentDisplayName={schema[content_type].getDisplayName()}
+          contentDisplayName={
+            schema.get(content_type)?.getPluralDisplayName() || ''
+          }
         />
         <ContentSection title={'Published'}>{publishedDataList}</ContentSection>
         <ContentSection title={'Drafts'}>{draftDataList}</ContentSection>

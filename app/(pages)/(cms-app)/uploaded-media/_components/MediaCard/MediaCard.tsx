@@ -4,7 +4,7 @@ import ImagePreview from './ImagePreview';
 import VideoPreview from './VideoPreview';
 import MediaItem from '@typeDefs/media/MediaItem';
 import useSelectContext from '@hooks/useSelectContext';
-import checkMark from '/public/content/[content_type]/check.svg';
+import checkMark from '@public/content/[content_type]/check.svg';
 import Image from 'next/image';
 
 interface Props {

@@ -1,6 +1,5 @@
 'use client';
 import { useState, createContext } from 'react';
-import schema from '@app/_utils/schema';
 
 interface ContentFormContextValue {
   content_type: string;
@@ -30,19 +29,10 @@ interface ContentFormContextProviderProps {
 export default function ContentFormContextProvider({
   content_type,
   id = null,
-  initialValue,
+  initialValue = {},
   children,
 }: ContentFormContextProviderProps) {
-  const content_schema = schema[content_type];
-  const generateInitialValue = () => {
-    const res: { [key: string]: any } = {};
-    for (const field of content_schema.getFieldArray()) {
-      res[field.name] = field.defaultValue;
-    }
-    return res;
-  };
-
-  const [data, setData] = useState(initialValue ?? generateInitialValue());
+  const [data, setData] = useState(initialValue);
 
   const updateField = (field_name: string, value: any) => {
     setData((prev) => ({

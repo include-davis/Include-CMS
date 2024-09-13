@@ -2,7 +2,7 @@ import styles from './CreateButton.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import add from '/public/content/[content_type]/add.svg';
+import add from '@public/content/[content_type]/add.svg';
 
 interface CreateButtonProps {
   content_type: string;

@@ -3,7 +3,7 @@
 import styles from './SidebarDropdown.module.scss';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import arrow from '/public/navigation/sidebar/arrow.svg';
+import arrow from '@public/navigation/sidebar/arrow.svg';
 import useToggle from '@hooks/useToggle';
 import useSidebarContext from '@hooks/useSidebar';
 

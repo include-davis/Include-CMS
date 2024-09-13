@@ -1,4 +1,5 @@
-import { ContentSchema } from '@app/_types/content/ContentSchema';
-import schema from '@schema/_index';
+import { ContentSchema } from '@include/hearth';
+import schemaJSON from '../../build-assets/schema.json';
 
-export default schema as ContentSchema;
+const schema = ContentSchema.fromJSON(JSON.stringify(schemaJSON));
+export default schema;

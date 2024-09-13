@@ -1,25 +1,25 @@
 'use client';
 import styles from './Sidebar.module.scss';
 import Image from 'next/image';
-import logo from '/public/navigation/sidebar/logo.png';
-import settingsIcon from '/public/navigation/sidebar/settings-icon.png';
-import uploadedMediaIcon from '/public/navigation/sidebar/uploaded-media-icon.png';
-import contentIcon from '/public/navigation/sidebar/content-icon.png';
+import logo from '@public/navigation/sidebar/logo.png';
+import settingsIcon from '@public/navigation/sidebar/settings-icon.png';
+import uploadedMediaIcon from '@public/navigation/sidebar/uploaded-media-icon.png';
+import contentIcon from '@public/navigation/sidebar/content-icon.png';
 
-import schema from '@app/_utils/schema';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarContextProvider from '@contexts/SidebarContext';
+import schema from '@app/_utils/schema';
 
 export default function Sidebar() {
-  const content_types = Object.keys(schema);
+  const content_types = schema.getNames() || [];
   const collections = content_types.map((content_type: string) => ({
-    name: schema[content_type].getDisplayName(),
-    url: `/content/${schema[content_type].getName()}`,
+    name: schema.get(content_type)?.getPluralDisplayName() || '',
+    url: `/content/${schema?.get(content_type)?.getName() || ''}`,
   }));
 
   const uploaded_media = content_types.map((content_type: string) => ({
-    name: schema[content_type].getDisplayName(),
-    url: `/uploaded-media/${schema[content_type].getName()}`,
+    name: schema.get(content_type)?.getPluralDisplayName() || '',
+    url: `/uploaded-media/${schema.get(content_type)?.getName() || ''}`,
   }));
 
   return (

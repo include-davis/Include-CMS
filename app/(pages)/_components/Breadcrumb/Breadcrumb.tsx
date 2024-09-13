@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import separatorImage from '/public/navigation/breadcrumb/breadcrumb.png';
+import separatorImage from '@public/navigation/breadcrumb/breadcrumb.png';
 
 type TBreadcrumbProps = {
   containerClasses?: string;

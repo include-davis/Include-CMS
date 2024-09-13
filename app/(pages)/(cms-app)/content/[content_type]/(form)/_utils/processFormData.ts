@@ -1,6 +1,7 @@
 import uploadMediaList from './uploadMediaList';
 import MediaItem from '@typeDefs/media/MediaItem';
 import schema from '@app/_utils/schema';
+import { FieldType, Field } from '@include/hearth';
 
 export default async function processFormData(
   content_type: string,
@@ -12,12 +13,18 @@ export default async function processFormData(
   const uploadedMedia = await uploadMediaList(content_type, data);
   const clientDataValue = structuredClone(data);
 
-  const mediaFields = schema[content_type]
+  const contentSchema = schema.get(content_type);
+  if (!contentSchema) {
+    throw new Error(`Content type: ${content_type} does not exist.`);
+  }
+
+  const mediaFields = contentSchema
     .getFieldArray()
     .filter(
-      (field) => field.type === 'mediaList' && !field.name.startsWith('_')
+      (field: Field) =>
+        field.type === FieldType.MEDIA_LIST && !field.name.startsWith('_')
     )
-    .map((field) => field.name);
+    .map((field: Field) => field.name);
 
   let uploadSuccess = true;
   // convert local mediaItems to uploaded mediaItems
@@ -40,10 +47,13 @@ export default async function processFormData(
 
   // convert dates to iso time and mediaItems to _ids
   const serverDataValue = structuredClone(clientDataValue);
-  const dateFields = schema[content_type]
+  const dateFields = contentSchema
     .getFieldArray()
-    .filter((field) => field.type === 'date' && !field.name.startsWith('_'))
-    .map((field) => field.name);
+    .filter(
+      (field: Field) =>
+        field.type === FieldType.DATE && !field.name.startsWith('_')
+    )
+    .map((field: Field) => field.name);
 
   mediaFields.forEach(
     (mediaField: string) =>

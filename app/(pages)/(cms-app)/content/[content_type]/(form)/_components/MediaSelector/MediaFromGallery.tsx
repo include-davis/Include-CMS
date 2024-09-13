@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from './MediaFromGallery.module.scss';
-import bookmarkIcon from '/public/content/form/bookmark.png';
+import bookmarkIcon from '@public/content/form/bookmark.png';
 
 export default function MediaFromGallery() {
   return (

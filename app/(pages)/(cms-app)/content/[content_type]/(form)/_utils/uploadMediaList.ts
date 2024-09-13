@@ -1,6 +1,7 @@
 import MediaItem from '@typeDefs/media/MediaItem';
 import schema from '@app/_utils/schema';
 import uploadMediaItem from './uploadMediaItem';
+import { FieldType, Field } from '@include/hearth';
 
 interface UploadRes {
   [key: string]: {
@@ -16,11 +17,15 @@ export default async function uploadMediaList(
     [key: string]: any;
   }
 ) {
-  const contentSchema = schema[content_type];
+  const contentSchema = schema.get(content_type);
+  if (!contentSchema) {
+    throw new Error(`Content type: ${content_type} does not exist.`);
+  }
+
   const mediaFields = contentSchema
     .getFieldArray()
-    .filter((field) => field.type === 'mediaList')
-    .map((field) => field.name as string);
+    .filter((field: Field) => field.type === FieldType.MEDIA_LIST)
+    .map((field: Field) => field.name as string);
 
   const res: UploadRes = {};
 

@@ -2,15 +2,20 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
 import schema from '@app/_utils/schema';
+import { FieldType } from '@include/hearth';
+import type { Field } from '@include/hearth';
 
 export async function findContentItem(content_type: string, id: string) {
   try {
     const db = await getDatabase();
-    const contentSchema = schema[content_type];
+    const contentSchema = schema.get(content_type);
+    if (!contentSchema) {
+      throw new NotFoundError(`Content type: ${content_type} does not exist.`);
+    }
     const mediaFieldExpansionSteps = contentSchema
       .getFieldArray()
-      .filter((field) => field.type === 'mediaList')
-      .map((field) => ({
+      .filter((field: Field) => field.type === FieldType.MEDIA_LIST)
+      .map((field: Field) => ({
         $lookup: {
           from: 'media',
           localField: field.name,
@@ -52,11 +57,14 @@ export async function findContentItems(
 ) {
   try {
     const db = await getDatabase();
-    const contentSchema = schema[content_type];
+    const contentSchema = schema.get(content_type);
+    if (!contentSchema) {
+      throw new NotFoundError(`Content type: ${content_type} does not exist.`);
+    }
     const mediaFieldExpansionSteps = contentSchema
       .getFieldArray()
-      .filter((field) => field.type === 'mediaList')
-      .map((field) => ({
+      .filter((field: Field) => field.type === FieldType.MEDIA_LIST)
+      .map((field: Field) => ({
         $lookup: {
           from: 'media',
           localField: field.name,

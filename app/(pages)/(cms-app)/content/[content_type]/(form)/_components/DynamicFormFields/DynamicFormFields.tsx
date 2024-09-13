@@ -7,6 +7,7 @@ import ShortTextField from '../ShortTextField/ShortTextField';
 import LongTextField from '../LongTextField/LongTextField';
 import DateField from '../DateField/DateField';
 import MediaListField from '../MediaListField/MediaListField';
+import { Field } from '@include/hearth';
 
 const FieldMapping = {
   shortText: ShortTextField,
@@ -17,7 +18,7 @@ const FieldMapping = {
 
 export default function DynamicFormFields() {
   const { content_type } = useContentFormContext();
-  const contentSchema = schema[content_type];
+  const contentSchema = schema.get(content_type);
 
   if (!contentSchema) {
     return `Content type: ${content_type} does not exist.`;
@@ -27,8 +28,8 @@ export default function DynamicFormFields() {
     <div className={styles.container}>
       {contentSchema
         .getFieldArray()
-        .filter((field) => field.visible)
-        .map((field) => {
+        .filter((field: Field) => field.visible)
+        .map((field: Field) => {
           const Field = FieldMapping[field.type];
           return (
             <div key={field.name} className={styles.field_container}>

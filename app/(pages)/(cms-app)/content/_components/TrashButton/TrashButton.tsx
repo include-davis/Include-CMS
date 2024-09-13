@@ -3,7 +3,7 @@ import Image from 'next/image';
 import useSelectContext from '@hooks/useSelectContext';
 import { DeleteContentItem } from '@actions/content/deleteContentItem';
 
-import trash from '/public/content/[content_type]/trash.svg';
+import trash from '@public/content/[content_type]/trash.svg';
 
 interface CreateButtonProps {
   content_type: string;

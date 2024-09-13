@@ -5,7 +5,7 @@ import styles from './page.module.scss';
 import schema from '@app/_utils/schema';
 import ContentForm from '../../_components/ContentForm/ContentForm';
 import ContentFormContextProvider from '@contexts/ContentFormContext';
-import backButton from '/public/content/form/back-button.png';
+import backButton from '@public/content/form/back-button.png';
 import Link from 'next/link';
 import useFindContentItem from '@app/(pages)/_hooks/useFindContentItem';
 
@@ -18,8 +18,6 @@ interface CreateContentProps {
 
 export default function EditContent({ params }: CreateContentProps) {
   const { content_type, id } = params;
-  const contentSchema = schema[content_type];
-
   const { res, loading } = useFindContentItem(content_type, id);
 
   if (loading) {
@@ -30,7 +28,7 @@ export default function EditContent({ params }: CreateContentProps) {
     return res.error;
   }
 
-  console.log(res.body);
+  const contentSchema = schema?.get(content_type);
 
   const { _id: _, _created_at: __, _last_modified: ___, ...body } = res.body;
 
@@ -46,11 +44,14 @@ export default function EditContent({ params }: CreateContentProps) {
       </Link>
       <div className={styles.form_container}>
         <ContentFormContextProvider
-          content_type={contentSchema.getName()}
+          content_type={contentSchema?.getName() || ''}
           id={id}
           initialValue={body}
         >
-          <ContentForm action="Edit" content_type={contentSchema.getName()} />
+          <ContentForm
+            action="Edit"
+            content_type={contentSchema?.getName() || ''}
+          />
         </ContentFormContextProvider>
       </div>
     </div>

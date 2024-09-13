@@ -4,6 +4,8 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { v2 as cloudinary } from 'cloudinary';
 import schema from '@app/_utils/schema';
+import { FieldType } from '@include/hearth';
+import type { Field } from '@include/hearth';
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -14,6 +16,7 @@ cloudinary.config({
 export async function deleteMediaItem(id: string) {
   try {
     const db = await getDatabase();
+
     const objectId = ObjectId.createFromHexString(id);
     const mediaItem = await db.collection('media').findOne({
       _id: objectId,
@@ -30,18 +33,23 @@ export async function deleteMediaItem(id: string) {
     const content_types = Object.keys(schema);
     await Promise.all(
       content_types.map((content_type: string) => {
-        const contentSchema = schema[content_type];
+        const contentSchema = schema.get(content_type);
+        if (!contentSchema) {
+          throw new NotFoundError(
+            `Content type: ${content_type} does not exist.`
+          );
+        }
         const mediaFields = contentSchema
           .getFieldArray()
-          .filter((field) => field.type === 'mediaList')
-          .map((field) => field.name);
+          .filter((field: Field) => field.type === FieldType.MEDIA_LIST)
+          .map((field: Field) => field.name);
 
         const updatePullList: { [key: string]: any } = {};
-        mediaFields.forEach((field) => {
+        mediaFields.forEach((field: Field) => {
           updatePullList[field] = objectId;
         });
 
-        const mediaFieldQueries = mediaFields.map((field) => ({
+        const mediaFieldQueries = mediaFields.map((field: Field) => ({
           [field]: objectId,
         }));
         if (mediaFieldQueries.length === 0) {
