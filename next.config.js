@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   sassOptions: {
     includePaths: ['./app/(pages)/_globals/styles'],
   },
@@ -7,5 +7,3 @@ const nextConfig = {
     domains: ['res.cloudinary.com'],
   },
 };
-
-module.exports = nextConfig;

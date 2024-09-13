@@ -8,6 +8,14 @@ export interface Field {
   isPopulated?: (value: any) => boolean;
 }
 
+export const FieldType = {
+  SHORT_TEXT: 'shortText',
+  LONG_TEXT: 'longText',
+  DATE: 'date',
+  BOOLEAN: 'boolean',
+  MEDIA_LIST: 'mediaList',
+};
+
 export class ContentType {
   private name: string;
   private singularDisplayName: string;

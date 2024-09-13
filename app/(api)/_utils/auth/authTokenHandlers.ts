@@ -1,6 +1,6 @@
 import jwt, { Secret } from 'jsonwebtoken';
 import type { AuthToken } from '@typeDefs/auth/AuthToken';
-import getSettings from '@app/_utils/settings';
+import settings from '@app/_utils/settings';
 
 /**
  * Create a JWT token with the given data
@@ -8,7 +8,7 @@ import getSettings from '@app/_utils/settings';
  * @returns string - JWT token
  */
 export async function createAuthToken(data: object) {
-  const { authExpHours } = await getSettings();
+  const { authExpHours } = settings;
   return jwt.sign(data, process.env.JWT_SECRET as Secret, {
     expiresIn: `${authExpHours}h`,
   });

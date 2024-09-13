@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "bin": {
-    "hearth": "scripts/cli.mjs",
-    "hearth-prebuild": "scripts/generate-build-assets.mjs"
+    "hearth": "scripts/hearth.mjs"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,13 +11,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "type-check": "npx tsc",
     "migrate:up": "migrate-mongo up",
     "migrate:down": "migrate-mongo down",
-    "migrate:create": "migrate-mongo create",
-    "build-assets": "ts-node scripts/generate-build-assets.mjs"
-
+    "migrate:create": "migrate-mongo create"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",

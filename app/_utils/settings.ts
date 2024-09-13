@@ -1,2 +1,2 @@
-import settingsJSON from '../../build-assets/settings.json';
-export default settingsJSON;
+import settings from '../../build-assets/settings.json';
+export default settings;
