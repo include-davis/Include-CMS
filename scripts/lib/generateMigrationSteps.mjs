@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 import schemaJSON from '../../build-assets/schema.json' assert { type: 'json' };
-import { ContentSchema, FieldType } from '@include/hearth';
+import { ContentSchema, FieldType } from '../../dist/index.js';
 
 const schema = ContentSchema.fromJSON(schemaJSON);
 

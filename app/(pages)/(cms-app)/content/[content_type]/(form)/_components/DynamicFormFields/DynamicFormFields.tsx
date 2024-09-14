@@ -7,7 +7,7 @@ import ShortTextField from '../ShortTextField/ShortTextField';
 import LongTextField from '../LongTextField/LongTextField';
 import DateField from '../DateField/DateField';
 import MediaListField from '../MediaListField/MediaListField';
-import { Field } from '@include/hearth';
+import { Field } from '@dist/index';
 
 const FieldMapping = {
   shortText: ShortTextField,

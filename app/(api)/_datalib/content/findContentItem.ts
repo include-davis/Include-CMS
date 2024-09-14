@@ -2,8 +2,7 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
 import schema from '@app/_utils/schema';
-import { FieldType } from '@include/hearth';
-import type { Field } from '@include/hearth';
+import { FieldType, Field } from '@dist/index';
 
 export async function findContentItem(content_type: string, id: string) {
   try {

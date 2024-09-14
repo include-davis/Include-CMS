@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import { globbySync } from 'globby';
-import Hearth from '@include/hearth';
+import Hearth from '../../dist/index.js';
 
 const { ContentSchema } = Hearth;
 export default async function getSchema(outDir) {

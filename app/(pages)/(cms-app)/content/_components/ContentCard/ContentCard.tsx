@@ -8,7 +8,7 @@ import schema from '@app/_utils/schema';
 import BaseContentItem from '@app/_types/content/BaseContentItem';
 import useSelectContext from '@hooks/useSelectContext';
 import checkMark from '@public/content/[content_type]/check.svg';
-import { FieldType, Field } from '@include/hearth';
+import { FieldType, Field } from '@dist/index';
 
 interface ContentCardInterface {
   content_type: string;

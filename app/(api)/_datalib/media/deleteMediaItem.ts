@@ -4,8 +4,7 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { v2 as cloudinary } from 'cloudinary';
 import schema from '@app/_utils/schema';
-import { FieldType } from '@include/hearth';
-import type { Field } from '@include/hearth';
+import { FieldType, Field } from '@dist/index';
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
