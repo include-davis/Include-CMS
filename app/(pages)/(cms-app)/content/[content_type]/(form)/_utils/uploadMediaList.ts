@@ -1,7 +1,7 @@
 import MediaItem from '@typeDefs/media/MediaItem';
 import schema from '@app/_utils/schema';
 import uploadMediaItem from './uploadMediaItem';
-import { FieldType, Field } from '@include/hearth';
+import { FieldType, Field } from '@dist/index';
 
 interface UploadRes {
   [key: string]: {

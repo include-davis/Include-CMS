@@ -1,7 +1,7 @@
 import uploadMediaList from './uploadMediaList';
 import MediaItem from '@typeDefs/media/MediaItem';
 import schema from '@app/_utils/schema';
-import { FieldType, Field } from '@include/hearth';
+import { FieldType, Field } from '@dist/index';
 
 export default async function processFormData(
   content_type: string,

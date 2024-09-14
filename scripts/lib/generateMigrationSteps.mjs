@@ -1,8 +1,6 @@
 import { MongoClient } from 'mongodb';
-import schemaJSON from '../../build-assets/schema.json' assert { type: 'json' };
-import { ContentSchema, FieldType } from '@include/hearth';
-
-const schema = ContentSchema.fromJSON(schemaJSON);
+import { FieldType } from '../../dist/index.js';
+import getSchema from './getSchema.mjs';
 
 export default async function generateMigrationSteps() {
   const currentValidators = await getCurrentValidators();
@@ -65,6 +63,7 @@ async function getCurrentValidators() {
 }
 
 async function getNewValidators() {
+  const schema = await getSchema('', false);
   const typeMapping = {
     [FieldType.SHORT_TEXT]: {
       bsonType: 'string',

@@ -1,4 +1,4 @@
-import { ContentSchema } from '@include/hearth';
+import { ContentSchema } from '@dist/index';
 import schemaJSON from '../../build-assets/schema.json';
 
 const schema = ContentSchema.fromJSON(schemaJSON);
