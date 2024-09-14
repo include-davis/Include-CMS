@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import buildAndRun from './lib/hearth.mjs';
+import buildAndRun from './lib/buildAndRun.mjs';
 const args = process.argv.slice(2);
 
 const command = args[0];
