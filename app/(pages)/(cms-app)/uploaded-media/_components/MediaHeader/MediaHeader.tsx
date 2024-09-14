@@ -20,6 +20,7 @@ export default function MediaHeader() {
     }
 
     const res = await Promise.all(deleteIds.map((id) => DeleteMediaItem(id)));
+
     const ok = res.every(({ ok }) => ok);
     if (ok) {
       alert('Everything worked!');

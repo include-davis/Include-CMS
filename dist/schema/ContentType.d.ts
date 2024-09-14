@@ -50,5 +50,5 @@ export class ContentType {
   public getFieldArray();
   public setFields(fields: { [key: string]: Field });
   public toJSON();
-  public static fromJSON(json: string): ContentType;
+  public static fromJSON(json: object): ContentType;
 }

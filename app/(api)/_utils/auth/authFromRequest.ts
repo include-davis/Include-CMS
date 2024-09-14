@@ -3,7 +3,6 @@ import NotAuthenticatedError from '@utils/response/NotAuthenticatedError';
 import { verifyAuthToken } from './authTokenHandlers';
 
 export async function authFromRequest(request: NextRequest) {
-  console.log('hello');
   const token = request.cookies.get('auth_token')?.value;
   if (!token) {
     throw new NotAuthenticatedError('User not authenticated');

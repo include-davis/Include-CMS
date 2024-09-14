@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,21 +23,54 @@
       }
     ],
     "paths": {
-      "@public/*": ["./public/*"],
-      "@app/*": ["./app/*"],
-      "@pages/*": ["./app/(pages)/*"],
-      "@api/*": ["./app/(api)/*"],
-      "@typeDefs/*": ["./app/_types/*"],
-      "@globals/*": ["./app/(pages)/_globals/*"],
-      "@components/*": ["./app/(pages)/_components/*"],
-      "@hooks/*": ["./app/(pages)/_hooks/*"],
-      "@contexts/*": ["./app/(pages)/_contexts/*"],
-      "@utils/*": ["./app/(api)/_utils/*"],   
-      "@actions/*": ["./app/(api)/_actions/*"],
-      "@apidata/*": ["./app/(api)/_data/*"],
-      "@datalib/*": ["./app/(api)/_datalib/*"],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@app/*": [
+        "./app/*"
+      ],
+      "@pages/*": [
+        "./app/(pages)/*"
+      ],
+      "@api/*": [
+        "./app/(api)/*"
+      ],
+      "@typeDefs/*": [
+        "./app/_types/*"
+      ],
+      "@globals/*": [
+        "./app/(pages)/_globals/*"
+      ],
+      "@components/*": [
+        "./app/(pages)/_components/*"
+      ],
+      "@hooks/*": [
+        "./app/(pages)/_hooks/*"
+      ],
+      "@contexts/*": [
+        "./app/(pages)/_contexts/*"
+      ],
+      "@utils/*": [
+        "./app/(api)/_utils/*"
+      ],
+      "@actions/*": [
+        "./app/(api)/_actions/*"
+      ],
+      "@apidata/*": [
+        "./app/(api)/_data/*"
+      ],
+      "@datalib/*": [
+        "./app/(api)/_datalib/*"
+      ]
     }
   },
-  "include": ["nextEnv.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"], 
-  "exclude": ["node_modules"]
+  "include": [
+    "nextEnv.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "build/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
