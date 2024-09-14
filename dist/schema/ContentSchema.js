@@ -34,11 +34,9 @@ class ContentSchema {
   }
 
   static fromJSON(json) {
-    const data = JSON.parse(json);
     const schema = new ContentSchema();
-
-    Object.entries(data.schema).forEach(([key, value]) => {
-      const contentType = ContentType.fromJSON(JSON.stringify(value));
+    Object.entries(json.schema).forEach(([key, value]) => {
+      const contentType = ContentType.fromJSON(value);
       schema.set(key, contentType);
     });
 

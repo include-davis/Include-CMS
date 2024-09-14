@@ -19,5 +19,5 @@ export class ContentSchema {
 
   public toJSON();
 
-  public static fromJSON(json: string): ContentSchema;
+  public static fromJSON(json: object): ContentSchema;
 }

@@ -2,14 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import { globbySync } from 'globby';
 import Hearth from '@include/hearth';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const { ContentSchema } = Hearth;
-export default async function getSchema() {
+export default async function getSchema(outDir) {
   try {
     const cwd = process.cwd();
     const schemaDir = path.join(cwd, 'schema');
@@ -27,11 +22,7 @@ export default async function getSchema() {
       schema.set(contentType.getName(), contentType)
     );
 
-    const outFilePath = path.join(
-      __dirname,
-      '../../build-assets',
-      'schema.json'
-    );
+    const outFilePath = path.join(outDir, 'schema.json');
     fs.writeFileSync(outFilePath, JSON.stringify(schema, null, 2));
     return schema;
   } catch (error) {

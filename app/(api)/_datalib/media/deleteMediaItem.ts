@@ -30,7 +30,7 @@ export async function deleteMediaItem(id: string) {
       _id: objectId,
     });
 
-    const content_types = Object.keys(schema);
+    const content_types = schema.getNames();
     await Promise.all(
       content_types.map((content_type: string) => {
         const contentSchema = schema.get(content_type);
@@ -45,11 +45,11 @@ export async function deleteMediaItem(id: string) {
           .map((field: Field) => field.name);
 
         const updatePullList: { [key: string]: any } = {};
-        mediaFields.forEach((field: Field) => {
+        mediaFields.forEach((field: string) => {
           updatePullList[field] = objectId;
         });
 
-        const mediaFieldQueries = mediaFields.map((field: Field) => ({
+        const mediaFieldQueries = mediaFields.map((field: string) => ({
           [field]: objectId,
         }));
         if (mediaFieldQueries.length === 0) {

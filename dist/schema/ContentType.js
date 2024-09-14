@@ -129,13 +129,12 @@ class ContentType {
   }
 
   static fromJSON(json) {
-    const data = JSON.parse(json);
     const contentType = new ContentType({
-      name: data.name,
-      singularDisplayName: data.singularDisplayName,
-      pluralDisplayName: data.pluralDisplayName,
+      name: json.name,
+      singularDisplayName: json.singularDisplayName,
+      pluralDisplayName: json.pluralDisplayName,
     });
-    contentType.setFields(data.fields);
+    contentType.setFields(json.fields);
     return contentType;
   }
 }
