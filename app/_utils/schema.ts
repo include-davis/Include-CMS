@@ -1,5 +1,12 @@
 import { ContentSchema } from '@dist/index';
-import schemaJSON from '../../build-assets/schema.json';
+let schemaJSON;
+try {
+  schemaJSON = require('./../build-assets/schema.json');
+} catch (e) {
+  schemaJSON = {
+    schema: {},
+  };
+}
 
 const schema = ContentSchema.fromJSON(schemaJSON);
 export default schema;
