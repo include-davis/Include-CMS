@@ -18,6 +18,10 @@ export default async function ContentPage({ params }: ContentPageProps) {
   const { content_type } = params;
   const res = JSON.parse(JSON.stringify(await findContentItems(content_type)));
 
+  if (!res.ok) {
+    return res.error;
+  }
+
   const publishedDataList = res.body
     .filter((item: BaseContentItem) => item._published)
     .map((contentItem: BaseContentItem) => {

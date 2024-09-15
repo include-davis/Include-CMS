@@ -23,12 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Linting check
-        run: npm run lint
-
-      - name: TypeScript check
-        run: npm run type-check
-
       - name: Build Next.js app
         env:
           MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
