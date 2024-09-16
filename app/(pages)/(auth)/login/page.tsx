@@ -1,7 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from './page.module.scss';
 import LoginFormFields from '../_components/LoginFormFields/LoginFormFields';
 import { useAuthContext } from '@hooks/useAuthContext';
@@ -23,7 +22,8 @@ export default function Login() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleLoginClick = async () => {
+  const handleLoginClick = async (e: FormEvent) => {
+    e.preventDefault();
     const { email, password } = data;
     const loginRes = await LoginAction({ email, password });
     if (loginRes.ok) {
@@ -39,32 +39,19 @@ export default function Login() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.form}>
+      <form className={styles.form} onSubmit={handleLoginClick}>
         <div className={styles.header}>
-          <Image src={includeLogo} alt="#include logo" height={100} />
+          <Image src={includeLogo} alt="#include logo" height={58} />
           <h1>Welcome to ICMS</h1>
         </div>
-        <LoginFormFields data={data} setData={setData} />
-        <div className={styles.additional_login_info}>
-          <div className={styles.remember_me_container}>
-            <label>Remember Me</label>
-            <input type="checkbox" />
-          </div>
-          <Link href={`/`}>Forgot Password?</Link>
+        <div className={styles.field_container}>
+          <LoginFormFields data={data} setData={setData} />
+          <button className={styles.login_button} type="submit">
+            Log-in
+          </button>
         </div>
-        <button className={styles.login_button} onClick={handleLoginClick}>
-          Log-in
-        </button>
-        <button className={styles.login_button} onClick={handleLogoutClick}>
-          Log-out
-        </button>
-        <div className={styles.divider}>
-          <div className={styles.line} />
-          <p>Or login with</p>
-          <div className={styles.line} />
-        </div>
-        <button>GMAIL</button>
-      </div>
+      </form>
+      <button onClick={handleLogoutClick}>Log-out</button>
     </div>
   );
 }

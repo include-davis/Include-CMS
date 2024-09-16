@@ -17,12 +17,22 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-bottom: var(--large-spacer);
 
     > h1 {
         font-family: var(--font-manrope);
         font-size: 2.5rem;
         font-weight: 600;
     }
+}
+
+.field_container {
+    padding: 0 var(--tiny-spacer);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .login_button {
@@ -37,4 +47,5 @@
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--text-light);
+    margin-top: var(--spacer);
 }
