@@ -1,3 +1,7 @@
+import { authenticatedRoute } from '@app/(api)/_utils/auth/authenticatedRoute';
+import { PUT as put } from './put';
+import { DELETE as del } from './delete';
+
 export { GET } from './get';
-export { PUT } from './put';
-export { DELETE } from './delete';
+export const PUT = authenticatedRoute(put);
+export const DELETE = authenticatedRoute(del);

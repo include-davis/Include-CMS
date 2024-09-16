@@ -3,12 +3,24 @@ import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { register } from '@datalib/auth/register';
-import { HttpError } from '@utils/response/Errors';
+import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import type { AuthToken } from '@typeDefs/auth/AuthToken';
 import type UserCredentials from '@typeDefs/auth/UserCredentials';
+import { authFromRequest } from '@app/(api)/_utils/auth/authFromRequest';
+import { getDatabase } from '@app/(api)/_utils/mongodb/mongoClient.mjs';
 
 export async function POST(request: NextRequest) {
   try {
+    const db = await getDatabase();
+    try {
+      await authFromRequest(request);
+    } catch (e) {
+      const userCount = await db.collection('users').countDocuments();
+      if (userCount !== 0) {
+        throw new NotAuthenticatedError('User not authenticated');
+      }
+    }
+
     const body: UserCredentials = await request.json();
     const registerRes = await register(body);
 
