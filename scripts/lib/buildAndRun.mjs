@@ -16,7 +16,7 @@ export default async function buildAndRun(command) {
     if (command === 'build') {
       const src = path.join(process.cwd(), 'runtime-environment', 'build');
       const dest = path.join(process.cwd(), 'build');
-      fs.cpSync(src, dest, {recursive: true});
+      fs.cpSync(src, dest, { recursive: true });
     }
     process.exit(code);
   });
