@@ -9,5 +9,6 @@ const __dirname = dirname(__filename);
 export async function generateRuntimeEnvironment() {
   const src = path.join(__dirname, '../', '../');
   const dest = path.join(process.cwd(), 'runtime-environment');
-  fs.cpSync(src, dest, {recursive: true});
+  fs.rmSync(dest, { recursive: true });
+  fs.cpSync(src, dest, { recursive: true });
 }
