@@ -7,7 +7,7 @@ import getSchema from './getSchema.mjs';
 const outDir = path.join(process.cwd(), 'runtime-environment', 'build-assets');
 
 export async function generateBuildAssets() {
-  if (!fs.existsSync()) {
+  if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir, { recursive: true });
   }
   await getSettings(outDir);
