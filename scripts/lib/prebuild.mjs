@@ -6,6 +6,7 @@ import generateMigrations from './generateMigrations.mjs';
 export default async function prebuild() {
   await generateRuntimeEnvironment();
   await generateBuildAssets();
+  execSync('migrate-mongo up', { stdio: 'inherit' });
   await generateMigrations();
   execSync('migrate-mongo up', { stdio: 'inherit' });
 }
