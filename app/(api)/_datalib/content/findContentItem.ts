@@ -14,14 +14,39 @@ export async function findContentItem(content_type: string, id: string) {
     const mediaFieldExpansionSteps = contentSchema
       .getFieldArray()
       .filter((field: Field) => field.type === FieldType.MEDIA_LIST)
-      .map((field: Field) => ({
-        $lookup: {
-          from: 'media',
-          localField: field.name,
-          foreignField: '_id',
-          as: field.name,
+      .map((field: Field) => [
+        {
+          $lookup: {
+            from: 'media',
+            localField: field.name,
+            foreignField: '_id',
+            as: `unordered_${field.name}`,
+          },
         },
-      }));
+        {
+          $set: {
+            [field.name]: {
+              $map: {
+                input: `$${field.name}`,
+                as: 'media_id',
+                in: {
+                  $arrayElemAt: [
+                    {
+                      $filter: {
+                        input: `$unordered_${field.name}`,
+                        as: 'media_item',
+                        cond: { $eq: ['$$media_item._id', '$$media_id'] },
+                      },
+                    },
+                    0,
+                  ],
+                },
+              },
+            },
+          },
+        },
+      ])
+      .flat();
 
     const contentItem = await db
       .collection(content_type)
@@ -63,14 +88,39 @@ export async function findContentItems(
     const mediaFieldExpansionSteps = contentSchema
       .getFieldArray()
       .filter((field: Field) => field.type === FieldType.MEDIA_LIST)
-      .map((field: Field) => ({
-        $lookup: {
-          from: 'media',
-          localField: field.name,
-          foreignField: '_id',
-          as: field.name,
+      .map((field: Field) => [
+        {
+          $lookup: {
+            from: 'media',
+            localField: field.name,
+            foreignField: '_id',
+            as: `unordered_${field.name}`,
+          },
         },
-      }));
+        {
+          $set: {
+            [field.name]: {
+              $map: {
+                input: `$${field.name}`,
+                as: 'media_id',
+                in: {
+                  $arrayElemAt: [
+                    {
+                      $filter: {
+                        input: `$unordered_${field.name}`,
+                        as: 'media_item',
+                        cond: { $eq: ['$$media_item._id', '$$media_id'] },
+                      },
+                    },
+                    0,
+                  ],
+                },
+              },
+            },
+          },
+        },
+      ])
+      .flat();
 
     const contentItems = await db
       .collection(content_type)

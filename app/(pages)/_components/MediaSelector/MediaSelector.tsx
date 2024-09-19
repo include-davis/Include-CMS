@@ -4,6 +4,7 @@ import MediaFromGallery from './MediaFromGallery';
 import MediaFromUpload from './MediaFromUpload';
 import useContentFormContext from '@hooks/useContentFormContext';
 import convertFileToMediaItem from '../../_utils/convertFileToMediaItem';
+import SelectContextProvider from '@app/(pages)/_contexts/SelectContext';
 
 interface MediaSelectorProps {
   field_name: string;
@@ -27,7 +28,9 @@ export default function MediaSelector({ field_name }: MediaSelectorProps) {
         <h4> or </h4>
         <div className={styles.line}></div>
       </div>
-      <MediaFromGallery />
+      <SelectContextProvider>
+        <MediaFromGallery fieldName={field_name} />
+      </SelectContextProvider>
     </div>
   );
 }

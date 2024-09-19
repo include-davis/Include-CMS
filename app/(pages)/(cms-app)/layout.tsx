@@ -1,8 +1,8 @@
 import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
 import Sidebar from '@components/Sidebar/Sidebar';
 import styles from './layout.module.scss';
-import ProtectedDisplay from '../_components/ProtectedDisplay/ProtectedDisplay';
-import AuthFailureRedirect from '../_components/ProtectedDisplay/AuthFailureRedirect';
+import ProtectedDisplay from '@components/ProtectedDisplay/ProtectedDisplay';
+import AuthFailureRedirect from '@components/ProtectedDisplay/AuthFailureRedirect';
 
 export default function SidebarLayout({
   children,
