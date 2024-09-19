@@ -5,7 +5,7 @@ interface SelectContextValue {
   selectMode: boolean;
   toggleSelectMode: () => void;
   selectedIds: { [key: string]: any };
-  toggleId: (id: string, data: any) => void;
+  toggleId: (id: string, data?: any) => void;
   resetSelectedIds: () => void;
 }
 
