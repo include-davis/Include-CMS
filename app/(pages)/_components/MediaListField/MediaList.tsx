@@ -87,51 +87,50 @@ export default function MediaList({ field_name }: MediaListProps) {
         data[field_name].map((file: MediaItem, index: number) => (
           <div
             key={index}
-            className={`${styles.card_container} ${
-              index === 0 ? styles.cover : ''
-            } ${draggedIndex === index ? styles.dragging : ''} ${
-              newIndex === index ? styles.dragover : ''
-            }`}
+            className={`${styles.card_container}  ${
+              draggedIndex === index ? styles.dragging : ''
+            } ${newIndex === index ? styles.dragover : ''}`}
             draggable
             onDragStart={(e) => handleDragStart(e, index)}
             onDragOver={(e) => handleDragOver(e, index)}
             onDragEnd={handleDragEnd}
           >
-            <Image
-              src={dragIcon}
-              alt="draggable icon"
-              height={27}
-              className={styles.drag_icon}
-            />
-            <p className={styles.index}>#{index + 1}</p>
-            <p>{file.cloudinary_id ? 'uploaded' : 'local'}</p>
-            <Image
-              src={file.src}
-              alt={file.name}
-              className={styles.image}
-              height={80}
-              width={80}
-            />
-            <p className={styles.name}>{file.name}</p>
-            {index === 0 ? (
-              <div className={styles.cover_image}>Cover Image</div>
-            ) : (
-              <div className={styles.uncover_image}></div>
-            )}
-            <p className={styles.size}>{formatFileSize(file.size)}</p>
-            <div
-              className={styles.replace}
-              onClick={() => handleReplace(index)}
-            >
-              Replace Image
+            <div className={styles.image_section_left}>
+              <Image
+                src={dragIcon}
+                alt="draggable icon"
+                className={styles.drag_icon}
+              />
+              <p className={styles.index}>#{index + 1}</p>
+              <Image
+                src={file.src}
+                alt={file.name}
+                className={styles.preview}
+                height={80}
+                width={120}
+              />
+              <div className={styles.name_block}>
+                <p className={styles.name}>{file.name}</p>
+                <p className={styles.upload_status}>
+                  {file.cloudinary_id ? 'Uploaded to cloud' : ' '}
+                </p>
+              </div>
             </div>
-            <Image
-              className={styles.delete}
-              src={deleteIcon}
-              alt="delete icon"
-              height={36}
-              onClick={() => handleDelete(index)}
-            />
+            <div className={styles.image_section_right}>
+              <p className={styles.size}>{formatFileSize(file.size)}</p>
+              <div
+                className={styles.replace}
+                onClick={() => handleReplace(index)}
+              >
+                Replace Image
+              </div>
+              <Image
+                className={styles.delete}
+                src={deleteIcon}
+                alt="delete icon"
+                onClick={() => handleDelete(index)}
+              />
+            </div>
           </div>
         ))
       )}

@@ -33,7 +33,12 @@ export default function DynamicFormFields() {
           const Field = FieldMapping[field.type];
           return (
             <div key={field.name} className={styles.field_container}>
-              <label>{field.displayName}</label>
+              <label>
+                {field.displayName}
+                {field.required && (
+                  <span className={styles.required_star}> *</span>
+                )}
+              </label>
               <Field field_name={field.name} />
             </div>
           );

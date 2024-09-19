@@ -25,8 +25,14 @@ export default function ContentSection({
           className={styles.expand_button}
           onClick={() => setExpanded((prev) => !prev)}
         >
-          <p className={styles.expand_text}>Collapse View</p>
-          <IoChevronUp className={styles.expand_icon} />
+          <p className={styles.expand_text}>
+            {expanded ? 'Collapse View' : 'Expand View'}
+          </p>
+          <IoChevronUp
+            className={`${styles.expand_icon} ${
+              expanded ? styles.expanded : ''
+            }`}
+          />
         </button>
       </div>
       <ContentList expanded={expanded}>{children}</ContentList>

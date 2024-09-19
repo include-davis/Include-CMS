@@ -40,6 +40,11 @@
 
         .expand_icon {
             font-size: 1.25rem;
+            transform: rotate(180deg);
+
+            &.expanded {
+                transform: rotate(0deg);
+            }
         }
     }
 }

@@ -37,12 +37,6 @@ const baseFields = {
     required: true,
     visible: true,
   },
-  _description: {
-    name: '_description',
-    type: FieldType.SHORT_TEXT,
-    displayName: 'Internal description',
-    visible: true,
-  },
   _published: {
     name: '_published',
     type: FieldType.BOOLEAN,

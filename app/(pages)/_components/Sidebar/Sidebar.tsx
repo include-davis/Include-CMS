@@ -9,17 +9,13 @@ import contentIcon from '@public/navigation/sidebar/content-icon.png';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarContextProvider from '@contexts/SidebarContext';
 import schema from '@app/_utils/schema';
+import Link from 'next/link';
 
 export default function Sidebar() {
   const content_types = schema.getNames() || [];
   const collections = content_types.map((content_type: string) => ({
     name: schema.get(content_type)?.getPluralDisplayName() || '',
     url: `/content/${schema?.get(content_type)?.getName() || ''}`,
-  }));
-
-  const uploaded_media = content_types.map((content_type: string) => ({
-    name: schema.get(content_type)?.getPluralDisplayName() || '',
-    url: `/uploaded-media/${schema.get(content_type)?.getName() || ''}`,
   }));
 
   return (
@@ -37,12 +33,12 @@ export default function Sidebar() {
               slug="/content"
               links={collections}
             />
-            <SidebarDropdown
-              icon={contentIcon}
-              name={'Uploaded Media'}
-              slug="/uploaded-media"
-              links={uploaded_media}
-            />
+            <Link href="/uploaded-media">
+              <div className={styles.uploaded_media_container}>
+                <Image src={contentIcon} alt="content-icon" height={20} />
+                <h3>Uploaded Media</h3>
+              </div>
+            </Link>
           </div>
           <button className={styles.settings}>
             <Image src={settingsIcon} alt="settings icon" width={20} />

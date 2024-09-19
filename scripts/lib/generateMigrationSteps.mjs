@@ -107,7 +107,6 @@ async function getNewValidators() {
               bsonType: 'objectId',
             },
             _name: typeMapping.shortText,
-            _description: typeMapping.shortText,
             _published: typeMapping.boolean,
             _created_at: typeMapping.date,
             _last_modified: typeMapping.date,
