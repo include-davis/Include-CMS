@@ -8,6 +8,7 @@ import RegistrationAction from '@actions/auth/register';
 import includeLogo from '@public/icons/logo.png';
 import { AuthToken } from '@app/_types/auth/AuthToken';
 import { useRouter, useSearchParams } from 'next/navigation';
+import useUserCount from '@app/(pages)/_hooks/useUserCount';
 
 interface RegistrationFormData {
   email: string;
@@ -15,6 +16,7 @@ interface RegistrationFormData {
 }
 
 export default function Register() {
+  const { loading, userCount, error } = useUserCount();
   const [data, setData] = useState<RegistrationFormData>({
     email: '',
     password: '',
@@ -22,6 +24,18 @@ export default function Register() {
   const { login } = useAuthContext();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  if (loading) {
+    return 'loading...';
+  }
+
+  if (error) {
+    return error;
+  }
+
+  if (userCount !== 0) {
+    return 'User is unauthorized to view this page';
+  }
 
   const handleRegistrationSubmit = async (e: FormEvent) => {
     e.preventDefault();
