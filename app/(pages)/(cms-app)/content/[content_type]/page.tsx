@@ -1,8 +1,8 @@
 import styles from './page.module.scss';
 
-import ContentHeader from '../../_components/ContentHeader/ContentHeader';
-import ContentSection from '../../_components/ContentSection/ContentSection';
-import ContentCard from '../_components/ContentCard/ContentCard';
+import ContentHeader from '@components/ContentHeader/ContentHeader';
+import ContentSection from '@components/ContentSection/ContentSection';
+import ContentCard from '@components/ContentCard/ContentCard';
 import SelectContextProvider from '@contexts/SelectContext';
 import BaseContentItem from '@app/_types/content/BaseContentItem';
 import schema from '@app/_utils/schema';

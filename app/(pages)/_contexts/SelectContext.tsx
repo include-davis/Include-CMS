@@ -5,7 +5,7 @@ interface SelectContextValue {
   selectMode: boolean;
   toggleSelectMode: () => void;
   selectedIds: { [key: string]: any };
-  toggleId: (id: string) => void;
+  toggleId: (id: string, data: any) => void;
   resetSelectedIds: () => void;
 }
 
@@ -15,7 +15,7 @@ export const SelectContext = createContext<SelectContextValue>({
   selectMode: true,
   toggleSelectMode: () => {},
   selectedIds: {},
-  toggleId: (_: string) => {},
+  toggleId: (_: string, __: any) => {},
   resetSelectedIds: () => {},
 });
 
@@ -37,8 +37,11 @@ export default function SelectContextProvider({
     setSelectedIds({});
   };
 
-  const toggleId = (id: string) => {
-    setSelectedIds({ ...selectedIds, [id]: !selectedIds?.[id] });
+  const toggleId = (id: string, data: any = null) => {
+    setSelectedIds({
+      ...selectedIds,
+      [id]: selectedIds?.[id] ? null : data || true,
+    });
   };
 
   const value = {

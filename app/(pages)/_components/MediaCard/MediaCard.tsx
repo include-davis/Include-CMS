@@ -31,13 +31,13 @@ export default function MediaCard({ mediaItem }: Props) {
   })();
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => toggleId(mediaItem._id || '', mediaItem)}
+    >
       <div className={styles.top_row}>
         {selectMode && (
-          <div
-            className={styles.checkbox_container}
-            onClick={() => toggleId(mediaItem._id || '')}
-          >
+          <div className={styles.checkbox_container}>
             {selectedIds[mediaItem._id || ''] && (
               <div className={styles.checkbox_internals}>
                 <Image src={checkMark} alt="checkmark" fill sizes="30px" />

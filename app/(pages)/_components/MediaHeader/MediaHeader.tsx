@@ -1,5 +1,5 @@
 'use client';
-import ContentFilters from '../../../_components/ContentFilters/ContentFilters';
+import ContentFilters from '@components/ContentFilters/ContentFilters';
 import useSelectContext from '@hooks/useSelectContext';
 import Image from 'next/image';
 import { DeleteMediaItem } from '@actions/media/deleteMediaItem';

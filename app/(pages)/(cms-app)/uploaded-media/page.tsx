@@ -1,9 +1,9 @@
 'use server';
 import styles from './page.module.scss';
 
-import MediaCard from './_components/MediaCard/MediaCard';
-import MediaHeader from './_components/MediaHeader/MediaHeader';
-import ContentSection from '../_components/ContentSection/ContentSection';
+import MediaCard from '@components/MediaCard/MediaCard';
+import MediaHeader from '@components/MediaHeader/MediaHeader';
+import ContentSection from '@components/ContentSection/ContentSection';
 import SelectContextProvider from '@contexts/SelectContext';
 import FilterContextProvider from '@contexts/FilterContext';
 import { findMediaItems } from '@datalib/media/findMediaItem';

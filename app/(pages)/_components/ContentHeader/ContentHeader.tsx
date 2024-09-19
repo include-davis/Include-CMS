@@ -1,6 +1,6 @@
 'use client';
-import CreateButton from '../../content/_components/CreateButton/CreateButton';
-import TrashButton from '../../content/_components/TrashButton/TrashButton';
+import CreateButton from '@components/CreateButton/CreateButton';
+import TrashButton from '@components/TrashButton/TrashButton';
 import ContentFilters from '../ContentFilters/ContentFilters';
 import ContentSelectButton from '../ContentSelectButton/ContentSelectButton';
 import styles from './ContentHeader.module.scss';

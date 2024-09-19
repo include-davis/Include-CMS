@@ -12,6 +12,7 @@
     width: calc(calc(100% - 5 * var(--medium-spacer)) / 3);
     max-width: 424px;
     height: min-content;
+    cursor: pointer;
 }
 
 .top_row {
@@ -33,7 +34,6 @@
         aspect-ratio: 1;
         border-radius: 4px;
         border: solid 1px black;
-        cursor: pointer;
         overflow: hidden;
         flex-shrink: 0;
 
