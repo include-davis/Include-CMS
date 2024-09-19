@@ -5,6 +5,7 @@
     display: none;
     background-color: var(--background-primary);
     overflow-y: scroll;
+    padding-bottom: var(--enormous-spacer);
 
     &.visible {
         display: flex;
@@ -30,20 +31,34 @@
     gap: var(--medium-spacer);
 }
 
-.attach {
-    border-radius: 8px; 
-    background: var(--primary);
-    box-shadow: 0px 4px 35px 0px rgba(60, 37, 126, 0.40);
+.button_container {
     display: flex;
-    width: 480px;
-    padding: 20px 36px;
+    flex-direction: row;
+    gap: var(--spacer);
     justify-content: center;
-    align-items: center;
-    color: #FFF;
-    font-family: var(--font-dm-sans);
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--text-light);
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: var(--medium-spacer);
+
+    .attach, .exit_button {
+        border-radius: 8px; 
+        box-shadow: 0px 4px 35px 0px rgba(60, 37, 126, 0.40);
+        display: flex;
+        padding: 20px 36px;
+        justify-content: center;
+        align-items: center;
+        color: #FFF;
+        font-family: var(--font-dm-sans);
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--text-light);
+    }
+
+    .attach {
+        background: var(--primary);
+        width: 480px;
+    }
+
+    .exit_button {
+        background: var(--red);
+        padding: 20px 58px;
+    }
 }
