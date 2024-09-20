@@ -7,6 +7,7 @@ interface ContentFormContextValue {
   data: { [key: string]: any };
   updateField: (field_name: string, value: any) => void;
   setData: (value: any) => void;
+  setId: (value: string) => void;
 }
 
 export type { ContentFormContextValue };
@@ -17,6 +18,7 @@ export const ContentFormContext = createContext<ContentFormContextValue>({
   data: {},
   updateField: (_, __) => {},
   setData: (_) => {},
+  setId: (_) => {},
 });
 
 interface ContentFormContextProviderProps {
@@ -33,6 +35,7 @@ export default function ContentFormContextProvider({
   children,
 }: ContentFormContextProviderProps) {
   const [data, setData] = useState(initialValue);
+  const [idVar, setId] = useState<string | null>(id);
 
   const updateField = (field_name: string, value: any) => {
     setData((prev) => ({
@@ -43,10 +46,11 @@ export default function ContentFormContextProvider({
 
   const value = {
     content_type,
-    id,
+    id: idVar,
     data,
     updateField,
     setData,
+    setId,
   };
 
   return (

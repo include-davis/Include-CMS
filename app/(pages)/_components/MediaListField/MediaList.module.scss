@@ -15,66 +15,75 @@
     border-radius: var(--b-radius);
     box-shadow: var(--b-shadow);
     cursor: grab;
-    @include media.tablet {
-        flex-direction: column;
-        gap: var(--tiny-spacer);
-    }
 }
 
-.name{
-    font-weight: 700;
-    max-width: 136px;
-    @include media.tablet {
-        max-width: 100%;
-    }
-}
-
-.image{
-    border-radius: var(--b-radius);
-    object-fit: cover;
-    object-position: center center;
-}
-
-.replace{
-    cursor: pointer;
-    font-weight: 500;
-    font-family: var(--font-dm-sans);
-}
-
-.size {
-    font-family: var(--font-dm-sans);
-    min-width: 100px;
+.image_section_left {
     display: flex;
-    justify-content: flex-end;
-    @include media.tablet {
-        justify-content: center;
-    }
-}
-
-.delete {
-    cursor: pointer;
-}
-
-.cover_image{
-    display: flex;
+    flex-direction: row;
+    gap: var(--large-spacer);
     align-items: center;
-    color: var(--text-light);
-    background-color: var(--primary);
-    border-radius: var(--b-radius);
-    padding: var(--tiny-spacer) var(--small-spacer);
-}
 
-.uncover_image{
-    height: 39px;
-    width: 124px;
-    @include media.tablet {
-        display: none;
+    .drag_icon{
+        height: 1.5rem;
+        width: auto;
+    }
+
+    .index {
+        font-size: 1.375rem;
+        font-weight: 300;
+    }
+
+    .preview {
+        border-radius: var(--b-radius);
+        object-fit: cover;
+        object-position: center center;
+        height: 100%;
+        aspect-ratio: calc(3/2);
+    }
+
+    .name_block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    
+        .name{
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+    
+        .upload_status {
+            color: var(--text-dark-gray);
+            font-family: var(--font-dm-sans);
+            font-size: 1rem;
+            font-weight: 700;
+        }
     }
 }
 
-.drag_icon{
-    @include media.tablet {
-        transform: rotate(90deg);
+.image_section_right {
+    display: flex;
+    flex-direction: row;
+    gap: var(--large-spacer);
+    align-items: center;
+
+
+    .replace{
+        font-family: var(--font-dm-sans);
+        font-size: 1.375rem;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .size {
+        font-family: var(--font-dm-sans);
+        font-size: 1.25rem;
+    }
+
+    .delete {
+        height: 1.625rem;
+        width: auto;
+        cursor: pointer;
     }
 }
 

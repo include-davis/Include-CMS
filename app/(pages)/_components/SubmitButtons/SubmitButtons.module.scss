@@ -21,11 +21,21 @@
     .save_button {
         background-color: var(--background-light);
         font-weight: 400;
+
+        &.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     }
 
     .publish_button {
-        background-color: var(--primary-medium-dark);
+        background-color: var(--primary);
         font-weight: 500;
         color: var(--text-light);
+
+        &.disabled {
+            background-color: var(--primary-medium-dark);
+            cursor: not-allowed;
+        }
     }
 }

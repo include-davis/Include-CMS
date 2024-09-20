@@ -34,13 +34,11 @@
 
 .link {
     padding: var(--small-spacer) var(--medium-spacer);
+    color: var(--text-medium-gray);
 
     &.active {
+        color: var(--text-dark);
         background-color: var(--primary-light);
         border-right: solid 4px var(--primary);
     }
 }
-
-// .link.active {
-//     background: var(--primary-light);
-// }

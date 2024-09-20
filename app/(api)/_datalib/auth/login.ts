@@ -30,7 +30,7 @@ export async function login(body: UserCredentials) {
     );
 
     if (!passwordMatches) {
-      throw new NotAuthenticatedError('Invalid password. Please try again.');
+      throw new NotAuthenticatedError('Incorrect email or password.');
     }
 
     // create auth token for user

@@ -32,6 +32,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-y: scroll;
     flex-grow: 1;
 
     .dropdowns {
@@ -53,5 +54,20 @@
             font-size: 1.125rem;
             font-weight: 400;
         }
+    }
+}
+
+.uploaded_media_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--small-spacer);
+    padding: var(--small-spacer) var(--spacer);
+
+    > h3 {
+        font-size: 1.25rem;
+        font-weight: 400;
     }
 }
