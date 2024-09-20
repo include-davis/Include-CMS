@@ -2,17 +2,18 @@ import path from 'path';
 import fs from 'fs';
 import { globbySync } from 'globby';
 import Hearth from '../../dist/index.js';
+import { pathToFileURL } from 'url';
 
 const { ContentSchema } = Hearth;
 export default async function getSchema(outDir = '', writeOut = true) {
   try {
     const cwd = process.cwd();
     const schemaDir = path.join(cwd, 'schema');
-    const files = globbySync(`${schemaDir}/**/*`).sort();
+    const files = globbySync(`${schemaDir.replaceAll('\\', '/')}/**/*`).sort();
 
     const contentTypes = await Promise.all(
       files.map(async (f) => {
-        const schemaModule = await import(f);
+        const schemaModule = await import(pathToFileURL(f).href);
         return schemaModule.default;
       })
     );

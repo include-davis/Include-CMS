@@ -19,7 +19,11 @@ export default async function generateMigrations() {
 
   const migrationsDir = path.join(process.cwd(), 'database', 'migrations');
   execSync('migrate-mongo create update-content-types', { stdio: 'inherit' });
-  const migrationFilePath = globbySync(`${migrationsDir}/**/*`).sort().pop();
+  const migrationFilePath = globbySync(
+    `${migrationsDir.replaceAll('\\', '/')}/**/*`
+  )
+    .sort()
+    .pop();
   const upDeleteStep = collectionsToDelete
     .map(
       ({ name }) => `
