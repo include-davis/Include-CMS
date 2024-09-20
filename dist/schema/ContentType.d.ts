@@ -25,7 +25,7 @@ export class ContentType {
   constructor({
     name,
     singularDisplayName = name,
-    pluralDisplayName = name,
+    pluralDisplayName = singularDisplayName,
   }: {
     name: string;
     singularDisplayName?: string;
