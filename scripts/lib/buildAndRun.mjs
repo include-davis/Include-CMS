@@ -6,9 +6,10 @@ import prebuild from './prebuild.mjs';
 dotenv.config(path.join(process.cwd(), '.env'));
 export default async function buildAndRun(command) {
   await prebuild();
-  const child = spawn('npx', ['next', command], {
+  const child = spawn('npm', ['run', command], {
     cwd: path.join(process.cwd(), 'runtime-environment'),
     stdio: 'inherit',
+    shell: true,
   });
 
   child.on('exit', process.exit);
