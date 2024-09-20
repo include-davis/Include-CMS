@@ -28,6 +28,12 @@
     }
 }
 
+.error {
+    margin-top: var(--spacer);
+    text-align: center;
+    color: red;
+}
+
 .field_container {
     padding: 0 var(--tiny-spacer);
     width: 100%;

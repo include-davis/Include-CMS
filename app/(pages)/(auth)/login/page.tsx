@@ -9,8 +9,6 @@ import includeLogo from '@public/icons/logo.png';
 import { AuthToken } from '@app/_types/auth/AuthToken';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import Logout from '@actions/auth/logout';
-
 interface LoginFormData {
   email: string;
   password: string;
@@ -18,7 +16,8 @@ interface LoginFormData {
 
 export default function Login() {
   const [data, setData] = useState<LoginFormData>({ email: '', password: '' });
-  const { login, logout } = useAuthContext();
+  const [error, setError] = useState<string | null>(null);
+  const { login } = useAuthContext();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -28,13 +27,10 @@ export default function Login() {
     const loginRes = await LoginAction({ email, password });
     if (loginRes.ok) {
       login(loginRes.body as AuthToken);
+      router.push(searchParams.get('redirect') || '/');
+    } else {
+      setError(loginRes.error);
     }
-    router.push(searchParams.get('redirect') || '/');
-  };
-
-  const handleLogoutClick = async () => {
-    logout();
-    await Logout();
   };
 
   return (
@@ -49,9 +45,9 @@ export default function Login() {
           <button className={styles.login_button} type="submit">
             Log-in
           </button>
+          {error && <p className={styles.error}>{error}</p>}
         </div>
       </form>
-      <button onClick={handleLogoutClick}>Log-out</button>
     </div>
   );
 }
