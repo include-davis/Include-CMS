@@ -4,9 +4,9 @@ import path from 'path';
 import fs from 'fs';
 import generateMigrationSteps from './generateMigrationSteps.mjs';
 
-export default async function generateMigrations() {
+export default async function generateMigrations(deleteUnused) {
   const [collectionsToDelete, collectionsToUpdate, collectionsToCreate] =
-    await generateMigrationSteps();
+    await generateMigrationSteps(deleteUnused);
 
   if (
     collectionsToDelete.length +

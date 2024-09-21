@@ -2,19 +2,21 @@ import { MongoClient } from 'mongodb';
 import { FieldType } from '../../dist/index.js';
 import getSchema from './getSchema.mjs';
 
-export default async function generateMigrationSteps() {
+export default async function generateMigrationSteps(deleteUnused) {
   const currentValidators = await getCurrentValidators();
   const newValidators = await getNewValidators();
   const currentCollectionNames = Object.keys(currentValidators);
   const newCollectionNames = Object.keys(newValidators);
 
-  const collectionsToDelete = currentCollectionNames
-    .filter((name) => !newCollectionNames.includes(name))
-    .map((name) => ({
-      name,
-      oldValidator: currentValidators[name],
-      newValidator: null,
-    }));
+  const collectionsToDelete = deleteUnused
+    ? currentCollectionNames
+        .filter((name) => !newCollectionNames.includes(name))
+        .map((name) => ({
+          name,
+          oldValidator: currentValidators[name],
+          newValidator: null,
+        }))
+    : [];
 
   const collectionsToUpdate = currentCollectionNames
     .filter(
