@@ -56,7 +56,11 @@ const baseFields = {
 };
 
 class ContentType {
-  constructor({ name, singularDisplayName = name, pluralDisplayName = name }) {
+  constructor({
+    name,
+    singularDisplayName = name,
+    pluralDisplayName = singularDisplayName,
+  }) {
     this.name = name;
     this.singularDisplayName = singularDisplayName;
     this.pluralDisplayName = pluralDisplayName;
