@@ -12,6 +12,14 @@ function typeCast(value: string, type: string) {
       } catch {
         return value;
       }
+    case 'boolean':
+      if (value === 'true') {
+        return true;
+      } else if (value === 'false') {
+        return false;
+      } else {
+        return value;
+      }
     default:
       return value;
   }
