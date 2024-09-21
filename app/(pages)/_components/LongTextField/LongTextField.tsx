@@ -28,11 +28,12 @@ export default function LongTextField({ field_name }: LongTextFieldProps) {
         onChange={handleChange}
         modules={{
           toolbar: [
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            ['bold', 'italic', 'underline'],
-            [{ header: [1, 2, 3, false] }],
-            ['link', 'image'],
-            ['clean'],
+            { list: 'ordered' },
+            { list: 'bullet' },
+            'bold',
+            'italic',
+            'underline',
+            'link',
           ],
         }}
       />
