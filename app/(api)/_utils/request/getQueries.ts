@@ -12,7 +12,7 @@ function typeCast(value: string, type: string) {
       } catch {
         return value;
       }
-    case 'boolean':
+    case 'bool':
       if (value === 'true') {
         return true;
       } else if (value === 'false') {
