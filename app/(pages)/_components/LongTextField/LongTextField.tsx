@@ -27,7 +27,13 @@ export default function LongTextField({ field_name }: LongTextFieldProps) {
         value={data[field_name] || ''}
         onChange={handleChange}
         modules={{
-          toolbar: [['bold', 'italic', 'underline', 'strike']],
+          toolbar: [
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['bold', 'italic', 'underline'],
+            [{ header: [1, 2, 3, false] }],
+            ['link', 'image'],
+            ['clean'],
+          ],
         }}
       />
     </div>
