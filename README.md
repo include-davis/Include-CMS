@@ -1,8 +1,3 @@
-# Some Notes Before You Begin
-Make sure you follow all of the steps in "Setting Up Your Development Environment" before attempting to even look at the code. 
-
-Also, read through the docs linked under the "Contributing to the Codebase" section so you can get a feel for the tools and syntax we will be going through.
-
 # Setting Up Your Development Environment
 
 Before you begin, create a folder for this team wherever you want to store any GitHub repos that you will be cloning on your device in this cohort. You can name it include, platform_team, or literally anything you want to. If you choose to name it "include", **do not use a '#' in your folder name**, it'll cause a bunch of problems later.
@@ -98,11 +93,6 @@ MONGO_DB_HOST=127.0.0.1:27017/<DBNAME>
 ```
 Replace `<USERNAME>, <PASSWORD>, <DBNAME>` with the actual username, password, and database names. (Don't include the angle brackets).
 
-### 4.4 Testing & Initialization
-Do this after the getting started portion (right after this section)
-
-Assuming you have already run `npm install` and `npm run dev` is producing a web page for you to view, you can continue with this part. You will be running the `npm run init` command which will **wipe your database** and initialize it with a `pokemon` and `trainers` collection. In the future, you can edit this initialization in the `_utils/db/dbInit.js` file. If this works, then your MongoDB Compass (after a refresh) should display that your database has these two collections. This means everything is working!
-
 ## Getting Started
 Set up:
 
@@ -114,10 +104,10 @@ Run the development server:
 npm run dev
 ```
 
-Run a linting test:
+Build the project:
 
 ```bash
-npm run lint
+npm run build
 ```
 
 # Contributing to the Codebase
@@ -228,7 +218,7 @@ By now, I hope you have an understanding of the general syntax of CRUD operation
 To see how these helper functions were written, refer to the definitions within the `_utils/response` folder. If there are any bugs, please let me know ASAP so I can fix them, or even better, fix them and make a pull request.
 
 ### getQueries(request: NextRequest)
-getQueries is a helper function that I made to take request queries like `http://localhost:3000/api/trainers?<queries>` and converts them into a JSON object. This allows you to directly feed the query into some of mongoDB's query inputs.
+getQueries is a helper function that I made to take request queries like `http://localhost:3000/api/trainers?<queries>` and converts them into a JSON object. This allows you to directly feed the query into some of mongoDB's query inputs. I also made it so that getQueries will read the mongodb schema to try to typecast your queries automatically to numbers or ObjectIds.
 
 ### isBodyEmpty(obj: Object)
 Just a simple way to check if a JSON object is empty `{}`. If our request body is empty, we should throw a NoContentError.
