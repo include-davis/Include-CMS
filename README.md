@@ -66,23 +66,20 @@ To get MongoDB set up locally, you'll need to install MongoDB on your machine al
 - https://www.mongodb.com/products/tools/compass
 - 
 ### 4.2 Database and User setup
-Inside MongoDB Compass, connect to the client and create a new database using the plus sign near the Database part of the sidebar menu. For collections, just name it anything since it will be deleted later.
-
-You will also need to create a user that has a username, password, and dbOwnership role using the mongo shell (mongosh). To enter your mongo shell, type `mongosh` into your terminal.
-To switch to your newly created database:
+Connect to the admin db
 ```bash
-use <DBNAME>
+use admin
 ```
-Replace `<DBNAME>` with the actual name of your database. (remove the angle brackets, they're just there for me to show that this is replaceable)
 
 Then, to create a user that has ownership of the database:
 ```js
 db.createUser({
    user: "<USERNAME>",
    pwd: "<PASSWORD>",
-   roles: ['dbOwner']
+   roles: ['root']
 })
 ```
+(remove the angle brackets, they're just there for me to show that this is replaceable)
 
 ### 4.3 Connecting with the Codebase
 If that worked, then you should be ready to connect using the codebase! To do so, create a file called `.env` in the root of the repository (same level as package.json) and input the following:
@@ -92,6 +89,7 @@ MONGO_PASSWORD=<PASSWORD>
 MONGO_DB_HOST=127.0.0.1:27017/<DBNAME>
 ```
 Replace `<USERNAME>, <PASSWORD>, <DBNAME>` with the actual username, password, and database names. (Don't include the angle brackets).
+For DBNAME, just choose something.
 
 ## Getting Started
 Set up:
