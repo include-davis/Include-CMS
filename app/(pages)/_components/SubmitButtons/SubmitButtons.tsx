@@ -5,6 +5,7 @@ import { CreateContentItem } from '@actions/content/createContentItem';
 import { UpdateContentItem } from '@actions/content/updateContentItems';
 import processFormData from '../../_utils/processFormData';
 import schema from '@app/_utils/schema';
+import { useNotification } from '@hooks/useNotificationContext';
 
 import HttpError from '@app/(api)/_utils/response/HttpError';
 
@@ -18,6 +19,8 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
 
   const contentSchema = schema.get(content_type);
   const fields = contentSchema?.getFieldArray() || [];
+
+  const { addNotification } = useNotification();
 
   const updateContentItem = async () => {
     try {
@@ -35,10 +38,12 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
       if (!res.ok) {
         throw new Error(res.error || '');
       }
-      alert('Everything worked!');
+      // alert('Everything worked for this 1!');
+      addNotification('Everything worked!', 'success');
     } catch (e) {
       const err = e as HttpError;
       alert(err.message);
+      addNotification(err.message, 'error');
     }
   };
 
@@ -59,10 +64,12 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
       if (!res.ok) {
         throw new Error(res.error || '');
       }
-      alert('Everything worked!');
+      addNotification('Everything worked!', 'success');
+      // alert('Everything worked for this 2!');
     } catch (e) {
       const err = e as HttpError;
       alert(err.message);
+      addNotification(err.message, 'error');
     }
   };
 

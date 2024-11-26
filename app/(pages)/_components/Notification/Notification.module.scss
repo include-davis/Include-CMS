@@ -1,0 +1,21 @@
+.container {
+    position: fixed;
+    z-index: 5;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #FFF;
+    font-size: 14px;
+    color: #000;
+}
+
+.success {
+    border-left: '5px solid #4CAF50',
+}
+
+.error {
+    border-left: '5px solid #4CAF50',
+}
+
+.general {
+    border-left: '5px solid #4CAF50',
+}
