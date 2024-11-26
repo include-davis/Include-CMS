@@ -13,6 +13,7 @@ export default function NotificationComponent() {
     container: {
       top: `${top}px`,
       right: `${window.innerWidth - right}px`,
+      padding: notifications.length > 0 ? '10px' : '0',
     },
   };
 
