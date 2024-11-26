@@ -39,11 +39,11 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
         throw new Error(res.error || '');
       }
       // alert('Everything worked for this 1!');
-      addNotification('Everything worked!', 'success');
+      addNotification('Everything worked!', 'success', 5000);
     } catch (e) {
       const err = e as HttpError;
       alert(err.message);
-      addNotification(err.message, 'error');
+      addNotification(err.message, 'error', 5000);
     }
   };
 
@@ -64,12 +64,13 @@ export default function SubmitButtons({ action }: SubmitButtonsProps) {
       if (!res.ok) {
         throw new Error(res.error || '');
       }
-      addNotification('Everything worked!', 'success');
+      addNotification('Everything worked!', 'success', 5000);
+      addNotification('Everything worked longer!', 'error', 10000);
       // alert('Everything worked for this 2!');
     } catch (e) {
       const err = e as HttpError;
       alert(err.message);
-      addNotification(err.message, 'error');
+      addNotification(err.message, 'error', 5000);
     }
   };
 

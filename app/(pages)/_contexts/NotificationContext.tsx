@@ -10,7 +10,8 @@ interface NotificationContextType {
   notifications: Notification[];
   addNotification: (
     message: string,
-    type: 'success' | 'error' | 'general'
+    type: 'success' | 'error' | 'general',
+    time: number
   ) => void;
   removeNotification: (id: number) => void;
 }
@@ -32,7 +33,8 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({
 
   const addNotification = (
     message: string,
-    type: 'success' | 'error' | 'general' = 'general'
+    type: 'success' | 'error' | 'general' = 'general',
+    time: number
   ) => {
     const id = notificationId++;
     // Prepend to the notifications
@@ -41,7 +43,7 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({
     // Automatically remove the notification after 5 seconds
     console.log(message);
     console.log(type);
-    setTimeout(() => removeNotification(id), 5000);
+    setTimeout(() => removeNotification(id), time);
   };
 
   const removeNotification = (id: number) => {
